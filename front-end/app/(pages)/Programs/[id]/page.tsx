@@ -1,0 +1,137 @@
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import { ArrowLeft } from 'lucide-react';
+import { Button } from "@/app/components/ui/button";
+import { NZProgramHero } from "./NZProgramHero";
+import { NZProgramTabs } from "./NZProgramTabs";
+import { NZProgramSidebar } from "./NZProgramSidebar";
+import { ProgramData } from "@/app/(pages)/Programs/[id]/data";
+
+interface PageProps {
+    params: Promise<{ id: string }>;
+}
+
+const STRAPI_URL = "http://127.0.0.1:1337";
+
+export default function Page({ params }: PageProps) {
+    const { id: slug } = React.use(params);
+
+    const [program, setProgram] = useState<ProgramData | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function loadProgram() {
+            if (!slug) return;
+
+            try {
+                const query = new URLSearchParams();
+                query.append("filters[slug][$eq]", slug);
+                query.append("populate[0]", "image");
+                query.append("populate[1]", "faq");
+                query.append("populate[2]", "campus_details.facilities");
+
+                const url = `${STRAPI_URL}/api/programs?${query.toString()}`;
+
+                const res = await fetch(url);
+
+                if (!res.ok) {
+                    console.error("Ошибка сервера:", res.status);
+                    setProgram(null);
+                    setLoading(false);
+                    return;
+                }
+
+                const responseData = await res.json();
+
+                if (responseData.data && responseData.data.length > 0) {
+                    setProgram(responseData.data[0]);
+                } else {
+                    setProgram(null);
+                }
+            } catch (error) {
+                console.error("Ошибка сети или парсинга");
+                setProgram(null);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        loadProgram();
+    }, [slug]);
+
+    if (loading) return <div className="pt-40 text-center text-gray-500">Загрузка...</div>;
+
+    if (!program) {
+        return (
+            <div className="pt-40 text-center">
+                <p className="mb-4 text-gray-500">Программа не найдена</p>
+                <Button onClick={() => window.history.back()}>Вернуться назад</Button>
+            </div>
+        );
+    }
+
+    const imageUrl = program.image?.url
+        ? (program.image.url.startsWith('http') ? program.image.url : `${STRAPI_URL}${program.image.url}`)
+        : "/placeholder.jpg";
+
+    const tabContent = {
+        description: program.description || "",
+        requirements: (() => {
+            const reqs = program.requirements;
+            if (Array.isArray(reqs)) return reqs;
+            if (typeof reqs === 'string') {
+                return (reqs as string).split('\n').filter((l: string) => l.trim() !== "");
+            }
+            return [];
+        })(),
+
+        courses: Array.isArray(program.courses) && program.courses.length > 0
+            ? program.courses
+            : ["Информация о модулях обучения обновляется"],
+        yearlyPrice: `$${Number(program.price).toLocaleString('en-US')}`,
+        totalPrice: `$${(Number(program.price) * 3).toLocaleString('en-US')}`,
+        campus: program.campus_details?.main_text || "",
+        campusFacilities: program.campus_details?.facilities || [],
+        howToApply: [
+            "1. Заполните онлайн-форму заявки",
+            "2. Загрузите необходимые документы",
+            "3. Оплатите регистрационный взнос",
+            "4. Дождитесь рассмотрения заявки",
+            "5. Получите письмо о зачислении"
+        ],
+        faq: program.faq || []
+    };
+
+    return (
+        <main className="bg-white min-h-screen pt-32 pb-20">
+            <div className="max-w-[1440px] mx-auto px-6">
+                <Button
+                    variant="outline"
+                    className="mb-8 rounded-xl gap-2 border-gray-100 text-gray-500 font-bold h-12 px-6 hover:bg-gray-50 transition-all active:scale-95"
+                    onClick={() => window.history.back()}
+                >
+                    <ArrowLeft size={18} /> Назад
+                </Button>
+
+                <div className="flex flex-col lg:flex-row gap-8 items-start">
+                    <div className="w-full lg:flex-grow lg:max-w-[65%]">
+                        <NZProgramHero
+                            src={imageUrl}
+                            title={program.title}
+                            location={program.location}
+                        />
+                        <NZProgramTabs content={tabContent} />
+                    </div>
+
+                    <NZProgramSidebar
+                        duration={program.duration}
+                        startDate="Сентябрь 2026"
+                        price={`$${Number(program.price).toLocaleString('en-US')}`}
+                        rating="4.8 / 5"
+                    />
+                </div>
+            </div>
+        </main>
+    );
+}

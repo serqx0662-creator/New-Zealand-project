@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_shared_fast_facts",
+  "info": {
+    "displayName": "fast_facts"
+  },
+  "options": {},
+  "attributes": {
+    "capital": {
+      "type": "string"
+    },
+    "academic_year": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

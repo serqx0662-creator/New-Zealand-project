@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "programs",
+  "info": {
+    "singularName": "program",
+    "pluralName": "programs",
+    "displayName": "Program"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "string"
+    },
+    "price": {
+      "type": "integer"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "faq": {
+      "type": "component",
+      "component": "shared.faq-item",
+      "repeatable": true
+    },
+    "campus_details": {
+      "type": "component",
+      "component": "shared.campus-info",
+      "repeatable": false
+    },
+    "requirements": {
+      "type": "text"
+    },
+    "courses": {
+      "type": "json"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "countries",
+  "info": {
+    "singularName": "country",
+    "pluralName": "countries",
+    "displayName": "Country"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "short_description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "stats": {
+      "type": "component",
+      "component": "shared.stats",
+      "repeatable": false
+    },
+    "fast_facts": {
+      "type": "component",
+      "component": "shared.fast-facts",
+      "repeatable": false
+    },
+    "programs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::program.program"
+    },
+    "Advantage": {
+      "type": "component",
+      "component": "shared.advantage",
+      "repeatable": true
+    }
+  }
+}

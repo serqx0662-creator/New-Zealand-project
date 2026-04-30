@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_shared_campus_infos",
+  "info": {
+    "displayName": "campus_info"
+  },
+  "options": {},
+  "attributes": {
+    "main_text": {
+      "type": "text"
+    },
+    "facilities": {
+      "type": "component",
+      "component": "shared.facility-item",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

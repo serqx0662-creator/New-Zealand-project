@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_advantages",
+  "info": {
+    "displayName": "Advantage"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}
