@@ -46,56 +46,56 @@ export default function CountryPage({ params }: { params: Promise<{ slug: string
             .join("\n");
     };
 
-    useEffect(() => {
-        async function loadData() {
-            try {
-                const { slug } = await params;
+        useEffect(() => {
+            async function loadData() {
+                try {
+                    const { slug } = await params;
 
-                const query = new URLSearchParams();
-                query.append("filters[slug][$eq]", slug);
-                query.append("populate[0]", "image");
-                query.append("populate[1]", "fast_facts");
-                query.append("populate[2]", "stats");
-                query.append("populate[3]", "programs");
-                query.append("populate[4]", "Advantage");
+                    const query = new URLSearchParams();
+                    query.append("filters[slug][$eq]", slug);
+                    query.append("populate[0]", "image");
+                    query.append("populate[1]", "fast_facts");
+                    query.append("populate[2]", "stats");
+                    query.append("populate[3]", "programs");
+                    query.append("populate[4]", "Advantage");
 
-                const res = await fetch(`${STRAPI_URL}/api/countries?${query.toString()}`, {
-                    cache: 'no-store',
-                    headers: { Authorization: `Bearer ${TOKEN}` },
-                });
+                    const res = await fetch(`${STRAPI_URL}/api/countries?${query.toString()}`, {
+                        cache: 'no-store',
+                        headers: { Authorization: `Bearer ${TOKEN}` },
+                    });
 
-                if (!res.ok) throw new Error(`Ошибка сервера: ${res.status}`);
+                    if (!res.ok) throw new Error(`Ошибка сервера: ${res.status}`);
 
-                const response: StrapiResponse = await res.json();
-                const d = response.data?.[0];
+                    const response: StrapiResponse = await res.json();
+                    const d = response.data?.[0];
 
-                if (d) {
-                    const normalized: CountryData = {
-                        id: d.id,
-                        documentId: d.documentId || "",
-                        title: d.title || "",
-                        slug: d.slug || "",
-                        short_description: extractText(d.short_description),
-                        description: extractText(d.description),
-                        image: d.image?.url ? { url: d.image.url } : undefined,
-                        stats: d.stats,
-                        fast_facts: d.fast_facts,
-                        programs: d.programs || [],
-                        advantages: d.Advantage || d.advantages || []
-                    };
+                    if (d) {
+                        const normalized: CountryData = {
+                            id: d.id,
+                            documentId: d.documentId || "",
+                            title: d.title || "",
+                            slug: d.slug || "",
+                            short_description: extractText(d.short_description),
+                            description: extractText(d.description),
+                            image: d.image?.url ? { url: d.image.url } : undefined,
+                            stats: d.stats,
+                            fast_facts: d.fast_facts,
+                            programs: d.programs || [],
+                            advantages: d.Advantage || d.advantages || []
+                        };
 
-                    setCountry(normalized);
-                } else {
-                    setError(`Страна не найдена`);
+                        setCountry(normalized);
+                    } else {
+                        setError(`Страна не найдена`);
+                    }
+                } catch (err) {
+                    setError(err instanceof Error ? err.message : "Ошибка");
+                } finally {
+                    setLoading(false);
                 }
-            } catch (err) {
-                setError(err instanceof Error ? err.message : "Ошибка");
-            } finally {
-                setLoading(false);
             }
-        }
-        loadData();
-    }, [params]);
+            loadData();
+        }, [params]);
 
     if (loading) return <div className="pt-40 text-center text-white font-medium">Загрузка данных...</div>;
     if (error) return <div className="pt-40 text-center text-red-500 font-medium">{error}</div>;
