@@ -56,6 +56,14 @@
     },
     "courses": {
       "type": "json"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Undergraduate",
+        "Postgraduate",
+        "Foundation"
+      ]
     }
   }
 }

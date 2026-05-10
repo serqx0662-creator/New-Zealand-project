@@ -56,6 +56,17 @@ export interface SharedFastFacts extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedScheduleItem extends Struct.ComponentSchema {
+  collectionName: 'components_shared_schedule_items';
+  info: {
+    displayName: 'ScheduleItem';
+  };
+  attributes: {
+    activity: Schema.Attribute.String;
+    time: Schema.Attribute.String;
+  };
+}
+
 export interface SharedStats extends Struct.ComponentSchema {
   collectionName: 'components_shared_stats';
   info: {
@@ -77,6 +88,7 @@ declare module '@strapi/strapi' {
       'shared.facility-item': SharedFacilityItem;
       'shared.faq-item': SharedFaqItem;
       'shared.fast-facts': SharedFastFacts;
+      'shared.schedule-item': SharedScheduleItem;
       'shared.stats': SharedStats;
     }
   }
