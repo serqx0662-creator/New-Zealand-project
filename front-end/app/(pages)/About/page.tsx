@@ -6,7 +6,7 @@ import { CTABanner } from "./CTABanner";
  
 const AboutPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-50 font-sans pt-40 pb-20 mx-auto px-4 md:px-6">
+    <div className="min-h-screen bg-gray-50 font-sans pt-40 pb-20 mx-auto ">
       <MissionSection />
       <ValuesSection />
       <CTABanner />

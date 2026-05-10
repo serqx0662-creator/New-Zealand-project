@@ -503,6 +503,46 @@ export interface ApiCountryCountry extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiEventEvent extends Struct.CollectionTypeSchema {
+  collectionName: 'events';
+  info: {
+    displayName: 'Event';
+    pluralName: 'events';
+    singularName: 'event';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    address: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Date;
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
+      Schema.Attribute.Private;
+    location: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    registered: Schema.Attribute.Integer;
+    schedule: Schema.Attribute.Component<'shared.schedule-item', true>;
+    slug: Schema.Attribute.UID<'title'>;
+    title: Schema.Attribute.String;
+    totalSlots: Schema.Attribute.Integer;
+    type: Schema.Attribute.Enumeration<
+      [
+        '\u041E\u0444\u043B\u0430\u0439\u043D',
+        '\u041E\u043D\u043B\u0430\u0439\u043D',
+      ]
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiProgramProgram extends Struct.CollectionTypeSchema {
   collectionName: 'programs';
   info: {
@@ -534,6 +574,47 @@ export interface ApiProgramProgram extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     requirements: Schema.Attribute.Text;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<
+      ['Undergraduate', 'Postgraduate', 'Foundation']
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiUniversityUniversity extends Struct.CollectionTypeSchema {
+  collectionName: 'universities';
+  info: {
+    displayName: 'University';
+    pluralName: 'universities';
+    singularName: 'university';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    about: Schema.Attribute.Text;
+    city: Schema.Attribute.String;
+    country: Schema.Attribute.Relation<'oneToOne', 'api::country.country'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::university.university'
+    > &
+      Schema.Attribute.Private;
+    programs: Schema.Attribute.Relation<'oneToMany', 'api::program.program'>;
+    programsCount: Schema.Attribute.Integer;
+    publishedAt: Schema.Attribute.DateTime;
+    qsRank: Schema.Attribute.String;
+    rating: Schema.Attribute.Decimal;
+    slug: Schema.Attribute.UID<'title'>;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1054,7 +1135,9 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::country.country': ApiCountryCountry;
+      'api::event.event': ApiEventEvent;
       'api::program.program': ApiProgramProgram;
+      'api::university.university': ApiUniversityUniversity;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

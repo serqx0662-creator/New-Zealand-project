@@ -2,13 +2,12 @@ import React from "react";
 
 export const MissionSection: React.FC = () => {
     return (
-        <section className="max-w-7xl mx-auto flex flex-col gap-5">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">О нас</h1>
+        <section className="max-w-[1440px] mx-auto flex flex-col gap-5 px-4 md:px-6">
+            <h1 className="text-[32px] md:text-[48px] font-bold text-gray-900 ">О нас</h1>
             <p className="text-gray-500 text-base">
                 Мы помогаем студентам осуществить мечту об обучении за рубежом
             </p>
             <div className="rounded-2xl border border-gray-100 bg-white p-8 flex flex-col lg:flex-row gap-8 items-start">
-                {/* Text */}
                 <div className="flex-1 min-w-0">
                     <h2 className="text-xl font-bold text-gray-900 mb-4">
                         Наша миссия

@@ -98,14 +98,6 @@ export default function Header() {
                                 </DropdownMenuContent>
                             </DropdownMenu>
 
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className="h-10 w-10 text-gray-600 bg-gray-100/50 hover:bg-gray-200 transition-colors rounded-md"
-                            >
-                                <User className="h-5 w-5" />
-                            </Button>
-
                             <button
                                 onClick={() => setIsMobileMenuOpen(true)}
                                 className="xl:hidden h-10 w-10 flex items-center justify-center text-gray-600 bg-gray-100/50 hover:bg-gray-200 transition-all rounded-md group"
