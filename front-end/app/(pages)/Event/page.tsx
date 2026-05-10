@@ -16,7 +16,7 @@ export default function EventPage() {
                 const res = await fetch(`${baseUrl}/api/events?populate=*`);
                 const json = await res.json();
 
-                const formatted = json.data.map((item: StrapiEvent): Event => ({
+                const formatted = (json.data || []).map((item: StrapiEvent): Event => ({
                     id: item.id,
                     documentId: item.documentId,
                     slug: item.slug,
