@@ -13,7 +13,7 @@ export const NZEventSchedule = ({ schedule }: { schedule: ScheduleItem[] }) => {
                             </div>
                         </div>
                         <div className="pt-1.5">
-                            <span className="block font-bold text-black text-sm mb-1">{item.time}</span>
+                            <span className="block font-bold text-black text-[16px] md:text-lg mb-1">{item.time}</span>
                             <p className="text-gray-500 text-base md:text-lg leading-snug">
                                 {item.activity}
                             </p>

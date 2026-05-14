@@ -1,82 +1,93 @@
 "use client";
-import React from 'react';
-import Image from 'next/image';
+
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { MapPin, Calendar, DollarSign } from 'lucide-react';
-import { PROGRAMS_DATA } from "@/app/data/programs";
+import { ProgramData } from "@/app/(pages)/Programs/[id]/data";
+import NZProgramCard from "@/app/(pages)/Programs/NZprogram-card";
+import { useLanguage } from "@/app/context/LanguageContext";
+import { dictionaries } from "@/app/data/dictionaries";
+
+interface StrapiProgramResponse {
+    id: number;
+    documentId: string;
+    title: string;
+    location: string;
+    duration: string;
+    price: number;
+    slug: string;
+    image?: {
+        url: string;
+        alternativeText?: string;
+    };
+}
 
 export default function PopularPrograms() {
+    const { lang } = useLanguage();
+    const t = dictionaries[lang].popularPrograms;
+
+    const [programs, setPrograms] = useState<ProgramData[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchPopularPrograms = async () => {
+            const baseUrl = process.env.NEXT_PUBLIC_STRAPI_URL || "http://127.0.0.1:1337";
+            try {
+                // Добавляем параметр locale=${lang}, чтобы подгружать правильный перевод из Strapi
+                const res = await fetch(
+                    `${baseUrl}/api/programs?locale=${lang}&populate=*&pagination[pageSize]=3`
+                );
+
+                const json: { data: StrapiProgramResponse[] } = await res.json();
+
+                if (json.data) {
+                    const formatted: ProgramData[] = json.data.map((item) => ({
+                        id: item.id,
+                        documentId: item.documentId,
+                        title: item.title,
+                        location: item.location,
+                        duration: item.duration,
+                        price: item.price,
+                        slug: item.slug,
+                        image: item.image
+                    }));
+                    setPrograms(formatted);
+                }
+            } catch (error) {
+                console.error("🚨 Error loading programs:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPopularPrograms();
+    }, [lang]); // Перезагружаем при смене языка
+
+    if (loading) return <div className="py-20 text-center text-gray-500 font-medium">{t.loading}</div>;
+    if (programs.length === 0) return null;
+
     return (
-        <section className="py-12 md:py-16 bg-[#FCFCFC]">
+        <section className="py-12 md:py-20 bg-[#FCFCFC]">
             <div className="max-w-[1440px] mx-auto px-4 md:px-6">
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
                     <div>
-                        <h2 className="text-3xl font-bold text-[#101828] mb-2">
-                            Популярные программы
+                        <h2 className="text-3xl md:text-4xl font-bold text-[#101828] mb-3">
+                            {t.title}
                         </h2>
-                        <p className="text-gray-500 font-medium">
-                            Самые востребованные программы обучения
+                        <p className="text-gray-500 text-lg">
+                            {t.description}
                         </p>
                     </div>
                     <Link
                         href="/Programs"
-                        className="bg-black text-white hover:bg-black/90 px-6 py-3 rounded-md font-medium transition-colors text-center"
+                        className="inline-flex items-center justify-center bg-black text-white hover:bg-zinc-800 px-8 py-4 rounded-md font-bold transition-all active:scale-95"
                     >
-                        Все программы
+                        {t.allBtn}
                     </Link>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {PROGRAMS_DATA.map((program) => (
-                        <div
-                            key={program.id}
-                            className="group flex flex-col bg-white border border-gray-100 rounded-md overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-gray-200/50 hover:-translate-y-1"
-                        >
-                            <div className="relative h-56 w-full overflow-hidden">
-                                <Image
-                                    src={program.image}
-                                    alt={program.title}
-                                    fill
-                                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                                />
-                            </div>
-
-                            <div className="p-6 md:p-8 flex flex-col flex-grow">
-                                <h3 className="text-xl font-bold text-[#101828] mb-5">
-                                    {program.title}
-                                </h3>
-
-                                <div className="space-y-4 mb-10">
-                                    <div className="flex items-center gap-3 text-sm text-gray-400">
-                                        <MapPin size={18} className="shrink-0" />
-                                        <span>{program.university}</span>
-                                    </div>
-                                    <div className="flex items-center gap-3 text-sm text-gray-400">
-                                        <Calendar size={18} className="shrink-0" />
-                                        <span>Длительность: {program.duration}</span>
-                                    </div>
-                                    <div className="flex items-center gap-3 text-base text-[#101828] font-bold">
-                                        <DollarSign size={18} className="text-gray-400 shrink-0" />
-                                        <span>{program.price}</span>
-                                    </div>
-                                </div>
-
-                                <div className="grid grid-cols-2 gap-4 mt-auto">
-                                    <Link
-                                        href={`/Programs/${program.slug}`}
-                                        className="flex items-center justify-center border border-gray-200 text-gray-700 font-semibold py-3 rounded-md hover:bg-gray-50 transition-colors"
-                                    >
-                                        Подробнее
-                                    </Link>
-                                    <Link
-                                        href="/Apply"
-                                        className="flex items-center justify-center bg-black text-white font-semibold py-3 rounded-md hover:bg-black/80 transition-all"
-                                    >
-                                        Подать заявку
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
+                    {programs.map((program) => (
+                        <NZProgramCard key={program.documentId} program={program} />
                     ))}
                 </div>
             </div>

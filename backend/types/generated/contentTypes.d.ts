@@ -477,26 +477,65 @@ export interface ApiCountryCountry extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    Advantage: Schema.Attribute.Component<'shared.advantage', true>;
+    Advantage: Schema.Attribute.Component<'shared.advantage', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Blocks;
-    fast_facts: Schema.Attribute.Component<'shared.fast-facts', false>;
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    description: Schema.Attribute.Blocks &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    fast_facts: Schema.Attribute.Component<'shared.fast-facts', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::country.country'
-    > &
-      Schema.Attribute.Private;
+    >;
     programs: Schema.Attribute.Relation<'oneToMany', 'api::program.program'>;
     publishedAt: Schema.Attribute.DateTime;
-    short_description: Schema.Attribute.Text;
+    short_description: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     slug: Schema.Attribute.UID<'title'>;
-    stats: Schema.Attribute.Component<'shared.stats', false>;
-    title: Schema.Attribute.String;
+    stats: Schema.Attribute.Component<'shared.stats', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -513,30 +552,84 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    address: Schema.Attribute.String;
+    address: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    date: Schema.Attribute.Date;
-    description: Schema.Attribute.Text;
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
-      Schema.Attribute.Private;
-    location: Schema.Attribute.String;
+    date: Schema.Attribute.Date &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
+    location: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
-    registered: Schema.Attribute.Integer;
-    schedule: Schema.Attribute.Component<'shared.schedule-item', true>;
+    registered: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    schedule: Schema.Attribute.Component<'shared.schedule-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     slug: Schema.Attribute.UID<'title'>;
-    title: Schema.Attribute.String;
-    totalSlots: Schema.Attribute.Integer;
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    totalSlots: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     type: Schema.Attribute.Enumeration<
       [
         '\u041E\u0444\u043B\u0430\u0439\u043D',
         '\u041E\u043D\u043B\u0430\u0439\u043D',
       ]
-    >;
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -553,31 +646,90 @@ export interface ApiProgramProgram extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    campus_details: Schema.Attribute.Component<'shared.campus-info', false>;
-    courses: Schema.Attribute.JSON;
+    campus_details: Schema.Attribute.Component<'shared.campus-info', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    courses: Schema.Attribute.JSON &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    duration: Schema.Attribute.String;
-    faq: Schema.Attribute.Component<'shared.faq-item', true>;
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    duration: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    faq: Schema.Attribute.Component<'shared.faq-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::program.program'
-    > &
-      Schema.Attribute.Private;
-    location: Schema.Attribute.String;
-    price: Schema.Attribute.Integer;
+    >;
+    location: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    price: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
-    requirements: Schema.Attribute.Text;
+    requirements: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
-    title: Schema.Attribute.String;
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     type: Schema.Attribute.Enumeration<
       ['Undergraduate', 'Postgraduate', 'Foundation']
-    >;
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -594,28 +746,72 @@ export interface ApiUniversityUniversity extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    about: Schema.Attribute.Text;
-    city: Schema.Attribute.String;
+    about: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    city: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     country: Schema.Attribute.Relation<'oneToOne', 'api::country.country'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::university.university'
-    > &
-      Schema.Attribute.Private;
+    >;
     programs: Schema.Attribute.Relation<'oneToMany', 'api::program.program'>;
-    programsCount: Schema.Attribute.Integer;
+    programsCount: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
-    qsRank: Schema.Attribute.String;
-    rating: Schema.Attribute.Decimal;
+    qsRank: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    rating: Schema.Attribute.Decimal &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     slug: Schema.Attribute.UID<'title'>;
-    title: Schema.Attribute.String;
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

@@ -1,3 +1,5 @@
+"use client";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs";
 import {
     BookOpen,
@@ -7,7 +9,9 @@ import {
     ClipboardList
 } from "lucide-react";
 import Link from "next/link";
-import {cn} from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { useLanguage } from "@/app/context/LanguageContext";
+import { dictionaries } from "@/app/data/dictionaries";
 
 interface TabsProps {
     content?: {
@@ -22,9 +26,13 @@ interface TabsProps {
         faq: { question: string; answer: string }[];
     };
 }
+
 export const NZProgramTabs = ({ content }: TabsProps) => {
+    const { lang } = useLanguage();
+    const t = dictionaries[lang].programPage;
+
     if (!content) {
-        return <div className="p-10 border border-gray-100 rounded-[32px] text-gray-400">Загрузка данных...</div>;
+        return <div className="p-10 border border-gray-100 rounded-[32px] text-gray-400">{t.loading}</div>;
     }
 
     return (
@@ -48,50 +56,50 @@ export const NZProgramTabs = ({ content }: TabsProps) => {
                     value="overview"
                     className="rounded-[10px] px-6 py-4 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
                 >
-                    Обзор
+                    {t.tabs.overview}
                 </TabsTrigger>
                 <TabsTrigger
                     value="requirements"
                     className="rounded-[10px] px-6 py-4 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
                 >
-                    Требования
+                    {t.tabs.requirements}
                 </TabsTrigger>
                 <TabsTrigger
                     value="courses"
                     className="rounded-[10px] px-6 py-4 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
                 >
-                    Курсы
+                    {t.tabs.courses}
                 </TabsTrigger>
                 <TabsTrigger
                     value="price"
                     className="rounded-[10px] px-6 py-4 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
                 >
-                    Стоимость
+                    {t.tabs.price}
                 </TabsTrigger>
                 <TabsTrigger
                     value="apply"
                     className="rounded-[10px] px-6 py-4 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
                 >
-                    Как подать
+                    {t.tabs.apply}
                 </TabsTrigger>
                 <TabsTrigger
                     value="campus"
                     className="rounded-[10px] px-6 py-4 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
                 >
-                    Кампус
+                    {t.tabs.campus}
                 </TabsTrigger>
                 <TabsTrigger
                     value="faq"
                     className="rounded-[10px] px-6 py-4 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all"
                 >
-                    FAQ
+                    {t.tabs.faq}
                 </TabsTrigger>
             </TabsList>
 
             <div className="mt-6 border border-gray-300 rounded-[14px] p-8 min-h-[300px]">
                 <TabsContent value="overview" className="mt-0 outline-none">
                     <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-[#101828]">
-                        Описание программы
+                        {t.sections.description}
                     </h3>
                     <p className="text-gray-500 leading-relaxed whitespace-pre-line">
                         {content.description}
@@ -99,7 +107,7 @@ export const NZProgramTabs = ({ content }: TabsProps) => {
                 </TabsContent>
 
                 <TabsContent value="requirements" className="mt-0 outline-none">
-                    <h3 className="text-xl font-bold mb-6 text-[#101828]">Требования для поступления</h3>
+                    <h3 className="text-xl font-bold mb-6 text-[#101828]">{t.sections.admission}</h3>
                     <div className="space-y-4">
                         {content.requirements?.map((req, index) => (
                             <div key={index} className="flex items-center gap-3 text-black font-medium">
@@ -111,7 +119,7 @@ export const NZProgramTabs = ({ content }: TabsProps) => {
                 </TabsContent>
 
                 <TabsContent value="courses" className="mt-0 outline-none">
-                    <h3 className="text-xl font-bold mb-6 text-black">Основные курсы</h3>
+                    <h3 className="text-xl font-bold mb-6 text-black">{t.sections.mainCourses}</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {content.courses?.map((course, index) => (
                             <div key={index} className="p-4 border border-gray-300 rounded-[10px] flex items-center gap-3 text-black font-medium">
@@ -123,12 +131,12 @@ export const NZProgramTabs = ({ content }: TabsProps) => {
                 </TabsContent>
 
                 <TabsContent value="price" className="mt-0 outline-none">
-                    <h3 className="text-xl font-bold mb-6 text-[#101828]">Стоимость обучения</h3>
+                    <h3 className="text-xl font-bold mb-6 text-[#101828]">{t.sections.tuition}</h3>
                     <div className="space-y-3">
                         <div className="p-4 border border-gray-300 rounded-[10px] flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
                             <span className="text-black font-medium flex items-center gap-2">
                                 <DollarSign size={18} className="text-gray-900" />
-                                Стоимость за год
+                                {t.sections.yearly}
                             </span>
                             <span className="font-bold text-black text-lg sm:text-base">
                                 {content.yearlyPrice}
@@ -138,7 +146,7 @@ export const NZProgramTabs = ({ content }: TabsProps) => {
                         <div className="p-4 border border-gray-300 rounded-[10px] flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
                             <span className="text-black font-medium flex items-center gap-2">
                                 <DollarSign size={18} className="text-gray-900" />
-                                Общая стоимость
+                                {t.sections.total}
                             </span>
                             <span className="font-bold text-black text-lg sm:text-base">
                                 {content.totalPrice}
@@ -151,7 +159,7 @@ export const NZProgramTabs = ({ content }: TabsProps) => {
                                 className="text-[#166534] mt-0.5 sm:mt-0 flex-shrink-0"
                             />
                             <span className="text-[#166534] font-medium text-sm leading-tight">
-                                Стипендии доступны для квалифицированных студентов
+                                {t.sections.scholarshipNote}
                             </span>
                         </div>
                     </div>
@@ -159,7 +167,7 @@ export const NZProgramTabs = ({ content }: TabsProps) => {
 
                 <TabsContent value="apply" className="mt-0 outline-none">
                     <h3 className="text-xl font-bold mb-6 flex items-center gap-2 text-[#101828]">
-                        <ClipboardList size={20} className="text-black" /> Процесс подачи заявки
+                        <ClipboardList size={20} className="text-black" /> {t.sections.applyProcess}
                     </h3>
                     <div className="space-y-4 mb-8">
                         {content.howToApply?.map((step, index) => (
@@ -171,12 +179,12 @@ export const NZProgramTabs = ({ content }: TabsProps) => {
                         ))}
                     </div>
                     <Link href="/Apply" className={cn("bg-black text-white px-4 py-2.5 h-12 rounded-md font-bold hover:bg-black/90 transition-all active:scale-95")}>
-                        Подать заявку сейчас
+                        {t.sections.applyNow}
                     </Link>
                 </TabsContent>
 
                 <TabsContent value="campus" className="mt-0 outline-none">
-                    <h3 className="text-xl font-bold mb-4 text-[#101828]">Кампус и удобства</h3>
+                    <h3 className="text-xl font-bold mb-4 text-[#101828]">{t.sections.facilities}</h3>
                     <p className="text-gray-500 leading-relaxed mb-6">
                         {content.campus}
                     </p>
@@ -191,14 +199,14 @@ export const NZProgramTabs = ({ content }: TabsProps) => {
                                 </div>
                             ))
                         ) : (
-                            <p className="text-gray-400 text-sm">Информация об удобствах дополняется...</p>
+                            <p className="text-gray-400 text-sm">{t.sections.facilitiesEmpty}</p>
                         )}
                     </div>
                 </TabsContent>
 
                 <TabsContent value="faq" className="mt-0 outline-none">
                     <h3 className="text-xl font-bold mb-6 flex items-center gap-2 text-[#101828]">
-                        <HelpCircle size={20} className="text-gray-400" /> Часто задаваемые вопросы
+                        <HelpCircle size={20} className="text-gray-400" /> {t.sections.questions}
                     </h3>
                     <div className="space-y-6">
                         {content.faq?.map((item, index) => (

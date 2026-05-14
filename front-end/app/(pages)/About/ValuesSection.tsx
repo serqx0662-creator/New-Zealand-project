@@ -8,7 +8,7 @@ interface ValueCardProps {
 }
 
 const ValueCard: React.FC<ValueCardProps> = ({ icon, title, description }) => (
-  <div className="flex-1 min-w-[220px] rounded-2xl border border-gray-100 bg-white p-6">
+  <div className="flex-1 min-w-[220px] rounded-2xl border border-gray-200 bg-white p-6">
     <div className="mb-4 text-gray-400">{icon}</div>
     <h3 className="text-sm font-semibold text-gray-900 mb-1">{title}</h3>
     <p className="text-sm text-gray-500 leading-relaxed">{description}</p>
@@ -40,15 +40,13 @@ export const ValuesSection: React.FC = () => {
     <section className="max-w-[1440px] mx-auto px-4 md:px-6 py-10">
       <h2 className="text-3xl font-bold text-gray-900 mb-6">Наши ценности</h2>
 
-      {/* Value cards */}
       <div className="flex flex-col sm:flex-row gap-4 mb-4">
         {values.map((v) => (
           <ValueCard key={v.title} {...v} />
         ))}
       </div>
 
-      {/* Stats row */}
-      <div className="rounded-2xl border border-gray-100 bg-white px-8 py-6 flex flex-wrap justify-around gap-6">
+      <div className="rounded-2xl border border-gray-200 bg-white px-8 py-6 flex flex-wrap justify-around gap-6">
         {[
           { value: "10,000+", label: "Успешных поступлений" },
           { value: "500+", label: "Университетов-партнёров" },

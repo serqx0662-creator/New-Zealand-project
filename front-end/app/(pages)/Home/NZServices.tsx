@@ -1,19 +1,23 @@
 "use client";
 import React from 'react';
 import Image from 'next/image';
-import { SERVICES_DATA } from "@/app/data/services";
+import { useLanguage } from "@/app/context/LanguageContext";
+import { dictionaries } from "@/app/data/dictionaries";
 
 export default function NZServices() {
+    const { lang } = useLanguage();
+    const t = dictionaries[lang].services;
+
     return (
         <section className="py-12 md:py-20 bg-white">
             <div className="max-w-[1440px] mx-auto px-4 md:px-6">
 
                 <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 md:mb-16 text-[#101828]">
-                    Наши услуги
+                    {t.title}
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-                    {SERVICES_DATA.map((service) => (
+                    {t.items.map((service) => (
                         <div
                             key={service.id}
                             className="relative bg-[#F1F2F8] rounded-3xl flex flex-col group transition-all duration-500 hover:bg-[#EBEDF0]"

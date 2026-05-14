@@ -13,12 +13,12 @@ export const CTABanner: React.FC = () => {
         </p>
         <div className="flex items-center justify-center gap-3 flex-wrap">
             <Link href="/Consultation">
-                <button className="bg-white text-gray-900 text-sm font-medium px-6 py-2.5 rounded-md hover:bg-gray-100 transition-colors">
+                <button className="bg-white active:scale-95 text-gray-900 text-sm font-medium px-6 py-2.5 rounded-md hover:bg-gray-200 transition-all">
                     Запросить консультацию
                 </button>
             </Link>
             <Link href="/Programs">
-                <button className="border border-white text-white text-sm font-medium px-6 py-2.5 rounded-md hover:bg-white/10 transition-colors">
+                <button className="border active:scale-95 border-white text-white text-sm font-medium px-6 py-2.5 rounded-md hover:bg-white/10 transition-all">
                     Посмотреть программы
                 </button>
             </Link>
