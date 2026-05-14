@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Search, ChevronDown, X } from "lucide-react"; // Добавил X для очистки
+import { Search, ChevronDown, X } from "lucide-react";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import { Checkbox } from "@/app/components/ui/checkbox";
+import { useLanguage } from "@/app/context/LanguageContext";
+import { dictionaries } from "@/app/data/dictionaries";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -15,6 +17,8 @@ import {
 const inputStyles = "rounded-xl h-11 border-gray-200 focus:border-black focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors bg-white text-xs";
 
 export function NZprogramFilters({ onSearch }: { onSearch?: (value: string) => void }) {
+    const { lang } = useLanguage();
+    const t = dictionaries[lang].filters;
     const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
@@ -29,7 +33,7 @@ export function NZprogramFilters({ onSearch }: { onSearch?: (value: string) => v
                 <div className="p-1.5 bg-gray-50 rounded-lg">
                     <Search size={18} className="text-gray-600" />
                 </div>
-                <span className="font-bold text-[#101828]">Фильтры и поиск</span>
+                <span className="font-bold text-[#101828]">{t.title}</span>
             </div>
 
             <div className="space-y-6">
@@ -39,7 +43,7 @@ export function NZprogramFilters({ onSearch }: { onSearch?: (value: string) => v
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className={`${inputStyles} pl-11 h-12 text-sm placeholder:text-gray-400 pr-10`}
-                        placeholder="Поиск по названию программы или университета..."
+                        placeholder={t.searchPlaceholder}
                     />
                     {searchTerm && (
                         <button
@@ -52,16 +56,32 @@ export function NZprogramFilters({ onSearch }: { onSearch?: (value: string) => v
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <FilterDropdown label="Страна" placeholder="Все страны" options={["Новая Зеландия", "Австралия", "Канада"]} />
-                    <FilterDropdown label="Уровень" placeholder="Все уровни" options={["Бакалавриат", "Магистратура", "Языковые курсы"]} />
-                    <FilterDropdown label="Направление" placeholder="Все направления" options={["Бизнес", "IT", "Дизайн", "Медицина"]} />
-                    <FilterDropdown label="Сортировка" placeholder="По популярности" options={["Сначала новые", "Цена: по возрастанию", "Цена: по убыванию"]} />
+                    <FilterDropdown
+                        label={t.labels.country}
+                        placeholder={t.placeholders.allCountries}
+                        options={["Новая Зеландия", "Австралия", "Канада"]}
+                    />
+                    <FilterDropdown
+                        label={t.labels.level}
+                        placeholder={t.placeholders.allLevels}
+                        options={t.options.levels}
+                    />
+                    <FilterDropdown
+                        label={t.labels.direction}
+                        placeholder={t.placeholders.allDirections}
+                        options={t.options.directions}
+                    />
+                    <FilterDropdown
+                        label={t.labels.sort}
+                        placeholder={t.placeholders.popularity}
+                        options={t.options.sorting}
+                    />
                 </div>
 
                 <div className="flex items-center space-x-3 pt-2">
                     <Checkbox id="scholarship" className="border-gray-300 data-[state=checked]:bg-black data-[state=checked]:border-black" />
                     <Label htmlFor="scholarship" className="text-sm text-gray-500 font-medium cursor-pointer select-none">
-                        Только программы со стипендией
+                        {t.scholarshipOnly}
                     </Label>
                 </div>
             </div>
@@ -69,8 +89,16 @@ export function NZprogramFilters({ onSearch }: { onSearch?: (value: string) => v
     );
 }
 
+// Вспомогательный компонент (в том же файле)
 function FilterDropdown({ label, placeholder, options }: { label: string; placeholder: string, options: string[] }) {
     const [selected, setSelected] = useState("");
+
+    // Сбрасываем выбранное значение при смене языка,
+    // так как старое значение на другом языке больше не валидно
+    const { lang } = useLanguage();
+    useEffect(() => {
+        setSelected("");
+    }, [lang]);
 
     return (
         <div className="space-y-2">
@@ -78,12 +106,12 @@ function FilterDropdown({ label, placeholder, options }: { label: string; placeh
             <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild className="group">
                     <button type="button" className="flex items-center justify-between w-full px-4 h-12 rounded-xl border border-gray-200 bg-white text-xs text-gray-500 hover:border-black focus:outline-none transition-all data-[state=open]:border-black">
-                        <span className={selected ? "text-[#101828] font-medium" : ""}>
+                        <span className={selected ? "text-[#101828] font-medium" : "truncate"}>
                             {selected || placeholder}
                         </span>
                         <ChevronDown
                             size={16}
-                            className="text-gray-400 transition-transform duration-300 group-data-[state=open]:rotate-180"
+                            className="text-gray-400 transition-transform duration-300 group-data-[state=open]:rotate-180 flex-shrink-0"
                         />
                     </button>
                 </DropdownMenuTrigger>

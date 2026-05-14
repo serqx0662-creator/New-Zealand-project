@@ -4,7 +4,7 @@ import { Event } from "@/app/data/events";
 
 export const NZEventCard = ({ event }: { event: Event }) => {
     return (
-        <div className="group relative border border-gray-100 rounded-[14px] overflow-hidden hover:shadow-md transition-shadow bg-white flex flex-col h-full">
+        <div className="group relative border border-gray-100 rounded-[14px] hover:-translate-y-1 overflow-hidden hover:shadow-lg hover:shadow-gray-300/50 duration-500 transition-all bg-white flex flex-col h-full">
             <Link href={`/Event/${event.slug}`} className="absolute inset-0 z-10">
                 <span className="sr-only">Перейти к {event.title}</span>
             </Link>

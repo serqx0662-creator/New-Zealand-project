@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from "next/navigation";
-import { Globe, User, Menu, X, BookOpen, GraduationCap, Calendar, Users, Clock } from 'lucide-react';
+import { Globe, Menu, X, BookOpen, GraduationCap, Calendar, Users, Clock } from 'lucide-react';
 import { Button } from "@/app/components/ui/button";
 import Image from "next/image";
 import {
@@ -11,12 +11,18 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger
 } from "@/app/components/ui/dropdown-menu";
-import {cn} from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { dictionaries, Locale } from "@/app/data/dictionaries";
+import {useLanguage} from "@/app/context/LanguageContext";
 
 export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
+
+    const { lang, setLang } = useLanguage();
+
+    const t = dictionaries[lang].header;
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -29,13 +35,18 @@ export default function Header() {
     }, [isMobileMenuOpen]);
 
     const navLinks = [
-        { name: 'Программы', href: '/Programs', icon: <BookOpen size={18} /> },
-        { name: 'Страны', href: '/Countries', icon: <Globe size={18} /> },
-        { name: 'Университеты', href: '/Universities', icon: <GraduationCap size={18} /> },
-        { name: 'Мероприятия', href: '/Event', icon: <Calendar size={18} /> },
-        { name: 'О нас', href: '/About', icon: <Users size={18} /> },
-        { name: 'Контакты', href: '/Contacts', icon: <Clock size={18} /> },
+        { name: t.programs, href: '/Programs', icon: <BookOpen size={18} /> },
+        { name: t.countries, href: '/Countries', icon: <Globe size={18} /> },
+        { name: t.universities, href: '/Universities', icon: <GraduationCap size={18} /> },
+        { name: t.events, href: '/Event', icon: <Calendar size={18} /> },
+        { name: t.about, href: '/About', icon: <Users size={18} /> },
+        { name: t.contacts, href: '/Contacts', icon: <Clock size={18} /> },
     ];
+
+    const isActive = (href: string) => {
+        if (href === '/') return pathname === '/';
+        return pathname.startsWith(href);
+    };
 
     return (
         <>
@@ -43,7 +54,6 @@ export default function Header() {
                 isScrolled ? "py-3 shadow-md" : "py-5 shadow-sm"
             }`}>
                 <div className="max-w-[1440px] mx-auto px-4 md:px-6 flex items-center justify-between w-full">
-
 
                     <div className="flex items-center">
                         <Link href="/" className="relative flex items-center h-10 md:h-12 w-20 transition-opacity hover:opacity-90">
@@ -58,17 +68,20 @@ export default function Header() {
                     </div>
 
                     <nav className="hidden xl:flex items-center gap-8">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.name}
-                                href={link.href}
-                                className={`text-sm font-medium transition-colors ${
-                                    pathname === link.href ? "text-blue-600" : "text-gray-600 hover:text-[#002B5C]"
-                                }`}
-                            >
-                                {link.name}
-                            </Link>
-                        ))}
+                        {navLinks.map((link) => {
+                            const active = isActive(link.href);
+                            return (
+                                <Link
+                                    key={link.name}
+                                    href={link.href}
+                                    className={`text-sm font-medium transition-colors ${
+                                        active ? "text-blue-600" : "text-gray-600 hover:text-[#002B5C]"
+                                    }`}
+                                >
+                                    {link.name}
+                                </Link>
+                            );
+                        })}
                     </nav>
 
                     <div className="flex items-center gap-3">
@@ -78,7 +91,7 @@ export default function Header() {
                                 "h-10 rounded-md px-6 bg-black hover:bg-black/80 text-white hidden sm:flex items-center justify-center transition-all active:scale-95 font-medium text-sm"
                             )}
                         >
-                            Подать заявку
+                            {t.apply}
                         </Link>
 
                         <div className="flex items-center gap-2">
@@ -93,8 +106,9 @@ export default function Header() {
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
-                                    <DropdownMenuItem className="cursor-pointer">Русский</DropdownMenuItem>
-                                    <DropdownMenuItem className="cursor-pointer">English</DropdownMenuItem>
+                                    {/* При клике меняем состояние lang */}
+                                    <DropdownMenuItem onClick={() => setLang('ru')} className="cursor-pointer">Русский</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => setLang('en')} className="cursor-pointer">English</DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
 
@@ -118,7 +132,7 @@ export default function Header() {
                     isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
                 }`}>
                     <div className="flex justify-between items-center mb-10">
-                        <span className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Меню</span>
+                        <span className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">{t.menu}</span>
                         <button
                             onClick={() => setIsMobileMenuOpen(false)}
                             className="p-2 bg-gray-100 rounded-full hover:bg-red-50 hover:text-red-500 transition-all duration-300 active:rotate-180"
@@ -127,29 +141,32 @@ export default function Header() {
                         </button>
                     </div>
                     <nav className="flex flex-col gap-2 flex-grow overflow-y-auto">
-                        {navLinks.map((link, idx) => (
-                            <Link
-                                key={link.href}
-                                href={link.href}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className={`flex items-center gap-4 p-4 rounded-xl text-lg font-medium transition-all ${
-                                    pathname === link.href ? "bg-blue-50 text-blue-600" : "text-gray-600 hover:bg-gray-50"
-                                }`}
-                                style={{
-                                    transitionDelay: `${idx * 40}ms`,
-                                    transform: isMobileMenuOpen ? 'translateX(0)' : 'translateX(20px)',
-                                    opacity: isMobileMenuOpen ? 1 : 0,
-                                    transitionProperty: 'all'
-                                }}
-                            >
-                                <span className={pathname === link.href ? "text-blue-600" : "text-gray-400"}>{link.icon}</span>
-                                {link.name}
-                            </Link>
-                        ))}
+                        {navLinks.map((link, idx) => {
+                            const active = isActive(link.href);
+                            return (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className={`flex items-center gap-4 p-4 rounded-xl text-lg font-medium transition-all ${
+                                        active ? "bg-blue-50 text-blue-600" : "text-gray-600 hover:bg-gray-50"
+                                    }`}
+                                    style={{
+                                        transitionDelay: `${idx * 40}ms`,
+                                        transform: isMobileMenuOpen ? 'translateX(0)' : 'translateX(20px)',
+                                        opacity: isMobileMenuOpen ? 1 : 0,
+                                        transitionProperty: 'all'
+                                    }}
+                                >
+                                    <span className={active ? "text-blue-600" : "text-gray-400"}>{link.icon}</span>
+                                    {link.name}
+                                </Link>
+                            );
+                        })}
                     </nav>
                     <div className="mt-auto pt-6 border-t border-gray-100 space-y-3">
                         <Button className="w-full bg-black py-6 text-white text-base font-medium rounded-md transition-transform active:scale-95">
-                            Подать заявку
+                            {t.apply}
                         </Button>
                     </div>
                 </div>

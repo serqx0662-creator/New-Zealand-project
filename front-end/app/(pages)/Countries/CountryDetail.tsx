@@ -1,6 +1,8 @@
 "use client";
 import { CountryData } from "@/app/(pages)/Countries/data";
 import Link from "next/link";
+import { useLanguage } from "@/app/context/LanguageContext";
+import { dictionaries } from "@/app/data/dictionaries";
 
 interface CountryDetailProps {
     country: CountryData;
@@ -8,13 +10,16 @@ interface CountryDetailProps {
 }
 
 export const CountryDetail = ({ country }: CountryDetailProps) => {
+    const { lang } = useLanguage();
+    const t = dictionaries[lang].countriesPage;
+
     return (
         <div className="max-w-[1440px] mx-auto px-4 md:px-6 pt-40 pb-20 text-gray-900 dark:text-white">
             <Link
                 href="/Countries"
                 className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-zinc-800 rounded-lg px-4 py-2 hover:bg-gray-50 dark:hover:bg-zinc-900 transition-colors mb-6 sm:max-w-[174px]"
             >
-                ← Назад к странам
+                ← {t.back}
             </Link>
 
             <h1 className="text-2xl md:text-4xl font-bold mb-3">
@@ -24,7 +29,7 @@ export const CountryDetail = ({ country }: CountryDetailProps) => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="md:col-span-2 space-y-6">
                     <div className="border border-gray-200 dark:border-zinc-800 rounded-xl p-4 md:p-6 bg-white dark:bg-zinc-950">
-                        <h2 className="text-base font-semibold mb-3">О стране</h2>
+                        <h2 className="text-base font-semibold mb-3">{t.about}</h2>
                         <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 leading-relaxed">
                             {country.description}
                         </p>
@@ -50,14 +55,14 @@ export const CountryDetail = ({ country }: CountryDetailProps) => {
                     {/* Секция программ */}
                     <div className="border border-gray-200 dark:border-zinc-800 rounded-xl p-4 md:p-6 bg-white dark:bg-zinc-950">
                         <h2 className="text-base font-semibold mb-4">
-                            Программы в {country.title}
+                            {t.programsIn} {country.title}
                         </h2>
                         <div className="space-y-3">
                             {country.programs && country.programs.length > 0 ? (
                                 country.programs.map((program) => (
                                     <div
                                         key={program.id}
-                                        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border border-gray-200 dark:border-zinc-900 rounded-lg p-4"
+                                        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border border-gray-200 dark:border-zinc-900 rounded-lg p-4 transition-all hover:border-zinc-300 dark:hover:border-zinc-700"
                                     >
                                         <div>
                                             <p className="font-semibold text-sm mb-2">{program.title}</p>
@@ -66,20 +71,20 @@ export const CountryDetail = ({ country }: CountryDetailProps) => {
                                             </p>
                                         </div>
                                         <div className="flex items-center gap-4">
-                                            <span className="font-bold text-sm text-black">
-                                                ${program.price.toLocaleString()}/год
+                                            <span className="font-bold text-sm text-black dark:text-white">
+                                                ${program.price.toLocaleString('en-US')}/{lang === 'ru' ? 'год' : 'year'}
                                             </span>
                                             <Link
                                                 href={`/Programs/${program.slug}`}
-                                                className="text-xs bg-gray-900 text-white px-4 py-2.5 rounded-md"
+                                                className="text-xs bg-gray-900 dark:bg-white dark:text-black text-white px-4 py-2.5 rounded-md hover:bg-black dark:hover:bg-zinc-200 transition-all"
                                             >
-                                                Подробнее
+                                                {t.more}
                                             </Link>
                                         </div>
                                     </div>
                                 ))
                             ) : (
-                                <p className="text-sm text-gray-400 italic">Программы пока не добавлены</p>
+                                <p className="text-sm text-gray-400 italic">{t.noPrograms}</p>
                             )}
                         </div>
                     </div>
@@ -87,30 +92,30 @@ export const CountryDetail = ({ country }: CountryDetailProps) => {
 
                 <div className="space-y-4">
                     <div className="border border-gray-200 dark:border-zinc-800 rounded-xl p-5 bg-white dark:bg-zinc-950">
-                        <h3 className="font-semibold mb-3 text-sm">Быстрые факты</h3>
+                        <h3 className="font-semibold mb-3 text-sm">{t.fastFacts.title}</h3>
                         {country.fast_facts ? (
                             <div className="space-y-3 text-sm text-gray-500 dark:text-gray-400">
                                 <div className="flex items-baseline gap-4 dark:border-zinc-900 pb-2">
-                                    <span className="w-24 shrink-0">Столица:</span>
+                                    <span className="w-24 shrink-0 text-xs uppercase text-gray-400">{t.fastFacts.capital}</span>
                                     <span className="text-gray-900 dark:text-white font-medium">
                                         {country.fast_facts.capital}
                                     </span>
                                 </div>
                                 <div className="flex items-baseline gap-4 dark:border-zinc-900 pb-2">
-                                    <span className="w-24 shrink-0">Валюта:</span>
+                                    <span className="w-24 shrink-0 text-xs uppercase text-gray-400">{t.fastFacts.currency}</span>
                                     <span className="text-gray-900 dark:text-white font-medium">
                                         {country.fast_facts.currency}
                                     </span>
                                 </div>
                                 <div className="flex items-baseline gap-4 pb-1">
-                                    <span className="w-24 shrink-0">Учебный год:</span>
+                                    <span className="w-24 shrink-0 text-xs uppercase text-gray-400">{t.fastFacts.year}</span>
                                     <span className="text-gray-900 dark:text-white font-medium">
                                         {country.fast_facts.academic_year}
                                     </span>
                                 </div>
                             </div>
                         ) : (
-                            <p className="text-sm text-gray-400">Данные отсутствуют</p>
+                            <p className="text-sm text-gray-400">{t.fastFacts.noData}</p>
                         )}
                     </div>
                 </div>

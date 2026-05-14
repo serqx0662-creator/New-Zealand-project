@@ -7,18 +7,18 @@ export const MissionSection: React.FC = () => {
             <p className="text-gray-500 text-base">
                 Мы помогаем студентам осуществить мечту об обучении за рубежом
             </p>
-            <div className="rounded-2xl border border-gray-100 bg-white p-8 flex flex-col lg:flex-row gap-8 items-start">
+            <div className="rounded-2xl border border-gray-200 p-8 flex flex-col lg:flex-row gap-8 items-start">
                 <div className="flex-1 min-w-0">
-                    <h2 className="text-xl font-bold text-gray-900 mb-4">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">
                         Наша миссия
                     </h2>
-                    <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                    <p className="text-gray-600 text-sm md:text-[16px] leading-relaxed mb-4">
                         Мы стремимся сделать качественное образование доступным
                         для всех. Наша команда профессионалов помогает студентам
                         найти идеальную программу обучения и успешно поступить в
                         лучшие университеты мира.
                     </p>
-                    <p className="text-gray-600 text-sm leading-relaxed">
+                    <p className="text-gray-600 text-sm md:text-[16px] leading-relaxed">
                         За годы работы мы помогли тысячам студентов осуществить
                         свою мечту об обучении за рубежом. Мы гордимся каждым
                         успешным поступлением и продолжаем расширять наши
@@ -26,8 +26,7 @@ export const MissionSection: React.FC = () => {
                     </p>
                 </div>
 
-                {/* Image */}
-                <div className="w-full lg:w-[420px] shrink-0 rounded-xl overflow-hidden h-56 lg:h-64">
+                <div className="w-full lg:w-[580px] shrink-0 rounded-xl overflow-hidden h-56 lg:h-[320px]">
                     <img
                         src="/image/country.png"
                         alt="Лондон"
