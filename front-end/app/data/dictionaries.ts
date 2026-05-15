@@ -236,6 +236,217 @@ export const dictionaries = {
             Postgraduate: "Магистратура",
             Undergraduate: "Бакалавриат",
             Foundation: "Подготовительный курс",
+        },
+        events: {
+            title: "Мероприятия",
+            description: "Присоединяйтесь к нашим событиям и узнайте больше о возможностях",
+            searchPlaceholder: "Поиск мероприятия...",
+            loading: "Загрузка мероприятий...",
+            notFound: "Мероприятия не найдены",
+            applyBtn: "Подать заявку",
+            left: "Осталось",
+            register: "Зарегистрироваться",
+            registration: "Регистрация",
+            regDesc: "Оставьте заявку, чтобы забронировать место",
+            success: "Успешно!",
+            successDesc: "Вы успешно зарегистрированы на мероприятие. Мы свяжемся с вами в ближайшее время.",
+            programTitle: "Программа мероприятия",
+            back: "Назад к мероприятиям",
+            types: {
+                offline: "Офлайн",
+                online: "Онлайн"
+            },
+            info: {
+                location: "Место",
+                slots: "Места",
+                free: "Свободно",
+                registered: "Зарегистрировано"
+            },
+            form: {
+                name: "Имя",
+                email: "Email",
+                phone: "Телефон",
+                namePlaceholder: "Ваше имя",
+                emailPlaceholder: "Ваш email",
+                sending: "Отправка..."
+            }
+        },
+        aboutPage: {
+            title: "О нас",
+            subtitle: "Мы помогаем студентам осуществить мечту об обучении за рубежом",
+            mission: {
+                title: "Наша миссия",
+                p1: "Мы стремимся сделать качественное образование доступным для всех. Наша команда профессионалов помогает студентам найти идеальную программу обучения и успешно поступить в лучшие университеты мира.",
+                p2: "За годы работы мы помогли тысячам студентов осуществить свою мечту об обучении за рубежом. Мы гордимся каждым успешным поступлением и продолжаем расширять наши возможности."
+            },
+            values: {
+                title: "Наши ценности",
+                items: [
+                    { title: "Целеустремленность", desc: "Мы помогаем студентам достигать их образовательных целей" },
+                    { title: "Забота", desc: "Каждый студент важен для нас, мы обеспечиваем индивидуальный подход" },
+                    { title: "Надежность", desc: "Мы гарантируем качественный сервис и поддержку на всех этапах" }
+                ]
+            },
+            stats: [
+                { value: "10,000+", label: "Успешных поступлений" },
+                { value: "500+", label: "Университетов-партнёров" },
+                { value: "50+", label: "Стран" },
+                { value: "15", label: "Лет опыта" }
+            ],
+            cta: {
+                title: "Готовы начать своё путешествие?",
+                desc: "Свяжитесь с нами сегодня и получите бесплатную консультацию",
+                consultBtn: "Запросить консультацию",
+                programsBtn: "Посмотреть программы"
+            }
+        },
+        contactsPage: {
+            title: "Контакты",
+            subtitle: "Свяжитесь с нами любым удобным способом",
+            form: {
+                title: "Написать нам",
+                description: "Заполните форму, и мы ответим вам в ближайшее время",
+                labels: {
+                    name: "Имя",
+                    email: "Email",
+                    subject: "Тема",
+                    phone: "Телефон",
+                    message: "Сообщение",
+                    privacy: "Я согласен с политикой конфиденциальности"
+                },
+                placeholders: {
+                    name: "Ваше имя",
+                    subject: "Тема обращения",
+                    message: "Ваше сообщение..."
+                },
+                button: "Отправить запрос",
+                errors: {
+                    name: "Введите имя",
+                    email: "Некорректный email",
+                    subject: "Укажите тему",
+                    phone: "Введите корректный номер",
+                    message: "Введите сообщение (минимум 10 символов)",
+                    privacy: "Нужно согласие"
+                }
+            },
+            info: {
+                title: "Контактная информация",
+                sections: {
+                    phone: "Телефон",
+                    email: "Email",
+                    address: "Адрес",
+                    hours: "Рабочие часы",
+                    addressValues: ["Москва, ул. Тверская, 10", "Офис 205, 2 этаж"],
+                    hoursValues: ["Пн - Пт: 9:00 - 18:00", "Сб: 10:00 - 16:00", "Вс: Выходной"]
+                }
+            },
+            socials: "Социальные сети"
+        },
+        footer: {
+            description: "Помогаем студентам найти идеальную программу обучения за рубежом.",
+            newsletter: {
+                title: "Подписка на новости",
+                placeholder: "Ваш Email",
+                button: "Подписаться",
+                privacy: "Подписываясь, вы соглашаетесь с нашей",
+                link: "политикой конфиденциальности"
+            },
+            categories: {
+                programs: "Программы",
+                countries: "Страны",
+                company: "Компания",
+                legal: "Правовая информация"
+            },
+            rights: "Все права защищены."
+        },
+        applyPage: {
+            title: "Подача заявки на обучение",
+            steps: ["Выбор программы", "Персональные данные", "Образование", "Документы", "Подтверждение"],
+            stepLabel: "Шаг",
+            from: "из",
+            next: "Далее",
+            prev: "Назад",
+            finish: "Завершить",
+            placeholders: {
+                stepInfo: "Заполните информацию для шага",
+                selectProgram: "Выберите программу обучения",
+                selectEducation: "Выберите уровень образования",
+                selectLanguage: "Выберите языковой тест",
+                firstName: "Имя",
+                lastName: "Фамилия"
+            },
+            errors: {
+                program: "Пожалуйста, выберите программу обучения",
+                firstName: "Введите имя",
+                lastName: "Введите фамилию",
+                email: "Введите корректный email",
+                phone: "Введите полный номер телефона",
+                education: "Выберите уровень образования",
+                language: "Выберите языковой тест",
+                files: "Загрузите хотя бы один документ для продолжения",
+                accepted: "Необходимо подтвердить согласие"
+            },
+            success: {
+                title: "Ваша заявка была успешно принята",
+                subtitle: "Все шаги были выполнены",
+                wait: "Ожидайте подтверждения вашей заявки",
+                backHome: "Вернуться на главную"
+            },
+            review: {
+                title: "Подтверждение заявки",
+                filesLabel: "Прикрепленные документы",
+                terms: "Я согласен с условиями обработки персональных данных"
+            },
+            docs: {
+                uploadTitle: "Загрузите документ (до 10мб каждый)",
+                uploadHint: "Нажмите для выбора или перетащите файлы сюда",
+                requiredTitle: "Требуемые документы:",
+                items: ['Аттестат или диплом', 'Языковой сертификат', 'Мотивационное письмо', 'Рекомендательные письма']
+            }
+        },
+        consultation: {
+            title: "Запросить консультацию",
+            subtitle: "Заполните форму, и наш консультант свяжется с вами в ближайшее время",
+            formTitle: "Форма обратной связи",
+            formSubtitle: "Мы ответим на все ваши вопросы о программах обучения",
+            sidebar: {
+                contacts: "Контактная информация",
+                socials: "Социальные сети",
+                phone: "Телефон",
+                email: "Email",
+                address: "Адрес",
+                hours: "Рабочие часы",
+                hoursDetail: ["Пн - Пт: 9:00 - 18:00", "Сб: 10:00 - 16:00", "Вс: Выходной"],
+                addressDetail: ["Москва, ул. Тверская, 10", "Офис 205, 2 этаж"]
+            },
+            labels: {
+                firstName: "Имя *",
+                lastName: "Фамилия *",
+                email: "Email *",
+                phone: "Телефон *",
+                country: "Страна интереса",
+                program: "Программа интереса",
+                message: "Ваш вопрос *",
+                privacy: "Я согласен с политикой конфиденциальности",
+                submit: "Отправить запрос"
+            },
+            placeholders: {
+                firstName: "Введите имя",
+                lastName: "Введите фамилию",
+                message: "Опишите ваш запрос...",
+                country: "Выберите страну",
+                program: "Выберите программу"
+            },
+            errors: {
+                firstName: "Введите имя",
+                lastName: "Введите фамилию",
+                email: "Некорректный email",
+                phone: "Введите полный номер телефона",
+                country: "Выберите страну",
+                program: "Выберите программу",
+                message: "Опишите подробнее (минимум 10 символов)",
+                privacy: "Нужно ваше согласие"
+            }
         }
     },
     en: {
@@ -474,5 +685,216 @@ export const dictionaries = {
             Undergraduate: "Undergraduate",
             Foundation: "Foundation / Pathway",
         },
+        events: {
+            title: "Events",
+            description: "Join our events and learn more about opportunities",
+            searchPlaceholder: "Search events...",
+            loading: "Loading events...",
+            notFound: "No events found",
+            applyBtn: "Apply Now",
+            left: "Left",
+            register: "Register Now",
+            registration: "Registration",
+            regDesc: "Apply to book a spot",
+            success: "Success!",
+            successDesc: "You have successfully registered for the event. We will contact you shortly.",
+            programTitle: "Event Schedule",
+            back: "Back to events",
+            types: {
+                offline: "Offline",
+                online: "Online"
+            },
+            info: {
+                location: "Location",
+                slots: "Availability",
+                free: "Free",
+                registered: "Registered"
+            },
+            form: {
+                name: "Name",
+                email: "Email",
+                phone: "Phone",
+                namePlaceholder: "Your name",
+                emailPlaceholder: "Your email",
+                sending: "Sending..."
+            }
+        },
+        aboutPage: {
+            title: "About Us",
+            subtitle: "We help students turn their dream of studying abroad into reality",
+            mission: {
+                title: "Our Mission",
+                p1: "We strive to make high-quality education accessible to everyone. Our team of professionals helps students find the perfect study program and successfully enroll in the world's leading universities.",
+                p2: "Over the years, we have helped thousands of students achieve their goals of international education. We take pride in every successful admission and continue to expand our global opportunities."
+            },
+            values: {
+                title: "Our Values",
+                items: [
+                    { title: "Goal Orientation", desc: "We empower students to reach their full potential and achieve their educational milestones" },
+                    { title: "Personal Care", desc: "Every student matters to us; we provide a dedicated individual approach to every case" },
+                    { title: "Reliability", desc: "We guarantee high-quality service and expert support at every stage of the process" }
+                ]
+            },
+            stats: [
+                { value: "10,000+", label: "Successful Admissions" },
+                { value: "500+", label: "Partner Universities" },
+                { value: "50+", label: "Countries" },
+                { value: "15", label: "Years of Experience" }
+            ],
+            cta: {
+                title: "Ready to Start Your Journey?",
+                desc: "Contact us today and get a free consultation from our experts",
+                consultBtn: "Request a Consultation",
+                programsBtn: "View Programs"
+            }
+        },
+        contactsPage: {
+            title: "Contacts",
+            subtitle: "Get in touch with us in any convenient way",
+            form: {
+                title: "Write to us",
+                description: "Fill out the form and we will get back to you shortly",
+                labels: {
+                    name: "Name",
+                    email: "Email",
+                    subject: "Subject",
+                    phone: "Phone",
+                    message: "Message",
+                    privacy: "I agree to the privacy policy"
+                },
+                placeholders: {
+                    name: "Your name",
+                    subject: "Subject of inquiry",
+                    message: "Your message..."
+                },
+                button: "Send Request",
+                errors: {
+                    name: "Enter your name",
+                    email: "Invalid email",
+                    subject: "Specify a subject",
+                    phone: "Enter a valid number",
+                    message: "Enter a message (minimum 10 characters)",
+                    privacy: "Consent is required"
+                }
+            },
+            info: {
+                title: "Contact Information",
+                sections: {
+                    phone: "Phone",
+                    email: "Email",
+                    address: "Address",
+                    hours: "Working Hours",
+                    addressValues: ["10 Tverskaya St, Moscow", "Office 205, 2nd Floor"],
+                    hoursValues: ["Mon - Fri: 9:00 - 18:00", "Sat: 10:00 - 16:00", "Sun: Closed"]
+                }
+            },
+            socials: "Social Media"
+        },
+        footer: {
+            description: "Helping students find the perfect study program abroad.",
+            newsletter: {
+                title: "Newsletter Subscription",
+                placeholder: "Your Email",
+                button: "Subscribe",
+                privacy: "By subscribing, you agree to our",
+                link: "privacy policy"
+            },
+            categories: {
+                programs: "Programs",
+                countries: "Countries",
+                company: "Company",
+                legal: "Legal Information"
+            },
+            rights: "All rights reserved."
+        },
+        applyPage: {
+            title: "Study Application",
+            steps: ["Program Selection", "Personal Data", "Education", "Documents", "Review"],
+            stepLabel: "Step",
+            from: "of",
+            next: "Next",
+            prev: "Back",
+            finish: "Finish",
+            placeholders: {
+                stepInfo: "Fill in the information for step",
+                selectProgram: "Select a study program",
+                selectEducation: "Select education level",
+                selectLanguage: "Select language test",
+                firstName: "First Name",
+                lastName: "Last Name"
+            },
+            errors: {
+                program: "Please select a study program",
+                firstName: "Enter your first name",
+                lastName: "Enter your last name",
+                email: "Enter a valid email",
+                phone: "Enter full phone number",
+                education: "Select your education level",
+                language: "Select a language test",
+                files: "Upload at least one document to continue",
+                accepted: "You must confirm your consent"
+            },
+            success: {
+                title: "Your application has been successfully accepted",
+                subtitle: "All steps have been completed",
+                wait: "Please wait for confirmation of your application",
+                backHome: "Back to Home"
+            },
+            review: {
+                title: "Application Review",
+                filesLabel: "Attached documents",
+                terms: "I agree to the terms of personal data processing"
+            },
+            docs: {
+                uploadTitle: "Upload documents (up to 10MB each)",
+                uploadHint: "Click to select or drag and drop files here",
+                requiredTitle: "Required documents:",
+                items: ['Certificate or Diploma', 'Language Certificate', 'Motivation Letter', 'Letters of Recommendation']
+            }
+        },
+        consultation: {
+            title: "Request a Consultation",
+            subtitle: "Fill out the form and our consultant will contact you shortly",
+            formTitle: "Feedback Form",
+            formSubtitle: "We will answer all your questions about study programs",
+            sidebar: {
+                contacts: "Contact Information",
+                socials: "Social Networks",
+                phone: "Phone",
+                email: "Email",
+                address: "Address",
+                hours: "Working Hours",
+                hoursDetail: ["Mon - Fri: 9:00 - 18:00", "Sat: 10:00 - 16:00", "Sun: Closed"],
+                addressDetail: ["10 Tverskaya St, Moscow", "Office 205, 2nd floor"]
+            },
+            labels: {
+                firstName: "First Name *",
+                lastName: "Last Name *",
+                email: "Email *",
+                phone: "Phone *",
+                country: "Country of interest",
+                program: "Program of interest",
+                message: "Your question *",
+                privacy: "I agree to the privacy policy",
+                submit: "Send Request"
+            },
+            placeholders: {
+                firstName: "Enter name",
+                lastName: "Enter last name",
+                message: "Describe your request...",
+                country: "Select country",
+                program: "Select program"
+            },
+            errors: {
+                firstName: "Enter first name",
+                lastName: "Enter last name",
+                email: "Invalid email",
+                phone: "Please enter a full phone number",
+                country: "Please select a country",
+                program: "Please select a program",
+                message: "Please provide more details (min 10 chars)",
+                privacy: "Consent is required"
+            }
+        }
     }
 };

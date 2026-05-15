@@ -6,6 +6,8 @@ import { Calendar, MapPin, Users } from "lucide-react";
 import { NZEventSchedule } from "./NZEventSchedule";
 import { NZRegistrationForm } from "./NZRegistrationForm";
 import { Event, StrapiEvent } from "@/app/data/events";
+import { useLanguage } from "@/app/context/LanguageContext";
+import { dictionaries } from "@/app/data/dictionaries";
 
 interface InfoCardProps {
     icon: React.ReactNode;
@@ -29,6 +31,10 @@ export default function EventSinglePage() {
     const params = useParams();
     const id = params?.id as string;
 
+    // Подключаем наш контекст
+    const { lang } = useLanguage();
+    const t = dictionaries[lang].events;
+
     const [event, setEvent] = useState<Event | null>(null);
     const [loading, setLoading] = useState(true);
 
@@ -39,11 +45,16 @@ export default function EventSinglePage() {
 
         const fetchEvent = async () => {
             try {
-                const res = await fetch(`${baseUrl}/api/events?filters[slug][$eq]=${id}&populate=*`);
+                // Добавляем параметр locale=${lang}
+                const res = await fetch(`${baseUrl}/api/events?filters[slug][$eq]=${id}&locale=${lang}&populate=*`);
                 const json = await res.json();
 
                 if (isMounted && json.data && json.data.length > 0) {
                     const raw: StrapiEvent = json.data[0];
+
+                    // Определяем ключ типа
+                    const rawTypeKey = raw.type?.toLowerCase() === "online" ? "online" : "offline";
+
                     setEvent({
                         id: raw.id,
                         documentId: raw.documentId,
@@ -53,7 +64,8 @@ export default function EventSinglePage() {
                         location: raw.location,
                         address: raw.address,
                         description: raw.description,
-                        type: raw.type || "Офлайн",
+                        // Используем перевод типа из словаря
+                        type: (t.types[rawTypeKey as keyof typeof t.types] || raw.type) as "Офлайн" | "Онлайн",
                         registered: raw.registered || 0,
                         totalSlots: raw.totalSlots || 0,
                         image: raw.image?.url ? `${baseUrl}${raw.image.url}` : "/placeholder.png",
@@ -74,10 +86,10 @@ export default function EventSinglePage() {
         return () => {
             isMounted = false;
         };
-    }, [id, baseUrl]);
+    }, [id, baseUrl, lang, t.types]);
 
 
-    if (loading) return <div className="pt-40 text-center text-zinc-500">Загрузка...</div>;
+    if (loading) return <div className="pt-40 text-center text-zinc-500">{t.loading}</div>;
     if (!event) return notFound();
 
     return (
@@ -98,12 +110,17 @@ export default function EventSinglePage() {
                     <p className="text-zinc-500 leading-relaxed mb-8 text-base md:text-lg">{event.description}</p>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <InfoCard icon={<MapPin size={18} />} label="Место" title={event.location} subTitle={event.address} />
+                        <InfoCard
+                            icon={<MapPin size={18} />}
+                            label={t.info.location} // "Место" / "Location"
+                            title={event.location}
+                            subTitle={event.address}
+                        />
                         <InfoCard
                             icon={<Users size={18} />}
-                            label="Места"
-                            title={`Свободно: ${event.totalSlots - event.registered}`}
-                            subTitle={`Зарегистрировано: ${event.registered}/${event.totalSlots}`}
+                            label={t.info.slots} // "Места" / "Availability"
+                            title={`${t.info.free}: ${event.totalSlots - event.registered}`} // "Свободно" / "Free"
+                            subTitle={`${t.info.registered}: ${event.registered}/${event.totalSlots}`} // "Зарегистрировано" / "Registered"
                         />
                     </div>
                 </div>
@@ -111,7 +128,8 @@ export default function EventSinglePage() {
 
             <div className="flex flex-col lg:flex-row gap-12">
                 <div className="lg:w-2/3">
-                    <NZEventSchedule schedule={event.schedule} />
+                    {/* Передаем заголовок расписания из словаря внутрь компонента (или импортируем там) */}
+                    <NZEventSchedule schedule={event.schedule} title={t.programTitle} />
                 </div>
                 <aside className="lg:w-1/3">
                     <div className="sticky top-28">

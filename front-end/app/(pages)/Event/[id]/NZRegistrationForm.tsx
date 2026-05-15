@@ -5,19 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { PatternFormat } from "react-number-format";
 import { Button } from "@/app/components/ui/button";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { CheckCircle2, X } from "lucide-react";
-
-const formSchema = z.object({
-    name: z.string().min(2, "Введите ваше имя"),
-    email: z.string().email("Некорректный email адрес"),
-    phone: z.string()
-        .min(1, "Введите номер телефона")
-        .min(10, "Номер слишком короткий"),
-});
-
-type FormValues = z.infer<typeof formSchema>;
+import { useLanguage } from "@/app/context/LanguageContext";
+import { dictionaries } from "@/app/data/dictionaries";
 
 interface NZRegistrationFormProps {
     documentId: string;
@@ -26,9 +18,23 @@ interface NZRegistrationFormProps {
 }
 
 export const NZRegistrationForm = ({ documentId, currentRegistered, onRegisterSuccess }: NZRegistrationFormProps) => {
+    const { lang } = useLanguage();
+    const t = dictionaries[lang].events;
+
     const [isTyped, setIsTyped] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
+
+    // Динамическая схема валидации в зависимости от языка
+    const formSchema = useMemo(() => z.object({
+        name: z.string().min(2, lang === 'ru' ? "Введите ваше имя" : "Enter your name"),
+        email: z.string().email(lang === 'ru' ? "Некорректный email адрес" : "Invalid email address"),
+        phone: z.string()
+            .min(1, lang === 'ru' ? "Введите номер телефона" : "Enter phone number")
+            .min(10, lang === 'ru' ? "Номер слишком короткий" : "Number is too short"),
+    }), [lang]);
+
+    type FormValues = z.infer<typeof formSchema>;
 
     const { control, register, handleSubmit, reset, formState: { errors } } = useForm<FormValues>({
         resolver: zodResolver(formSchema),
@@ -81,32 +87,32 @@ export const NZRegistrationForm = ({ documentId, currentRegistered, onRegisterSu
     return (
         <>
             <div className="p-8 border border-gray-200 rounded-xl bg-white relative">
-                <h3 className="text-2xl font-bold mb-2 text-black">Регистрация</h3>
-                <p className="text-sm text-zinc-400 mb-8">Оставьте заявку, чтобы забронировать место</p>
+                <h3 className="text-2xl font-bold mb-2 text-black">{t.registration}</h3>
+                <p className="text-sm text-zinc-400 mb-8">{t.regDesc}</p>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                     <div className="space-y-1.5">
-                        <label className="text-xs font-bold uppercase text-zinc-500 ml-1">Имя</label>
+                        <label className="text-xs font-bold uppercase text-zinc-500 ml-1">{t.form.name}</label>
                         <input
                             {...register("name")}
-                            placeholder="Ваше имя"
+                            placeholder={t.form.namePlaceholder}
                             className={`${inputStyles} ${errors.name ? "border-red-400 bg-red-50/50" : ""}`}
                         />
                         {errors.name && <p className={errorTextStyles}>{errors.name.message}</p>}
                     </div>
 
                     <div className="space-y-1.5">
-                        <label className="text-xs font-bold uppercase text-zinc-500 ml-1">Email</label>
+                        <label className="text-xs font-bold uppercase text-zinc-500 ml-1">{t.form.email}</label>
                         <input
                             {...register("email")}
-                            placeholder="Ваш email"
+                            placeholder={t.form.emailPlaceholder}
                             className={`${inputStyles} ${errors.email ? "border-red-400 bg-red-50/50" : ""}`}
                         />
                         {errors.email && <p className={errorTextStyles}>{errors.email.message}</p>}
                     </div>
 
                     <div className="space-y-1.5">
-                        <label className="text-xs font-bold uppercase text-zinc-500 ml-1">Телефон</label>
+                        <label className="text-xs font-bold uppercase text-zinc-500 ml-1">{t.form.phone}</label>
                         <Controller
                             name="phone"
                             control={control}
@@ -135,7 +141,7 @@ export const NZRegistrationForm = ({ documentId, currentRegistered, onRegisterSu
                         disabled={loading}
                         className="w-full bg-zinc-900 text-white py-7 rounded-xl font-bold text-lg hover:bg-black transition-all mt-4 disabled:opacity-50"
                     >
-                        {loading ? "Отправка..." : "Зарегистрироваться"}
+                        {loading ? t.form.sending : t.register}
                     </Button>
                 </form>
             </div>
@@ -152,12 +158,12 @@ export const NZRegistrationForm = ({ documentId, currentRegistered, onRegisterSu
                                 <CheckCircle2 size={40} className="text-[#10B981]" />
                             </div>
                         </div>
-                        <h4 className="text-3xl font-bold text-black mb-4">Успешно!</h4>
+                        <h4 className="text-3xl font-bold text-black mb-4">{t.success}</h4>
                         <p className="text-gray-500 text-lg mb-10 leading-relaxed">
-                            Вы успешно зарегистрированы на мероприятие. Мы свяжемся с вами в ближайшее время.
+                            {t.successDesc}
                         </p>
                         <button onClick={handleClose} className="w-full py-5 bg-black text-white rounded-2xl font-bold text-lg hover:bg-zinc-800 transition-all shadow-lg">
-                            Отлично
+                            {lang === 'ru' ? 'Отлично' : 'Great'}
                         </button>
                     </div>
                 </div>,

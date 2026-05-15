@@ -3,7 +3,8 @@
 import React, { useRef } from 'react';
 import { Label } from "@/app/components/ui/label";
 import { Upload, X, FileText, AlertCircle } from "lucide-react";
-import { Button } from "@/app/components/ui/button";
+import { useLanguage } from "@/app/context/LanguageContext";
+import { dictionaries } from "@/app/data/dictionaries";
 
 interface NZStep4Props {
     files: File[];
@@ -12,7 +13,13 @@ interface NZStep4Props {
 }
 
 export default function NZStep4Documents({ files, error, onChange }: NZStep4Props) {
+    const { lang } = useLanguage();
+    const t = dictionaries[lang].applyPage;
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const requiredDocs = lang === 'ru'
+        ? ['Аттестат или диплом', 'Языковой сертификат', 'Мотивационное письмо', 'Рекомендательные письма']
+        : ['Transcript or Diploma', 'Language Certificate', 'Statement of Purpose', 'Reference Letters'];
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -42,7 +49,7 @@ export default function NZStep4Documents({ files, error, onChange }: NZStep4Prop
         <div className="space-y-6 animate-in fade-in duration-500">
             <div className="space-y-4">
                 <Label className={`text-sm font-bold ${error ? 'text-red-500' : 'text-[#101828]'}`}>
-                    Загрузите документ (до 10мб каждый)
+                    {lang === 'ru' ? 'Загрузите документ (до 10мб каждый)' : 'Upload document (up to 10mb each)'}
                 </Label>
 
                 <div
@@ -67,9 +74,11 @@ export default function NZStep4Documents({ files, error, onChange }: NZStep4Prop
                     </div>
 
                     <p className="text-sm text-gray-500 mb-1">
-                        <span className="font-semibold text-black">Нажмите для выбора</span> или перетащите файлы сюда
+                        <span className="font-semibold text-black">
+                            {lang === 'ru' ? 'Нажмите для выбора' : 'Click to upload'}
+                        </span> {lang === 'ru' ? 'или перетащите файлы сюда' : 'or drag and drop files here'}
                     </p>
-                    <p className="text-xs text-gray-400">PNG, JPG, PDF или DOC (max. 10MB)</p>
+                    <p className="text-xs text-gray-400">PNG, JPG, PDF {lang === 'ru' ? 'или' : 'or'} DOC (max. 10MB)</p>
                 </div>
 
                 {error && (
@@ -105,9 +114,11 @@ export default function NZStep4Documents({ files, error, onChange }: NZStep4Prop
             </div>
 
             <div className="p-6 bg-gray-50/50 rounded-2xl border border-gray-100">
-                <h4 className="text-sm font-bold text-[#101828] mb-3">Требуемые документы:</h4>
+                <h4 className="text-sm font-bold text-[#101828] mb-3">
+                    {lang === 'ru' ? 'Требуемые документы:' : 'Required documents:'}
+                </h4>
                 <ul className="space-y-2">
-                    {['Аттестат или диплом', 'Языковой сертификат', 'Мотивационное письмо', 'Рекомендательные письма'].map((item) => (
+                    {requiredDocs.map((item) => (
                         <li key={item} className="flex items-center gap-2 text-xs text-gray-500">
                             <div className="w-1 h-1 rounded-full bg-gray-300" />
                             {item}

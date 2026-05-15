@@ -4,6 +4,8 @@ import React from 'react';
 import { Label } from "@/app/components/ui/label";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/app/components/ui/dropdown-menu";
 import { ChevronDown, AlertCircle } from "lucide-react";
+import { useLanguage } from "@/app/context/LanguageContext";
+import { dictionaries } from "@/app/data/dictionaries";
 
 interface NZStep1Props {
     value: string;
@@ -12,18 +14,19 @@ interface NZStep1Props {
 }
 
 export default function NZStep1Program({ value, error, onChange }: NZStep1Props) {
-    const programs = [
-        "Бакалавриат по Бизнесу",
-        "Магистратура IT",
-        "Дизайн и медиа",
-        "Инженерное дело"
-    ];
+    const { lang } = useLanguage();
+    const t = dictionaries[lang].applyPage;
+
+    // Программы теперь тоже зависят от языка
+    const programs = lang === 'ru'
+        ? ["Бакалавриат по Бизнесу", "Магистратура IT", "Дизайн и медиа", "Инженерное дело"]
+        : ["Bachelor of Business", "Master of IT", "Design & Media", "Engineering"];
 
     return (
         <div className="space-y-6 animate-in fade-in duration-500">
             <div className="space-y-[10px]">
                 <Label className={`text-sm font-bold transition-colors ${error ? 'text-red-500' : 'text-[#101828]'}`}>
-                    Выберите программу
+                    {lang === 'ru' ? 'Выберите программу' : 'Select program'}
                 </Label>
 
                 <DropdownMenu modal={false}>
@@ -36,7 +39,7 @@ export default function NZStep1Program({ value, error, onChange }: NZStep1Props)
                             `}
                         >
                             <span className="text-sm font-medium">
-                                {value || "Программа не выбрана"}
+                                {value || t.placeholders.selectProgram}
                             </span>
                             <ChevronDown
                                 size={20}

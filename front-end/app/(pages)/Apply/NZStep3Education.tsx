@@ -4,6 +4,8 @@ import React from 'react';
 import { Label } from "@/app/components/ui/label";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/app/components/ui/dropdown-menu";
 import { ChevronDown, AlertCircle } from "lucide-react";
+import { useLanguage } from "@/app/context/LanguageContext";
+import { dictionaries } from "@/app/data/dictionaries";
 
 interface NZStep3Props {
     values: {
@@ -15,14 +17,21 @@ interface NZStep3Props {
 }
 
 export default function NZStep3Education({ values, errors, onChange }: NZStep3Props) {
-    const educationOptions = ["Среднее образование", "Высшее образование", "Магистратура"];
+    const { lang } = useLanguage();
+    const t = dictionaries[lang].applyPage;
+
+    const educationOptions = lang === 'ru'
+        ? ["Среднее образование", "Высшее образование", "Магистратура"]
+        : ["Secondary Education", "Higher Education", "Master's Degree"];
+
     const languageOptions = ["IELTS", "TOEFL", "PTE", "Duolingo"];
 
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
+            {/* Уровень образования */}
             <div className="space-y-[10px]">
                 <Label className={`text-sm font-bold transition-colors ${errors.educationLevel ? 'text-red-500' : 'text-[#101828]'}`}>
-                    Образование
+                    {lang === 'ru' ? 'Образование' : 'Education'}
                 </Label>
                 <DropdownMenu modal={false}>
                     <DropdownMenuTrigger asChild className="group">
@@ -33,7 +42,9 @@ export default function NZStep3Education({ values, errors, onChange }: NZStep3Pr
                                 ${values.educationLevel ? 'text-[#101828]' : 'text-gray-400'}
                             `}
                         >
-                            <span className="text-sm font-medium">{values.educationLevel || "Выберите уровень образования"}</span>
+                            <span className="text-sm font-medium">
+                                {values.educationLevel || t.placeholders.selectEducation}
+                            </span>
                             <ChevronDown size={20} className={`transition-transform duration-300 group-data-[state=open]:rotate-180 ${errors.educationLevel ? 'text-red-400' : 'text-gray-400'}`} />
                         </button>
                     </DropdownMenuTrigger>
@@ -57,9 +68,10 @@ export default function NZStep3Education({ values, errors, onChange }: NZStep3Pr
                 )}
             </div>
 
+            {/* Языковой тест */}
             <div className="space-y-[10px]">
                 <Label className={`text-sm font-bold transition-colors ${errors.language ? 'text-red-500' : 'text-[#101828]'}`}>
-                    Языковой тест
+                    {lang === 'ru' ? 'Языковой тест' : 'Language test'}
                 </Label>
                 <DropdownMenu modal={false}>
                     <DropdownMenuTrigger asChild className="group">
@@ -70,18 +82,20 @@ export default function NZStep3Education({ values, errors, onChange }: NZStep3Pr
                                 ${values.language ? 'text-[#101828]' : 'text-gray-400'}
                             `}
                         >
-                            <span className="text-sm font-medium">{values.language || "Выберите язык"}</span>
+                            <span className="text-sm font-medium">
+                                {values.language || t.placeholders.selectLanguage}
+                            </span>
                             <ChevronDown size={20} className={`transition-transform duration-300 group-data-[state=open]:rotate-180 ${errors.language ? 'text-red-400' : 'text-gray-400'}`} />
                         </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="start" className="w-[--radix-dropdown-menu-trigger-width] rounded-2xl border-gray-100 shadow-2xl p-2 bg-white z-[60]">
-                        {languageOptions.map((lang) => (
+                        {languageOptions.map((langOpt) => (
                             <DropdownMenuItem
-                                key={lang}
-                                onClick={() => onChange({ language: lang })}
+                                key={langOpt}
+                                onClick={() => onChange({ language: langOpt })}
                                 className="rounded-xl cursor-pointer py-3 px-4 text-sm focus:bg-gray-50 mb-1 last:mb-0"
                             >
-                                {lang}
+                                {langOpt}
                             </DropdownMenuItem>
                         ))}
                     </DropdownMenuContent>

@@ -1,6 +1,11 @@
 import { ScheduleItem } from "@/app/data/events";
 
-export const NZEventSchedule = ({ schedule }: { schedule: ScheduleItem[] }) => {
+interface NZEventScheduleProps {
+    schedule: ScheduleItem[]; // или какой там у тебя тип
+    title?: string; // Добавь это свойство
+}
+
+export const NZEventSchedule = ({ schedule }: NZEventScheduleProps) => {
     return (
         <div className="p-6 md:p-8 border border-gray-200 rounded-xl bg-white">
             <h3 className="text-xl font-bold mb-8">Программа мероприятия</h3>

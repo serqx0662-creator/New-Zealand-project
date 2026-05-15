@@ -67,7 +67,7 @@ export default function UniversitiesPage() {
         }
 
         fetchUniversities();
-    }, [lang]); // Перезагрузка при смене языка
+    }, [lang]);
 
     const filtered = universities.filter((u: University) =>
         u.name.toLowerCase().includes(query.toLowerCase()) ||

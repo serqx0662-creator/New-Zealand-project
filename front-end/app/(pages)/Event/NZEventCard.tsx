@@ -1,12 +1,23 @@
+"use client";
+
 import { Calendar, MapPin, Users } from "lucide-react";
 import Link from "next/link";
 import { Event } from "@/app/data/events";
+import { useLanguage } from "@/app/context/LanguageContext";
+import { dictionaries } from "@/app/data/dictionaries";
 
 export const NZEventCard = ({ event }: { event: Event }) => {
+    // Подключаем словарь так же, как в Programs
+    const { lang } = useLanguage();
+    const t = dictionaries[lang].events;
+
     return (
         <div className="group relative border border-gray-100 rounded-[14px] hover:-translate-y-1 overflow-hidden hover:shadow-lg hover:shadow-gray-300/50 duration-500 transition-all bg-white flex flex-col h-full">
+            {/* Динамический текст для скрин-ридеров */}
             <Link href={`/Event/${event.slug}`} className="absolute inset-0 z-10">
-                <span className="sr-only">Перейти к {event.title}</span>
+                <span className="sr-only">
+                    {lang === 'ru' ? `Перейти к ${event.title}` : `Go to ${event.title}`}
+                </span>
             </Link>
 
             <div className="relative h-[240px] shrink-0 overflow-hidden">
@@ -15,6 +26,7 @@ export const NZEventCard = ({ event }: { event: Event }) => {
                     alt={event.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
+                {/* Тип (Online/Offline) уже приходит переведенным из EventPage */}
                 <span className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-sm font-semibold z-20">
                     {event.type}
                 </span>
@@ -43,14 +55,17 @@ export const NZEventCard = ({ event }: { event: Event }) => {
                         <Users size={16} className="text-gray-400" />
                         <span>{event.registered}/{event.totalSlots}</span>
                     </div>
-                    <span className="text-gray-400 text-sm">Осталось: {event.totalSlots - event.registered}</span>
+                    {/* Перевод "Осталось" */}
+                    <span className="text-gray-400 text-sm">
+                        {t.left}: {event.totalSlots - event.registered}
+                    </span>
                 </div>
 
                 <Link
                     href="/Apply"
                     className="relative z-20 block w-full py-3 border border-gray-200 rounded-md text-center font-bold hover:bg-gray-100 transition-all active:scale-[0.98] bg-white"
                 >
-                    Подать заявку
+                    {t.applyBtn}
                 </Link>
             </div>
         </div>

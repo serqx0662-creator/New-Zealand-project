@@ -1,22 +1,22 @@
 export const FOOTER_LINKS = {
     programs: [
-        { name: "Foundation", href: "/programs/foundation" },
-        { name: "Undergraduate", href: "/programs/undergraduate" },
-        { name: "Postgraduate", href: "/programs/postgraduate" },
+        { name: { ru: 'Бакалавриат', en: 'Undergraduate' }, href: '/programs?level=undergraduate' },
+        { name: { ru: 'Магистратура', en: 'Postgraduate' }, href: '/programs?level=postgraduate' },
+        { name: { ru: 'Языковые курсы', en: 'Language Courses' }, href: '/programs?level=language' },
     ],
     countries: [
-        { name: "Новая Зеландия", href: "/countries/nz" },
-        { name: "Австралия", href: "/countries/australia" },
-        { name: "Великобритания", href: "/countries/uk" },
+        { name: { ru: 'Новая Зеландия', en: 'New Zealand' }, href: '/countries/new-zealand' },
+        { name: { ru: 'Австралия', en: 'Australia' }, href: '/countries/australia' },
+        { name: { ru: 'Великобритания', en: 'United Kingdom' }, href: '/countries/uk' },
     ],
     company: [
-        { name: "О нас", href: "/about" },
-        { name: "Контакты", href: "/contacts" },
-        { name: "Карьера", href: "/careers" },
+        { name: { ru: 'О нас', en: 'About Us' }, href: '/About' },
+        { name: { ru: 'Контакты', en: 'Contacts' }, href: '/Contacts' },
+        { name: { ru: 'Карьера', en: 'Careers' }, href: '/careers' },
     ],
     legal: [
-        { name: "Политика конфиденциальности", href: "/privacy" },
-        { name: "Условия использования", href: "/terms" },
-        { name: "Cookie Policy", href: "/cookies" },
+        { name: { ru: 'Политика конфиденциальности', en: 'Privacy Policy' }, href: '/privacy' },
+        { name: { ru: 'Условия использования', en: 'Terms of Service' }, href: '/terms' },
+        { name: { ru: 'Cookie Policy', en: 'Cookie Policy' }, href: '/cookies' },
     ]
 };

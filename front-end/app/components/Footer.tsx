@@ -1,6 +1,8 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
+import { useLanguage } from "@/app/context/LanguageContext";
+import { dictionaries } from "@/app/data/dictionaries";
 import { FOOTER_LINKS } from "@/app/data/footer";
 
 const SOCIAL_LINKS = [
@@ -35,8 +37,27 @@ const SOCIAL_LINKS = [
     }
 ];
 
+interface MultilingualName {
+    ru: string;
+    en: string;
+}
+
+interface FooterLink {
+    name: string | MultilingualName;
+    href: string;
+}
+
 export default function Footer() {
+    const { lang } = useLanguage();
+    const t = dictionaries[lang].footer;
     const currentYear = new Date().getFullYear();
+
+    const getLinkName = (link: FooterLink): string => {
+        if (typeof link.name === 'object' && link.name !== null) {
+            return link.name[lang as keyof MultilingualName];
+        }
+        return link.name;
+    };
 
     return (
         <footer className="bg-white border-t border-gray-100 pt-11 pb-8">
@@ -48,28 +69,28 @@ export default function Footer() {
                             Study NZ
                         </Link>
                         <p className="text-gray-500 text-sm max-w-sm">
-                            Помогаем студентам найти идеальную программу обучения за рубежом.
+                            {t.description}
                         </p>
 
                         <div className="space-y-[25px]">
                             <h4 className="text-sm font-bold text-[#101828]">
-                                Подписка на новости
+                                {t.newsletter.title}
                             </h4>
                             <div className="space-y-4">
                                 <form className="flex flex-col sm:flex-row gap-3 max-w-md" onSubmit={(e) => e.preventDefault()}>
                                     <input
                                         type="email"
-                                        placeholder="Ваш Email"
+                                        placeholder={t.newsletter.placeholder}
                                         className="w-full sm:flex-grow px-4 py-2.5 bg-white border border-gray-200 rounded-md text-sm focus:outline-none focus:border-black transition-colors"
                                     />
                                     <button className="w-full sm:w-auto bg-black text-white px-6 py-2.5 rounded-md cursor-pointer text-sm font-semibold hover:bg-black/90 transition-all active:scale-95 whitespace-nowrap">
-                                        Подписаться
+                                        {t.newsletter.button}
                                     </button>
                                 </form>
                                 <p className="text-xs text-gray-400">
-                                    Подписываясь, вы соглашаетесь с нашей{' '}
+                                    {t.newsletter.privacy}{' '}
                                     <Link href="/privacy" className="underline hover:text-gray-600">
-                                        политикой конфиденциальности
+                                        {t.newsletter.link}
                                     </Link>.
                                 </p>
                             </div>
@@ -78,12 +99,12 @@ export default function Footer() {
 
                     <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-8">
                         <div className="space-y-4">
-                            <h4 className="font-bold text-[#101828]">Программы</h4>
+                            <h4 className="font-bold text-[#101828]">{t.categories.programs}</h4>
                             <ul className="space-y-2">
                                 {FOOTER_LINKS.programs.map((link) => (
-                                    <li key={link.name}>
+                                    <li key={link.href}>
                                         <Link href={link.href} className="text-sm text-gray-500 hover:text-black transition-colors">
-                                            {link.name}
+                                            {getLinkName(link)}
                                         </Link>
                                     </li>
                                 ))}
@@ -91,12 +112,12 @@ export default function Footer() {
                         </div>
 
                         <div className="space-y-4">
-                            <h4 className="font-bold text-[#101828]">Страны</h4>
+                            <h4 className="font-bold text-[#101828]">{t.categories.countries}</h4>
                             <ul className="space-y-2">
                                 {FOOTER_LINKS.countries.map((link) => (
-                                    <li key={link.name}>
+                                    <li key={link.href}>
                                         <Link href={link.href} className="text-sm text-gray-500 hover:text-black transition-colors">
-                                            {link.name}
+                                            {getLinkName(link)}
                                         </Link>
                                     </li>
                                 ))}
@@ -105,12 +126,12 @@ export default function Footer() {
 
                         <div className="space-y-8">
                             <div className="space-y-4">
-                                <h4 className="font-bold text-[#101828]">Компания</h4>
+                                <h4 className="font-bold text-[#101828]">{t.categories.company}</h4>
                                 <ul className="space-y-2">
                                     {FOOTER_LINKS.company.map((link) => (
-                                        <li key={link.name}>
+                                        <li key={link.href}>
                                             <Link href={link.href} className="text-sm text-gray-500 hover:text-black transition-colors">
-                                                {link.name}
+                                                {getLinkName(link)}
                                             </Link>
                                         </li>
                                     ))}
@@ -118,19 +139,18 @@ export default function Footer() {
                             </div>
 
                             <div className="space-y-4">
-                                <h4 className="font-bold text-[#101828]">Правовая информация</h4>
+                                <h4 className="font-bold text-[#101828]">{t.categories.legal}</h4>
                                 <ul className="space-y-2">
                                     {FOOTER_LINKS.legal.map((link) => (
-                                        <li key={link.name}>
+                                        <li key={link.href}>
                                             <Link href={link.href} className="text-sm text-gray-500 hover:text-black transition-colors">
-                                                {link.name}
+                                                {getLinkName(link)}
                                             </Link>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -141,14 +161,14 @@ export default function Footer() {
                                 key={link.name}
                                 href={link.href}
                                 className="text-gray-400 hover:text-black transition-colors"
-                                aria-label={link.name} // Для доступности
+                                aria-label={link.name}
                             >
                                 {link.icon}
                             </Link>
                         ))}
                     </div>
                     <p className="text-sm text-gray-400">
-                        © {currentYear} Study NZ. Все права защищены.
+                        © {currentYear} Study NZ. {t.rights}
                     </p>
                 </div>
 

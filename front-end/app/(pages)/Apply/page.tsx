@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import { Button } from "@/app/components/ui/button";
+import { useLanguage } from "@/app/context/LanguageContext";
+import { dictionaries } from "@/app/data/dictionaries";
 
 import NZStep1Program from "@/app/(pages)/Apply/NZStep1Program";
 import NZStep2Personal from "@/app/(pages)/Apply/NZStep2Personal";
@@ -12,15 +14,11 @@ import NZStep5Review from "@/app/(pages)/Apply/NZStep5Review";
 import NZSuccessScreen from "@/app/(pages)/Apply/NZSuccessScreen";
 
 const TOTAL_STEPS = 5;
-const STEPS_LABELS = [
-    "Выбор программы",
-    "Персональные данные",
-    "Образование",
-    "Документы",
-    "Подтверждение"
-];
 
 export default function ApplyPage() {
+    const { lang } = useLanguage();
+    const t = dictionaries[lang].applyPage;
+
     const [currentStep, setCurrentStep] = useState(1);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -64,28 +62,40 @@ export default function ApplyPage() {
         const newErrors: Record<string, string> = {};
 
         if (currentStep === 1 && !formData.program) {
-            newErrors.program = "Пожалуйста, выберите программу обучения";
+            newErrors.program = t.errors.program;
         }
 
         if (currentStep === 2) {
-            if (!formData.firstName.trim()) newErrors.firstName = "Введите имя";
-            if (!formData.lastName.trim()) newErrors.lastName = "Введите фамилию";
-            if (!formData.email.trim() || !formData.email.includes('@')) newErrors.email = "Введите корректный email";
-            if (!formData.phone || formData.phone.length < 10) newErrors.phone = "Введите полный номер телефона";
+            if (!formData.firstName.trim()) newErrors.firstName = t.errors.firstName;
+            if (!formData.lastName.trim()) newErrors.lastName = t.errors.lastName;
+
+            // Валидация Email
+            if (!formData.email.trim() || !formData.email.includes('@')) {
+                newErrors.email = t.errors.email;
+            }
+
+            // ИСПРАВЛЕННАЯ Валидация телефона:
+            // Проверяем, есть ли вообще данные и нет ли в них символа "_" (признак недописанного номера)
+            if (!formData.phone || formData.phone.includes('_') || formData.phone.trim() === "") {
+                // Если в твоем словаре (dictionaries) нет phone, напиши текст вручную или добавь его туда
+                newErrors.phone = lang === 'ru'
+                    ? "Введите полный номер телефона"
+                    : "Please enter a full phone number";
+            }
         }
 
         if (currentStep === 3) {
-            if (!formData.educationLevel) newErrors.educationLevel = "Выберите уровень образования";
-            if (!formData.language) newErrors.language = "Выберите языковой тест";
+            if (!formData.educationLevel) newErrors.educationLevel = t.errors.education;
+            if (!formData.language) newErrors.language = t.errors.language;
         }
 
         if (currentStep === 4 && formData.files.length === 0) {
-            newErrors.files = "Загрузите хотя бы один документ для продолжения";
+            newErrors.files = t.errors.files;
         }
 
         if (currentStep === 5) {
             if (!isAccepted) {
-                newErrors.accepted = "Необходимо подтвердить согласие";
+                newErrors.accepted = t.errors.accepted;
             } else {
                 localStorage.removeItem('apply_step');
                 localStorage.removeItem('apply_form_data');
@@ -123,12 +133,14 @@ export default function ApplyPage() {
             <div className="max-w-[1440px] mx-auto px-4 md:px-6">
 
                 <div className="mb-12">
-                    <h1 className="text-4xl md:text-5xl font-bold text-[#101828] mb-4 text-left">Подача заявки на обучение</h1>
+                    <h1 className="text-4xl md:text-5xl font-bold text-[#101828] mb-4 text-left">{t.title}</h1>
                 </div>
 
                 <div className="border border-gray-100 rounded-2xl md:rounded-3xl p-4 md:p-8 mb-6 md:mb-8 bg-white shadow-sm">
                     <div className="flex justify-between items-end mb-6">
-                        <span className="text-xs md:text-sm font-bold text-[#101828]">Шаг {currentStep} из {TOTAL_STEPS}</span>
+                        <span className="text-xs md:text-sm font-bold text-[#101828]">
+                            {t.stepLabel} {currentStep} {t.from} {TOTAL_STEPS}
+                        </span>
                         <span className="text-xs md:text-sm font-bold text-[#101828]">{Math.round(((currentStep - 1) / (TOTAL_STEPS - 1)) * 100)}%</span>
                     </div>
 
@@ -143,7 +155,7 @@ export default function ApplyPage() {
                         </div>
 
                         <div className="relative flex justify-between items-center">
-                            {STEPS_LABELS.map((label, index) => {
+                            {t.steps.map((label, index) => {
                                 const stepNumber = index + 1;
                                 const isCompleted = stepNumber < currentStep;
                                 const isActive = stepNumber === currentStep;
@@ -181,8 +193,8 @@ export default function ApplyPage() {
 
                 <div className="border border-gray-100 rounded-[32px] p-6 md:p-12 bg-white shadow-sm min-h-[450px] flex flex-col">
                     <div className="mb-10 text-left">
-                        <h2 className="text-xl font-bold text-[#101828] mb-2">{STEPS_LABELS[currentStep - 1]}</h2>
-                        <p className="text-gray-400 text-sm font-medium">Заполните информацию для шага {currentStep}</p>
+                        <h2 className="text-xl font-bold text-[#101828] mb-2">{t.steps[currentStep - 1]}</h2>
+                        <p className="text-gray-400 text-sm font-medium">{t.placeholders.stepInfo} {currentStep}</p>
                     </div>
 
                     <div className="flex-grow">
@@ -248,14 +260,14 @@ export default function ApplyPage() {
                             disabled={currentStep === 1}
                             className="w-full md:w-auto order-last md:order-first rounded-xl px-6 h-14 md:h-12 text-gray-400 hover:text-black hover:bg-gray-100 border border-gray-100 transition-colors flex items-center justify-center"
                         >
-                            <ChevronLeft className="mr-2 h-4 w-4" /> Назад
+                            <ChevronLeft className="mr-2 h-4 w-4" /> {t.prev}
                         </Button>
 
                         <Button
                             onClick={nextStep}
                             className="w-full md:w-auto order-first md:order-last px-10 h-14 md:h-12 rounded-xl font-bold flex items-center justify-center gap-2 transition-all bg-black text-white hover:bg-black/90 active:scale-95"
                         >
-                            {currentStep === TOTAL_STEPS ? 'Завершить' : 'Далее'} <ChevronRight size={18} />
+                            {currentStep === TOTAL_STEPS ? t.finish : t.next} <ChevronRight size={18} />
                         </Button>
                     </div>
                 </div>
