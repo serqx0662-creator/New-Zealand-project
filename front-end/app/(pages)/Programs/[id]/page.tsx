@@ -14,10 +14,10 @@ interface PageProps {
     params: Promise<{ id: string }>;
 }
 
-const STRAPI_URL = "http://127.0.0.1:1337";
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://127.0.0.1:1337";
 
 export default function Page({ params }: PageProps) {
-    const { id: slug } = React.use(params);
+    const { id: routeId } = React.use(params);
     const { lang } = useLanguage();
     const t = dictionaries[lang].programPage;
 
@@ -25,43 +25,85 @@ export default function Page({ params }: PageProps) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function loadProgram() {
-            if (!slug) return;
+        if (!routeId) return;
 
-            // Важно: не сбрасываем program в null сразу, чтобы не мелькал экран "Не найдено"
-            // во время того, как меняется язык. Просто ставим загрузку.
+        async function loadProgram() {
             setLoading(true);
+            setProgram(null);
 
             try {
-                const query = new URLSearchParams();
-                query.append("filters[slug][$eq]", slug);
-                query.append("locale", lang); // Strapi ищет запись именно в этой локали
-                query.append("populate[0]", "image");
-                query.append("populate[1]", "faq");
-                query.append("populate[2]", "campus_details.facilities");
+                // Build query — always pass locale so Strapi returns the right translation.
+                // documentId in Strapi 5 is an alphanumeric string (no hyphens, ~24 chars).
+                // Slugs are typically shorter and/or contain hyphens.
+                const isDocumentId = routeId.length >= 20 && !routeId.includes("-");
 
-                const url = `${STRAPI_URL}/api/programs?${query.toString()}`;
-                const res = await fetch(url);
+                const params = new URLSearchParams({
+                    locale: lang,
+                    "populate[0]": "image",
+                    "populate[1]": "faq",
+                    "populate[2]": "campus_details",
+                    "populate[3]": "campus_details.facilities",
+                });
+
+                if (isDocumentId) {
+                    params.append("filters[documentId][$eq]", routeId);
+                } else {
+                    params.append("filters[slug][$eq]", routeId);
+                }
+
+                const url = `${STRAPI_URL}/api/programs?${params.toString()}`;
+                console.log("📡 Fetching program:", url);
+
+                const res = await fetch(url, { cache: "no-store" });
 
                 if (!res.ok) {
+                    console.error(`❌ Strapi error: ${res.status} ${res.statusText}`);
                     setProgram(null);
-                    setLoading(false);
                     return;
                 }
 
-                const responseData = await res.json();
+                const json = await res.json();
+                console.log("📦 Strapi response:", json);
 
-                // Если программа найдена для текущего языка
-                if (responseData.data && responseData.data.length > 0) {
-                    setProgram(responseData.data[0]);
+                if (json.data && json.data.length > 0) {
+                    setProgram(json.data[0]);
                 } else {
-                    // Если на другом языке программы с таким слагом нет
-                    // (Например: в Strapi у русской версии слаг "program-ru", а у англ "program-en")
-                    console.warn(`Program with slug ${slug} not found for locale ${lang}`);
-                    setProgram(null);
+                    // Fallback: if the locale variant doesn't exist in Strapi yet,
+                    // try fetching without a locale filter so we at least show something.
+                    console.warn(`⚠️ No ${lang} variant found, trying without locale...`);
+
+                    const fallbackParams = new URLSearchParams({
+                        "populate[0]": "image",
+                        "populate[1]": "faq",
+                        "populate[2]": "campus_details",
+                        "populate[3]": "campus_details.facilities",
+                    });
+
+                    if (isDocumentId) {
+                        fallbackParams.append("filters[documentId][$eq]", routeId);
+                    } else {
+                        fallbackParams.append("filters[slug][$eq]", routeId);
+                    }
+
+                    const fallbackRes = await fetch(
+                        `${STRAPI_URL}/api/programs?${fallbackParams.toString()}`,
+                        { cache: "no-store" }
+                    );
+
+                    if (fallbackRes.ok) {
+                        const fallbackJson = await fallbackRes.json();
+                        if (fallbackJson.data && fallbackJson.data.length > 0) {
+                            console.warn("⚠️ Showing fallback locale content");
+                            setProgram(fallbackJson.data[0]);
+                        } else {
+                            setProgram(null);
+                        }
+                    } else {
+                        setProgram(null);
+                    }
                 }
             } catch (error) {
-                console.error("Ошибка сети или парсинга");
+                console.error("🚨 Network/parse error:", error);
                 setProgram(null);
             } finally {
                 setLoading(false);
@@ -69,9 +111,11 @@ export default function Page({ params }: PageProps) {
         }
 
         loadProgram();
-    }, [slug, lang]); // lang обязателен здесь
+    }, [routeId, lang]);
 
-    if (loading) return <div className="pt-40 text-center text-gray-500">{t.loading}</div>;
+    if (loading) {
+        return <div className="pt-40 text-center text-gray-500">{t.loading}</div>;
+    }
 
     if (!program) {
         return (
@@ -83,36 +127,33 @@ export default function Page({ params }: PageProps) {
     }
 
     const imageUrl = program.image?.url
-        ? (program.image.url.startsWith('http') ? program.image.url : `${STRAPI_URL}${program.image.url}`)
+        ? (program.image.url.startsWith("http")
+            ? program.image.url
+            : `${STRAPI_URL}${program.image.url}`)
         : "/placeholder.jpg";
+
+    const requirements = (() => {
+        const reqs = program.requirements;
+        if (Array.isArray(reqs)) return reqs;
+        if (typeof reqs === "string") return reqs.split("\n").filter((l: string) => l.trim() !== "");
+        return [];
+    })();
 
     const tabContent = {
         description: program.description || "",
-        requirements: (() => {
-            const reqs = program.requirements;
-            if (Array.isArray(reqs)) return reqs;
-            if (typeof reqs === 'string') {
-                return (reqs as string).split('\n').filter((l: string) => l.trim() !== "");
-            }
-            return [];
-        })(),
-
+        requirements,
         courses: Array.isArray(program.courses) && program.courses.length > 0
             ? program.courses
-            : [t.sections.coursesEmpty || "Information is being updated"],
-        yearlyPrice: `$${Number(program.price).toLocaleString('en-US')}`,
-        totalPrice: `$${(Number(program.price) * 3).toLocaleString('en-US')}`,
+            : [t.sections.coursesEmpty],
+        yearlyPrice: `$${program.price ? Number(program.price).toLocaleString("en-US") : "0"}`,
+        totalPrice:  `$${program.price ? (Number(program.price) * 3).toLocaleString("en-US") : "0"}`,
         campus: program.campus_details?.main_text || "",
         campusFacilities: program.campus_details?.facilities || [],
-        howToApply: t.sections.applySteps || [
-            "1. Заполните онлайн-форму заявки",
-            "2. Загрузите необходимые документы",
-            "3. Оплатите регистрационный взнос",
-            "4. Дождитесь рассмотрения заявки",
-            "5. Получите письмо о зачислении"
-        ],
-        faq: program.faq || []
+        howToApply: t.sections.applySteps,
+        faq: program.faq || [],
     };
+
+    const startDate = lang === "ru" ? "Сентябрь 2026" : "September 2026";
 
     return (
         <main className="bg-white min-h-screen pt-40 pb-20">
@@ -136,8 +177,8 @@ export default function Page({ params }: PageProps) {
 
                     <NZProgramSidebar
                         duration={program.duration}
-                        startDate={lang === 'ru' ? "Сентябрь 2026" : "September 2026"}
-                        price={`$${Number(program.price).toLocaleString('en-US')}`}
+                        startDate={startDate}
+                        price={`$${program.price ? Number(program.price).toLocaleString("en-US") : "0"}`}
                         rating="4.8 / 5"
                     />
                 </div>

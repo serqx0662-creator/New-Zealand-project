@@ -16,16 +16,79 @@ import {
 
 const inputStyles = "rounded-xl h-11 border-gray-200 focus:border-black focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors bg-white text-xs";
 
-export function NZprogramFilters({ onSearch }: { onSearch?: (value: string) => void }) {
+// Filter state always stores CANONICAL ENGLISH KEYS,
+// never translated strings. This makes comparison against
+// Strapi data reliable regardless of the active language.
+export interface FilterState {
+    search: string;
+    country: string;   // "new-zealand" | "australia" | "canada" | ""
+    level: string;     // "undergraduate" | "postgraduate" | "language" | ""
+    direction: string; // "business" | "it" | "design" | "medicine" | ""
+    sort: string;      // "popularity" | "price-asc" | "price-desc" | ""
+    scholarshipOnly: boolean;
+}
+
+// ─── Option definitions ───────────────────────────────────────────────────────
+// Each option has a stable key (used in FilterState) and a label per locale.
+
+const COUNTRY_OPTIONS = [
+    { key: "new-zealand", ru: "Новая Зеландия",  en: "New Zealand" },
+    { key: "australia",   ru: "Австралия",        en: "Australia" },
+    { key: "canada",      ru: "Канада",           en: "Canada" },
+];
+
+const LEVEL_OPTIONS = [
+    { key: "undergraduate", ru: "Бакалавриат",      en: "Bachelor's" },
+    { key: "postgraduate",  ru: "Магистратура",     en: "Master's" },
+    { key: "language",      ru: "Языковые курсы",   en: "Language Courses" },
+];
+
+const DIRECTION_OPTIONS = [
+    { key: "business", ru: "Бизнес",   en: "Business" },
+    { key: "it",       ru: "IT",       en: "IT" },
+    { key: "design",   ru: "Дизайн",  en: "Design" },
+    { key: "medicine", ru: "Медицина", en: "Medicine" },
+];
+
+const SORT_OPTIONS = [
+    { key: "popularity", ru: "По популярности",          en: "By popularity" },
+    { key: "price-asc",  ru: "Цена: по возрастанию",     en: "Price: low to high" },
+    { key: "price-desc", ru: "Цена: по убыванию",        en: "Price: high to low" },
+];
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
+interface NZprogramFiltersProps {
+    onFilterChange: (filters: FilterState) => void;
+}
+
+export function NZprogramFilters({ onFilterChange }: NZprogramFiltersProps) {
     const { lang } = useLanguage();
     const t = dictionaries[lang].filters;
-    const [searchTerm, setSearchTerm] = useState("");
 
+    const [searchTerm, setSearchTerm]       = useState("");
+    const [country, setCountry]             = useState("");
+    const [level, setLevel]                 = useState("");
+    const [direction, setDirection]         = useState("");
+    const [sort, setSort]                   = useState("");
+    const [scholarshipOnly, setScholarship] = useState(false);
+
+    // Push canonical keys up to the parent on every change
     useEffect(() => {
-        if (onSearch) {
-            onSearch(searchTerm);
-        }
-    }, [searchTerm, onSearch]);
+        onFilterChange({ search: searchTerm, country, level, direction, sort, scholarshipOnly });
+    }, [searchTerm, country, level, direction, sort, scholarshipOnly, onFilterChange]);
+
+    // Canonical keys are language-agnostic, so no reset needed on lang change
+
+    const getLabel = (
+        options: typeof COUNTRY_OPTIONS,
+        key: string,
+        placeholder: string
+    ) => {
+        if (!key) return placeholder;
+        const opt = options.find(o => o.key === key);
+        return opt ? opt[lang] : placeholder;
+    };
 
     return (
         <div className="border border-[#DDE0E7] rounded-[12px] p-6 mb-8 shadow-xs bg-white">
@@ -37,6 +100,7 @@ export function NZprogramFilters({ onSearch }: { onSearch?: (value: string) => v
             </div>
 
             <div className="space-y-6">
+                {/* Search input */}
                 <div className="relative">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
                     <Input
@@ -55,31 +119,109 @@ export function NZprogramFilters({ onSearch }: { onSearch?: (value: string) => v
                     )}
                 </div>
 
+                {/* Dropdowns */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <FilterDropdown
                         label={t.labels.country}
-                        placeholder={t.placeholders.allCountries}
-                        options={["Новая Зеландия", "Австралия", "Канада"]}
-                    />
+                        displayValue={getLabel(COUNTRY_OPTIONS, country, t.placeholders.allCountries)}
+                        hasValue={!!country}
+                        onClear={() => setCountry("")}
+                    >
+                        <DropdownMenuItem
+                            onClick={() => setCountry("")}
+                            className="rounded-lg cursor-pointer py-2.5 px-3 text-xs focus:bg-gray-50 text-gray-500"
+                        >
+                            {t.placeholders.allCountries}
+                        </DropdownMenuItem>
+                        {COUNTRY_OPTIONS.map(opt => (
+                            <DropdownMenuItem
+                                key={opt.key}
+                                onClick={() => setCountry(opt.key)}
+                                className="rounded-lg cursor-pointer py-2.5 px-3 text-xs focus:bg-gray-50 focus:text-black outline-none"
+                            >
+                                {opt[lang]}
+                            </DropdownMenuItem>
+                        ))}
+                    </FilterDropdown>
+
                     <FilterDropdown
                         label={t.labels.level}
-                        placeholder={t.placeholders.allLevels}
-                        options={t.options.levels}
-                    />
+                        displayValue={getLabel(LEVEL_OPTIONS, level, t.placeholders.allLevels)}
+                        hasValue={!!level}
+                        onClear={() => setLevel("")}
+                    >
+                        <DropdownMenuItem
+                            onClick={() => setLevel("")}
+                            className="rounded-lg cursor-pointer py-2.5 px-3 text-xs focus:bg-gray-50 text-gray-500"
+                        >
+                            {t.placeholders.allLevels}
+                        </DropdownMenuItem>
+                        {LEVEL_OPTIONS.map(opt => (
+                            <DropdownMenuItem
+                                key={opt.key}
+                                onClick={() => setLevel(opt.key)}
+                                className="rounded-lg cursor-pointer py-2.5 px-3 text-xs focus:bg-gray-50 focus:text-black outline-none"
+                            >
+                                {opt[lang]}
+                            </DropdownMenuItem>
+                        ))}
+                    </FilterDropdown>
+
                     <FilterDropdown
                         label={t.labels.direction}
-                        placeholder={t.placeholders.allDirections}
-                        options={t.options.directions}
-                    />
+                        displayValue={getLabel(DIRECTION_OPTIONS, direction, t.placeholders.allDirections)}
+                        hasValue={!!direction}
+                        onClear={() => setDirection("")}
+                    >
+                        <DropdownMenuItem
+                            onClick={() => setDirection("")}
+                            className="rounded-lg cursor-pointer py-2.5 px-3 text-xs focus:bg-gray-50 text-gray-500"
+                        >
+                            {t.placeholders.allDirections}
+                        </DropdownMenuItem>
+                        {DIRECTION_OPTIONS.map(opt => (
+                            <DropdownMenuItem
+                                key={opt.key}
+                                onClick={() => setDirection(opt.key)}
+                                className="rounded-lg cursor-pointer py-2.5 px-3 text-xs focus:bg-gray-50 focus:text-black outline-none"
+                            >
+                                {opt[lang]}
+                            </DropdownMenuItem>
+                        ))}
+                    </FilterDropdown>
+
                     <FilterDropdown
                         label={t.labels.sort}
-                        placeholder={t.placeholders.popularity}
-                        options={t.options.sorting}
-                    />
+                        displayValue={getLabel(SORT_OPTIONS, sort, t.placeholders.popularity)}
+                        hasValue={!!sort}
+                        onClear={() => setSort("")}
+                    >
+                        <DropdownMenuItem
+                            onClick={() => setSort("")}
+                            className="rounded-lg cursor-pointer py-2.5 px-3 text-xs focus:bg-gray-50 text-gray-500"
+                        >
+                            {t.placeholders.popularity}
+                        </DropdownMenuItem>
+                        {SORT_OPTIONS.map(opt => (
+                            <DropdownMenuItem
+                                key={opt.key}
+                                onClick={() => setSort(opt.key)}
+                                className="rounded-lg cursor-pointer py-2.5 px-3 text-xs focus:bg-gray-50 focus:text-black outline-none"
+                            >
+                                {opt[lang]}
+                            </DropdownMenuItem>
+                        ))}
+                    </FilterDropdown>
                 </div>
 
+                {/* Scholarship checkbox */}
                 <div className="flex items-center space-x-3 pt-2">
-                    <Checkbox id="scholarship" className="border-gray-300 data-[state=checked]:bg-black data-[state=checked]:border-black" />
+                    <Checkbox
+                        id="scholarship"
+                        checked={scholarshipOnly}
+                        onCheckedChange={(checked) => setScholarship(!!checked)}
+                        className="border-gray-300 data-[state=checked]:bg-black data-[state=checked]:border-black"
+                    />
                     <Label htmlFor="scholarship" className="text-sm text-gray-500 font-medium cursor-pointer select-none">
                         {t.scholarshipOnly}
                     </Label>
@@ -89,29 +231,32 @@ export function NZprogramFilters({ onSearch }: { onSearch?: (value: string) => v
     );
 }
 
-// Вспомогательный компонент (в том же файле)
-function FilterDropdown({ label, placeholder, options }: { label: string; placeholder: string, options: string[] }) {
-    const [selected, setSelected] = useState("");
+// ─── Shared dropdown shell ────────────────────────────────────────────────────
 
-    // Сбрасываем выбранное значение при смене языка,
-    // так как старое значение на другом языке больше не валидно
-    const { lang } = useLanguage();
-    useEffect(() => {
-        setSelected("");
-    }, [lang]);
+interface FilterDropdownProps {
+    label: string;
+    displayValue: string;
+    hasValue: boolean;
+    onClear: () => void;
+    children: React.ReactNode;
+}
 
+function FilterDropdown({ label, displayValue, hasValue, onClear, children }: FilterDropdownProps) {
     return (
         <div className="space-y-2">
             <Label className="text-[12px] font-bold text-[#101828] ml-1">{label}</Label>
             <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild className="group">
-                    <button type="button" className="flex items-center justify-between w-full px-4 h-12 rounded-xl border border-gray-200 bg-white text-xs text-gray-500 hover:border-black focus:outline-none transition-all data-[state=open]:border-black">
-                        <span className={selected ? "text-[#101828] font-medium" : "truncate"}>
-                            {selected || placeholder}
+                    <button
+                        type="button"
+                        className="flex items-center justify-between w-full px-4 h-12 rounded-xl border border-gray-200 bg-white text-xs text-gray-500 hover:border-black focus:outline-none transition-all data-[state=open]:border-black"
+                    >
+                        <span className={hasValue ? "text-[#101828] font-medium truncate" : "truncate"}>
+                            {displayValue}
                         </span>
                         <ChevronDown
                             size={16}
-                            className="text-gray-400 transition-transform duration-300 group-data-[state=open]:rotate-180 flex-shrink-0"
+                            className="text-gray-400 transition-transform duration-300 group-data-[state=open]:rotate-180 flex-shrink-0 ml-2"
                         />
                     </button>
                 </DropdownMenuTrigger>
@@ -119,21 +264,7 @@ function FilterDropdown({ label, placeholder, options }: { label: string; placeh
                     align="start"
                     className="min-w-[200px] w-[--radix-dropdown-menu-trigger-width] rounded-xl border-gray-100 shadow-xl p-1 bg-white z-50"
                 >
-                    <DropdownMenuItem
-                        onClick={() => setSelected("")}
-                        className="rounded-lg cursor-pointer py-2.5 px-3 text-xs focus:bg-gray-50 text-gray-500"
-                    >
-                        {placeholder}
-                    </DropdownMenuItem>
-                    {options.map((option) => (
-                        <DropdownMenuItem
-                            key={option}
-                            onClick={() => setSelected(option)}
-                            className="rounded-lg cursor-pointer py-2.5 px-3 text-xs focus:bg-gray-50 focus:text-black outline-none"
-                        >
-                            {option}
-                        </DropdownMenuItem>
-                    ))}
+                    {children}
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>

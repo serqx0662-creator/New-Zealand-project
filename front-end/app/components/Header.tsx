@@ -13,7 +13,7 @@ import {
 } from "@/app/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { dictionaries, Locale } from "@/app/data/dictionaries";
-import {useLanguage} from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -43,9 +43,17 @@ export default function Header() {
         { name: t.contacts, href: '/Contacts', icon: <Clock size={18} /> },
     ];
 
+    // Функция теперь добавляет префикс для ВСЕХ языков (и ru, и en)
+    const getLocalizedHref = (href: string) => {
+        const cleanHref = href === '/' ? '' : href;
+        return `/${lang}${cleanHref}`;
+    };
+
+    // Проверка активного роута (срезаем префиксы, чтобы корректно подсвечивать пункты)
     const isActive = (href: string) => {
-        if (href === '/') return pathname === '/';
-        return pathname.startsWith(href);
+        const cleanPathname = pathname.replace(/^\/(ru|en)/, "") || "/";
+        if (href === '/') return cleanPathname === '/';
+        return cleanPathname.startsWith(href);
     };
 
     return (
@@ -56,7 +64,7 @@ export default function Header() {
                 <div className="max-w-[1440px] mx-auto px-4 md:px-6 flex items-center justify-between w-full">
 
                     <div className="flex items-center">
-                        <Link href="/" className="relative flex items-center h-10 md:h-12 w-20 transition-opacity hover:opacity-90">
+                        <Link href={getLocalizedHref('/')} className="relative flex items-center h-10 md:h-12 w-20 transition-opacity hover:opacity-90">
                             <Image
                                 src="/logo/logo-white.svg"
                                 alt="GetGrant"
@@ -73,7 +81,7 @@ export default function Header() {
                             return (
                                 <Link
                                     key={link.name}
-                                    href={link.href}
+                                    href={getLocalizedHref(link.href)}
                                     className={`text-sm font-medium transition-colors ${
                                         active ? "text-blue-600" : "text-gray-600 hover:text-[#002B5C]"
                                     }`}
@@ -86,7 +94,7 @@ export default function Header() {
 
                     <div className="flex items-center gap-3">
                         <Link
-                            href="/Apply"
+                            href={getLocalizedHref('/Apply')}
                             className={cn(
                                 "h-10 rounded-md px-6 bg-black hover:bg-black/80 text-white hidden sm:flex items-center justify-center transition-all active:scale-95 font-medium text-sm"
                             )}
@@ -106,7 +114,6 @@ export default function Header() {
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
-                                    {/* При клике меняем состояние lang */}
                                     <DropdownMenuItem onClick={() => setLang('ru')} className="cursor-pointer">Русский</DropdownMenuItem>
                                     <DropdownMenuItem onClick={() => setLang('en')} className="cursor-pointer">English</DropdownMenuItem>
                                 </DropdownMenuContent>
@@ -146,7 +153,7 @@ export default function Header() {
                             return (
                                 <Link
                                     key={link.href}
-                                    href={link.href}
+                                    href={getLocalizedHref(link.href)}
                                     onClick={() => setIsMobileMenuOpen(false)}
                                     className={`flex items-center gap-4 p-4 rounded-xl text-lg font-medium transition-all ${
                                         active ? "bg-blue-50 text-blue-600" : "text-gray-600 hover:bg-gray-50"

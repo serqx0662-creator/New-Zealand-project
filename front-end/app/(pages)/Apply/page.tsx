@@ -15,37 +15,63 @@ import NZSuccessScreen from "@/app/(pages)/Apply/NZSuccessScreen";
 
 const TOTAL_STEPS = 5;
 
+// 1. Явно описываем интерфейс структуры данных формы для TypeScript
+interface FormDataStructure {
+    program: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    educationLevel: string;
+    language: string;
+    files: File[];
+}
+
 export default function ApplyPage() {
     const { lang } = useLanguage();
     const t = dictionaries[lang].applyPage;
 
-    const [currentStep, setCurrentStep] = useState(1);
+    // Инициализируем шаг сразу из localStorage (безопасно для SSR)
+    const [currentStep, setCurrentStep] = useState<number>(() => {
+        if (typeof window !== 'undefined') {
+            const savedStep = localStorage.getItem('apply_step');
+            return savedStep ? parseInt(savedStep) : 1;
+        }
+        return 1;
+    });
+
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [isAccepted, setIsAccepted] = useState(false);
 
-    const [formData, setFormData] = useState({
-        program: "",
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        educationLevel: "",
-        language: "",
-        files: [] as File[]
+    // Инициализируем данные формы сразу из localStorage с явным указанием интерфейса
+    const [formData, setFormData] = useState<FormDataStructure>(() => {
+        const defaultData: FormDataStructure = {
+            program: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            educationLevel: "",
+            language: "",
+            files: []
+        };
+
+        if (typeof window !== 'undefined') {
+            const savedData = localStorage.getItem('apply_form_data');
+            if (savedData) {
+                try {
+                    const parsed = JSON.parse(savedData);
+                    return { ...defaultData, ...parsed, files: [] };
+                } catch (e) {
+                    return defaultData;
+                }
+            }
+        }
+        return defaultData;
     });
 
-    useEffect(() => {
-        const savedStep = localStorage.getItem('apply_step');
-        const savedData = localStorage.getItem('apply_form_data');
-
-        if (savedStep) setCurrentStep(parseInt(savedStep));
-        if (savedData) {
-            const parsed = JSON.parse(savedData);
-            setFormData(prev => ({ ...prev, ...parsed, files: [] }));
-        }
-    }, []);
-
+    // Этот эффект занимается исключительно сохранением изменений на диске
     useEffect(() => {
         if (!isSubmitted) {
             localStorage.setItem('apply_step', currentStep.toString());
@@ -54,7 +80,8 @@ export default function ApplyPage() {
         }
     }, [currentStep, formData, isSubmitted]);
 
-    const updateFields = (fields: Partial<typeof formData>) => {
+    // 2. Исправленная функция: теперь prev типизирован автоматически и не вызывает TS7006
+    const updateFields = (fields: Partial<FormDataStructure>) => {
         setFormData(prev => ({ ...prev, ...fields }));
     };
 
@@ -69,15 +96,11 @@ export default function ApplyPage() {
             if (!formData.firstName.trim()) newErrors.firstName = t.errors.firstName;
             if (!formData.lastName.trim()) newErrors.lastName = t.errors.lastName;
 
-            // Валидация Email
             if (!formData.email.trim() || !formData.email.includes('@')) {
                 newErrors.email = t.errors.email;
             }
 
-            // ИСПРАВЛЕННАЯ Валидация телефона:
-            // Проверяем, есть ли вообще данные и нет ли в них символа "_" (признак недописанного номера)
             if (!formData.phone || formData.phone.includes('_') || formData.phone.trim() === "") {
-                // Если в твоем словаре (dictionaries) нет phone, напиши текст вручную или добавь его туда
                 newErrors.phone = lang === 'ru'
                     ? "Введите полный номер телефона"
                     : "Please enter a full phone number";

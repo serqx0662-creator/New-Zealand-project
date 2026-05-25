@@ -31,7 +31,7 @@ export const dictionaries = {
             cards: {
                 safety: {
                     title: "Безопасная и спокойная среда",
-                    desc: "Новая Зеландия постоянно входит в число самых безопасных стран мира, предлагая стабильное общество и дружелюбную атмосферу для жизни и учёбы."
+                    desc: "Новая Зеландия постоянно входит в число самых безопасных стран мира, offering стабильное общество и дружелюбную атмосферу для жизни и учёбы."
                 },
                 education: {
                     title: "Образование мирового класса",
@@ -54,48 +54,13 @@ export const dictionaries = {
         services: {
             title: "Наши услуги",
             items: [
-                {
-                    id: '01',
-                    title: 'Карьерное руководство и выбор будущей профессии',
-                    description: 'Мы помогаем определить подходящую сферу и будущую профессию.',
-                    image: '/image/services/service1.png'
-                },
-                {
-                    id: '02',
-                    title: 'Выбор программы и учебного заведения',
-                    description: 'Мы подбираем оптимальный курс и университет для ваших целей.',
-                    image: '/image/services/service2.png'
-                },
-                {
-                    id: '03',
-                    title: 'Подготовка к поступлению',
-                    description: 'Мы готовим документы, мотивационное письмо, портфолио и к интервью.',
-                    image: '/image/services/service3.png'
-                },
-                {
-                    id: '04',
-                    title: 'Зачисление',
-                    description: 'Мы обрабатываем заявку, отправляем документы и помогаем до подтверждения.',
-                    image: '/image/services/service4.png'
-                },
-                {
-                    id: '05',
-                    title: 'Стипендии',
-                    description: 'Мы ищем подходящие стипендии и помогаем с подачей заявки.',
-                    image: '/image/services/service5.png'
-                },
-                {
-                    id: '06',
-                    title: 'Поддержка по визам',
-                    description: 'Мы предоставляем консультации и помогаем собрать документы для получения визы.',
-                    image: '/image/services/service6.png'
-                },
-                {
-                    id: '07',
-                    title: 'Авиабилеты',
-                    description: 'Находим удобные и экономичные варианты перелетов.',
-                    image: '/image/services/service7.png'
-                }
+                { id: '01', title: 'Карьерное руководство и выбор будущей профессии', description: 'Мы помогаем определить подходящую сферу и будущую профессию.', image: '/image/services/service1.png' },
+                { id: '02', title: 'Выбор программы и учебного заведения', description: 'Мы подбираем оптимальный курс и университет для ваших целей.', image: '/image/services/service2.png' },
+                { id: '03', title: 'Подготовка к поступлению', description: 'Мы готовим документы, мотивационное письмо, портфолио и к интервью.', image: '/image/services/service3.png' },
+                { id: '04', title: 'Зачисление', description: 'Мы обрабатываем заявку, отправляем документы и помогаем до подтверждения.', image: '/image/services/service4.png' },
+                { id: '05', title: 'Стипендии', description: 'Мы ищем подходящие стипендии и помогаем с подачей заявки.', image: '/image/services/service5.png' },
+                { id: '06', title: 'Поддержка по визам', description: 'Мы предоставляем консультации и помогаем собрать документы для получения визы.', image: '/image/services/service6.png' },
+                { id: '07', title: 'Авиабилеты', description: 'Находим удобные и экономичные варианты перелетов.', image: '/image/services/service7.png' }
             ]
         },
         programs: {
@@ -104,30 +69,14 @@ export const dictionaries = {
             found: "НАЙДЕНО ПРОГРАММ",
             notFound: "По вашему запросу ничего не найдено",
             loading: "Загрузка программ...",
-            card: {
-                more: "Подробнее",
-                apply: "Подать заявку",
-                duration: "Уточняется",
-                location: "Локация не указана",
-                priceFrom: "От"
-            }
+            card: { more: "Подробнее", apply: "Подать заявку", duration: "Уточняется", location: "Локация не указана", priceFrom: "От" }
         },
         filters: {
             title: "Фильтры и поиск",
             searchPlaceholder: "Поиск по названию программы или университета...",
             scholarshipOnly: "Только программы со стипендией",
-            labels: {
-                country: "Страна",
-                level: "Уровень",
-                direction: "Направление",
-                sort: "Сортировка"
-            },
-            placeholders: {
-                allCountries: "Все страны",
-                allLevels: "Все уровни",
-                allDirections: "Все направления",
-                popularity: "По популярности"
-            },
+            labels: { country: "Страна", level: "Уровень", direction: "Направление", sort: "Сортировка" },
+            placeholders: { allCountries: "Все страны", allLevels: "Все уровни", allDirections: "Все направления", popularity: "По популярности" },
             options: {
                 levels: ["Бакалавриат", "Магистратура", "Языковые курсы"],
                 directions: ["Бизнес", "IT", "Дизайн", "Медицина"],
@@ -139,26 +88,18 @@ export const dictionaries = {
             loading: "Загрузка...",
             notFound: "Программа не найдена",
             goBack: "Вернуться назад",
-            tabs: {
-                overview: "Обзор",
-                requirements: "Требования",
-                courses: "Курсы",
-                price: "Стоимость",
-                apply: "Как подать",
-                campus: "Кампус",
-                faq: "FAQ"
-            },
+            tabs: { overview: "Обзор", requirements: "Требования", courses: "Курсы", price: "Стоимость", apply: "Как подать", campus: "Кампус", faq: "FAQ" },
             sections: {
                 description: "Описание программы",
                 admission: "Требования для поступления",
                 mainCourses: "Основные курсы",
-                coursesEmpty: "Информация о модулях обучения обновляется", // Добавлено
+                coursesEmpty: "Информация о модулях обучения обновляется",
                 tuition: "Стоимость обучения",
                 yearly: "Стоимость за год",
                 total: "Общая стоимость",
                 scholarshipNote: "Стипендии доступны для квалифицированных студентов",
                 applyProcess: "Процесс подачи заявки",
-                applySteps: [ // Добавлено
+                applySteps: [
                     "1. Заполните онлайн-форму заявки",
                     "2. Загрузите необходимые документы",
                     "3. Оплатите регистрационный взнос",
@@ -200,29 +141,16 @@ export const dictionaries = {
             programsIn: "Программы в",
             noPrograms: "Программы пока не добавлены",
             more: "Подробнее",
-            fastFacts: {
-                title: "Быстрые факты",
-                capital: "Столица:",
-                currency: "Валюта:",
-                year: "Учебный год:",
-                noData: "Данные отсутствуют"
-            }
+            fastFacts: { title: "Быстрые факты", capital: "Столица:", currency: "Валюта:", year: "Учебный год:", noData: "Данные отсутствуют" }
         },
-        countryCard: {
-            universities: "Университетов",
-            programs: "Программ",
-            students: "Студентов"
-        },
+        countryCard: { universities: "Университетов", programs: "Программ", students: "Студентов" },
         universitiesPage: {
             title: "Университеты-партнёры",
             description: "Лучшие университеты со всего мира",
             searchPlaceholder: "Поиск университета",
             loading: "Загрузка...",
             notFound: "Университеты не найдены",
-            stats: {
-                rating: "Рейтинг",
-                programs: "Программ"
-            },
+            stats: { rating: "Рейтинг", programs: "Программ" },
             cardBtn: "Посмотреть программу",
             backBtn: "Назад к программам",
             aboutTitle: "О университете",
@@ -232,11 +160,7 @@ export const dictionaries = {
             quickInfo: "Быстрая информация",
             detailsBtn: "Подробнее"
         },
-        programTypes: {
-            Postgraduate: "Магистратура",
-            Undergraduate: "Бакалавриат",
-            Foundation: "Подготовительный курс",
-        },
+        programTypes: { Postgraduate: "Магистратура", Undergraduate: "Бакалавриат", Foundation: "Подготовительный курс" },
         events: {
             title: "Мероприятия",
             description: "Присоединяйтесь к нашим событиям и узнайте больше о возможностях",
@@ -252,24 +176,9 @@ export const dictionaries = {
             successDesc: "Вы успешно зарегистрированы на мероприятие. Мы свяжемся с вами в ближайшее время.",
             programTitle: "Программа мероприятия",
             back: "Назад к мероприятиям",
-            types: {
-                offline: "Офлайн",
-                online: "Онлайн"
-            },
-            info: {
-                location: "Место",
-                slots: "Места",
-                free: "Свободно",
-                registered: "Зарегистрировано"
-            },
-            form: {
-                name: "Имя",
-                email: "Email",
-                phone: "Телефон",
-                namePlaceholder: "Ваше имя",
-                emailPlaceholder: "Ваш email",
-                sending: "Отправка..."
-            }
+            types: { offline: "Офлайн", online: "Онлайн" },
+            info: { location: "Место", slots: "Места", free: "Свободно", registered: "Зарегистрировано" },
+            form: { name: "Имя", email: "Email", phone: "Телефон", namePlaceholder: "Ваше имя", emailPlaceholder: "Ваш email", sending: "Отправка..." }
         },
         aboutPage: {
             title: "О нас",
@@ -293,12 +202,7 @@ export const dictionaries = {
                 { value: "50+", label: "Стран" },
                 { value: "15", label: "Лет опыта" }
             ],
-            cta: {
-                title: "Готовы начать своё путешествие?",
-                desc: "Свяжитесь с нами сегодня и получите бесплатную консультацию",
-                consultBtn: "Запросить консультацию",
-                programsBtn: "Посмотреть программы"
-            }
+            cta: { title: "Готовы начать своё путешествие?", desc: "Свяжитесь с нами сегодня и получите бесплатную консультацию", consultBtn: "Запросить консультацию", programsBtn: "Посмотреть программы" }
         },
         contactsPage: {
             title: "Контакты",
@@ -306,28 +210,10 @@ export const dictionaries = {
             form: {
                 title: "Написать нам",
                 description: "Заполните форму, и мы ответим вам в ближайшее время",
-                labels: {
-                    name: "Имя",
-                    email: "Email",
-                    subject: "Тема",
-                    phone: "Телефон",
-                    message: "Сообщение",
-                    privacy: "Я согласен с политикой конфиденциальности"
-                },
-                placeholders: {
-                    name: "Ваше имя",
-                    subject: "Тема обращения",
-                    message: "Ваше сообщение..."
-                },
+                labels: { name: "Имя", email: "Email", subject: "Тема", phone: "Телефон", message: "Сообщение", privacy: "Я согласен с политикой конфиденциальности" },
+                placeholders: { name: "Ваше имя", subject: "Тема обращения", message: "Ваше сообщение..." },
                 button: "Отправить запрос",
-                errors: {
-                    name: "Введите имя",
-                    email: "Некорректный email",
-                    subject: "Укажите тему",
-                    phone: "Введите корректный номер",
-                    message: "Введите сообщение (минимум 10 символов)",
-                    privacy: "Нужно согласие"
-                }
+                errors: { name: "Введите имя", email: "Некорректный email", subject: "Укажите тему", phone: "Введите корректный номер", message: "Введите сообщение (минимум 10 символов)", privacy: "Нужно согласие" }
             },
             info: {
                 title: "Контактная информация",
@@ -344,65 +230,19 @@ export const dictionaries = {
         },
         footer: {
             description: "Помогаем студентам найти идеальную программу обучения за рубежом.",
-            newsletter: {
-                title: "Подписка на новости",
-                placeholder: "Ваш Email",
-                button: "Подписаться",
-                privacy: "Подписываясь, вы соглашаетесь с нашей",
-                link: "политикой конфиденциальности"
-            },
-            categories: {
-                programs: "Программы",
-                countries: "Страны",
-                company: "Компания",
-                legal: "Правовая информация"
-            },
+            newsletter: { title: "Подписка на новости", placeholder: "Ваш Email", button: "Подписаться", privacy: "Подписываясь, вы соглашаетесь с нашей", link: "политикой конфиденциальности" },
+            categories: { programs: "Программы", countries: "Страны", company: "Компания", legal: "Правовая информация" },
             rights: "Все права защищены."
         },
         applyPage: {
             title: "Подача заявки на обучение",
             steps: ["Выбор программы", "Персональные данные", "Образование", "Документы", "Подтверждение"],
-            stepLabel: "Шаг",
-            from: "из",
-            next: "Далее",
-            prev: "Назад",
-            finish: "Завершить",
-            placeholders: {
-                stepInfo: "Заполните информацию для шага",
-                selectProgram: "Выберите программу обучения",
-                selectEducation: "Выберите уровень образования",
-                selectLanguage: "Выберите языковой тест",
-                firstName: "Имя",
-                lastName: "Фамилия"
-            },
-            errors: {
-                program: "Пожалуйста, выберите программу обучения",
-                firstName: "Введите имя",
-                lastName: "Введите фамилию",
-                email: "Введите корректный email",
-                phone: "Введите полный номер телефона",
-                education: "Выберите уровень образования",
-                language: "Выберите языковой тест",
-                files: "Загрузите хотя бы один документ для продолжения",
-                accepted: "Необходимо подтвердить согласие"
-            },
-            success: {
-                title: "Ваша заявка была успешно принята",
-                subtitle: "Все шаги были выполнены",
-                wait: "Ожидайте подтверждения вашей заявки",
-                backHome: "Вернуться на главную"
-            },
-            review: {
-                title: "Подтверждение заявки",
-                filesLabel: "Прикрепленные документы",
-                terms: "Я согласен с условиями обработки персональных данных"
-            },
-            docs: {
-                uploadTitle: "Загрузите документ (до 10мб каждый)",
-                uploadHint: "Нажмите для выбора или перетащите файлы сюда",
-                requiredTitle: "Требуемые документы:",
-                items: ['Аттестат или диплом', 'Языковой сертификат', 'Мотивационное письмо', 'Рекомендательные письма']
-            }
+            stepLabel: "Шаг", from: "из", next: "Далее", prev: "Назад", finish: "Завершить",
+            placeholders: { stepInfo: "Заполните информацию для шага", selectProgram: "Выберите программу обучения", selectEducation: "Выберите уровень образования", selectLanguage: "Выберите языковой тест", firstName: "Имя", lastName: "Фамилия" },
+            errors: { program: "Пожалуйста, выберите программу обучения", firstName: "Введите имя", lastName: "Введите фамилию", email: "Введите корректный email", phone: "Введите полный номер телефона", education: "Выберите уровень образования", language: "Выберите языковой тест", files: "Загрузите хотя бы один документ для продолжения", accepted: "Необходимо подтвердить согласие" },
+            success: { title: "Ваша заявка была успешно принята", subtitle: "Все шаги были выполнены", wait: "Ожидайте подтверждения вашей заявки", backHome: "Вернуться на главную" },
+            review: { title: "Подтверждение заявки", filesLabel: "Прикрепленные документы", terms: "Я согласен с условиями обработки персональных данных" },
+            docs: { uploadTitle: "Загрузите документ (до 10мб каждый)", uploadHint: "Нажмите для выбора или перетащите файлы сюда", requiredTitle: "Требуемые документы:", items: ['Аттестат или диплом', 'Языковой сертификат', 'Мотивационное письмо', 'Рекомендательные письма'] }
         },
         consultation: {
             title: "Запросить консультацию",
@@ -410,43 +250,13 @@ export const dictionaries = {
             formTitle: "Форма обратной связи",
             formSubtitle: "Мы ответим на все ваши вопросы о программах обучения",
             sidebar: {
-                contacts: "Контактная информация",
-                socials: "Социальные сети",
-                phone: "Телефон",
-                email: "Email",
-                address: "Адрес",
-                hours: "Рабочие часы",
+                contacts: "Контактная информация", socials: "Социальные сети", phone: "Телефон", email: "Email", address: "Адрес", hours: "Рабочие часы",
                 hoursDetail: ["Пн - Пт: 9:00 - 18:00", "Сб: 10:00 - 16:00", "Вс: Выходной"],
                 addressDetail: ["Москва, ул. Тверская, 10", "Офис 205, 2 этаж"]
             },
-            labels: {
-                firstName: "Имя *",
-                lastName: "Фамилия *",
-                email: "Email *",
-                phone: "Телефон *",
-                country: "Страна интереса",
-                program: "Программа интереса",
-                message: "Ваш вопрос *",
-                privacy: "Я согласен с политикой конфиденциальности",
-                submit: "Отправить запрос"
-            },
-            placeholders: {
-                firstName: "Введите имя",
-                lastName: "Введите фамилию",
-                message: "Опишите ваш запрос...",
-                country: "Выберите страну",
-                program: "Выберите программу"
-            },
-            errors: {
-                firstName: "Введите имя",
-                lastName: "Введите фамилию",
-                email: "Некорректный email",
-                phone: "Введите полный номер телефона",
-                country: "Выберите страну",
-                program: "Выберите программу",
-                message: "Опишите подробнее (минимум 10 символов)",
-                privacy: "Нужно ваше согласие"
-            }
+            labels: { firstName: "Имя *", lastName: "Фамилия *", email: "Email *", phone: "Телефон *", country: "Страна интереса", program: "Программа интереса", message: "Ваш вопрос *", privacy: "Я согласен с политикой конфиденциальности", submit: "Отправить запрос" },
+            placeholders: { firstName: "Введите имя", lastName: "Введите фамилию", message: "Опишите ваш запрос...", country: "Выберите страну", program: "Выберите программу" },
+            errors: { firstName: "Введите имя", lastName: "Введите фамилию", email: "Некорректный email", phone: "Введите полный номер телефона", country: "Выберите страну", program: "Выберите программу", message: "Опишите подробнее (минимум 10 символов)", privacy: "Нужно ваше согласие" }
         }
     },
     en: {
@@ -477,73 +287,23 @@ export const dictionaries = {
             title: "Why New Zealand?",
             description: "Modern education, safety, and unique nature make New Zealand the perfect choice.",
             cards: {
-                safety: {
-                    title: "Safe and Peaceful Environment",
-                    desc: "New Zealand consistently ranks among the world's safest countries, offering a stable society and a friendly atmosphere for living and studying."
-                },
-                education: {
-                    title: "World-Class Education",
-                    desc: "New Zealand universities are globally recognized for innovative teaching methods, practical learning, and strong industry links."
-                },
-                career: {
-                    title: "Career and Migration Opportunities",
-                    desc: "The country needs skilled and educated people — international graduates are encouraged to stay and build long-term careers."
-                },
-                culture: {
-                    title: "Open and Friendly Culture",
-                    desc: "Kiwis are known for their kindness, inclusivity, and respect for diversity. Students feel genuinely welcomed and quickly become part of the community."
-                },
-                quality: {
-                    title: "Quality of Life",
-                    desc: "Clean nature, fresh air, balanced lifestyle, and excellent healthcare make New Zealand one of the best places in the world."
-                }
+                safety: { title: "Safe and Peaceful Environment", desc: "New Zealand consistently ranks among the world's safest countries, offering a stable society and a friendly atmosphere for living and studying." },
+                education: { title: "World-Class Education", desc: "New Zealand universities are globally recognized for innovative teaching methods, practical learning, and strong industry links." },
+                career: { title: "Career and Migration Opportunities", desc: "The country needs skilled and educated people — international graduates are encouraged to stay and build long-term careers." },
+                culture: { title: "Open and Friendly Culture", desc: "Kiwis are known for their kindness, inclusivity, and respect for diversity. Students feel genuinely welcomed and quickly become part of the community." },
+                quality: { title: "Quality of Life", desc: "Clean nature, fresh air, balanced lifestyle, and excellent healthcare make New Zealand one of the best places in the world." }
             }
         },
         services: {
             title: "Our Services",
             items: [
-                {
-                    id: '01',
-                    title: 'Career Guidance',
-                    description: 'We help identify the right field and future profession.',
-                    image: '/image/services/service1.png'
-                },
-                {
-                    id: '02',
-                    title: 'Program Selection',
-                    description: 'We select the optimal course and university for your goals.',
-                    image: '/image/services/service2.png'
-                },
-                {
-                    id: '03',
-                    title: 'Admission Preparation',
-                    description: 'We prepare documents, motivation letters, portfolios, and interviews.',
-                    image: '/image/services/service3.png'
-                },
-                {
-                    id: '04',
-                    title: 'Enrollment',
-                    description: 'We process the application and assist until final confirmation.',
-                    image: '/image/services/service4.png'
-                },
-                {
-                    id: '05',
-                    title: 'Scholarships',
-                    description: 'We search for suitable scholarships and help with applications.',
-                    image: '/image/services/service5.png'
-                },
-                {
-                    id: '06',
-                    title: 'Visa Support',
-                    description: 'We provide consultations and help collect documents for the visa.',
-                    image: '/image/services/service6.png'
-                },
-                {
-                    id: '07',
-                    title: 'Air Tickets',
-                    description: 'We find convenient and economical flight options.',
-                    image: '/image/services/service7.png'
-                }
+                { id: '01', title: 'Career Guidance', description: 'We help identify the right field and future profession.', image: '/image/services/service1.png' },
+                { id: '02', title: 'Program Selection', description: 'We select the optimal course and university for your goals.', image: '/image/services/service2.png' },
+                { id: '03', title: 'Admission Preparation', description: 'We prepare documents, motivation letters, portfolios, and interviews.', image: '/image/services/service3.png' },
+                { id: '04', title: 'Enrollment', description: 'We process the application and assist until final confirmation.', image: '/image/services/service4.png' },
+                { id: '05', title: 'Scholarships', description: 'We search for suitable scholarships and help with applications.', image: '/image/services/service5.png' },
+                { id: '06', title: 'Visa Support', description: 'We provide consultations and help collect documents for the visa.', image: '/image/services/service6.png' },
+                { id: '07', title: 'Air Tickets', description: 'We find convenient and economical flight options.', image: '/image/services/service7.png' }
             ]
         },
         programs: {
@@ -552,30 +312,14 @@ export const dictionaries = {
             found: "PROGRAMS FOUND",
             notFound: "Nothing found for your request",
             loading: "Loading programs...",
-            card: {
-                more: "Details",
-                apply: "Apply Now",
-                duration: "To be confirmed",
-                location: "Location not specified",
-                priceFrom: "From"
-            }
+            card: { more: "Details", apply: "Apply Now", duration: "To be confirmed", location: "Location not specified", priceFrom: "From" }
         },
         filters: {
             title: "Filters & Search",
             searchPlaceholder: "Search by program or university name...",
             scholarshipOnly: "Scholarship programs only",
-            labels: {
-                country: "Country",
-                level: "Level",
-                direction: "Direction",
-                sort: "Sort by"
-            },
-            placeholders: {
-                allCountries: "All countries",
-                allLevels: "All levels",
-                allDirections: "All directions",
-                popularity: "By popularity"
-            },
+            labels: { country: "Country", level: "Level", direction: "Direction", sort: "Sort by" },
+            placeholders: { allCountries: "All countries", allLevels: "All levels", allDirections: "All directions", popularity: "By popularity" },
             options: {
                 levels: ["Bachelor's", "Master's", "Language Courses"],
                 directions: ["Business", "IT", "Design", "Medicine"],
@@ -587,15 +331,7 @@ export const dictionaries = {
             loading: "Loading...",
             notFound: "Program not found",
             goBack: "Go back",
-            tabs: {
-                overview: "Overview",
-                requirements: "Requirements",
-                courses: "Courses",
-                price: "Cost",
-                apply: "How to Apply",
-                campus: "Campus",
-                faq: "FAQ"
-            },
+            tabs: { overview: "Overview", requirements: "Requirements", courses: "Courses", price: "Cost", apply: "How to Apply", campus: "Campus", faq: "FAQ" },
             sections: {
                 description: "Program Description",
                 admission: "Admission Requirements",
@@ -648,29 +384,16 @@ export const dictionaries = {
             programsIn: "Programs in",
             noPrograms: "No programs added yet",
             more: "Details",
-            fastFacts: {
-                title: "Fast Facts",
-                capital: "Capital:",
-                currency: "Currency:",
-                year: "Academic Year:",
-                noData: "No data available"
-            }
+            fastFacts: { title: "Fast Facts", capital: "Capital:", currency: "Currency:", year: "Academic Year:", noData: "No data available" }
         },
-        countryCard: {
-            universities: "Universities",
-            programs: "Programs",
-            students: "Students"
-        },
+        countryCard: { universities: "Universities", programs: "Programs", students: "Students" },
         universitiesPage: {
             title: "Partner Universities",
             description: "Top universities from around the world",
             searchPlaceholder: "Search for a university",
             loading: "Loading...",
             notFound: "No universities found",
-            stats: {
-                rating: "Rating",
-                programs: "Programs"
-            },
+            stats: { rating: "Rating", programs: "Programs" },
             cardBtn: "View Programs",
             backBtn: "Back to programs",
             aboutTitle: "About the University",
@@ -680,11 +403,7 @@ export const dictionaries = {
             quickInfo: "Quick Information",
             detailsBtn: "Details"
         },
-        programTypes: {
-            Postgraduate: "Postgraduate",
-            Undergraduate: "Undergraduate",
-            Foundation: "Foundation / Pathway",
-        },
+        programTypes: { Postgraduate: "Postgraduate", Undergraduate: "Undergraduate", Foundation: "Foundation / Pathway" },
         events: {
             title: "Events",
             description: "Join our events and learn more about opportunities",
@@ -700,24 +419,9 @@ export const dictionaries = {
             successDesc: "You have successfully registered for the event. We will contact you shortly.",
             programTitle: "Event Schedule",
             back: "Back to events",
-            types: {
-                offline: "Offline",
-                online: "Online"
-            },
-            info: {
-                location: "Location",
-                slots: "Availability",
-                free: "Free",
-                registered: "Registered"
-            },
-            form: {
-                name: "Name",
-                email: "Email",
-                phone: "Phone",
-                namePlaceholder: "Your name",
-                emailPlaceholder: "Your email",
-                sending: "Sending..."
-            }
+            types: { offline: "Offline", online: "Online" },
+            info: { location: "Location", slots: "Availability", free: "Free", registered: "Registered" },
+            form: { name: "Name", email: "Email", phone: "Phone", namePlaceholder: "Your name", emailPlaceholder: "Your email", sending: "Sending..." }
         },
         aboutPage: {
             title: "About Us",
@@ -741,12 +445,7 @@ export const dictionaries = {
                 { value: "50+", label: "Countries" },
                 { value: "15", label: "Years of Experience" }
             ],
-            cta: {
-                title: "Ready to Start Your Journey?",
-                desc: "Contact us today and get a free consultation from our experts",
-                consultBtn: "Request a Consultation",
-                programsBtn: "View Programs"
-            }
+            cta: { title: "Ready to start your journey?", desc: "Contact us today and get a free consultation", consultBtn: "Request Consultation", programsBtn: "View Programs" }
         },
         contactsPage: {
             title: "Contacts",
@@ -754,28 +453,10 @@ export const dictionaries = {
             form: {
                 title: "Write to us",
                 description: "Fill out the form and we will get back to you shortly",
-                labels: {
-                    name: "Name",
-                    email: "Email",
-                    subject: "Subject",
-                    phone: "Phone",
-                    message: "Message",
-                    privacy: "I agree to the privacy policy"
-                },
-                placeholders: {
-                    name: "Your name",
-                    subject: "Subject of inquiry",
-                    message: "Your message..."
-                },
+                labels: { name: "Name", email: "Email", subject: "Subject", phone: "Phone", message: "Message", privacy: "I agree to the privacy policy" },
+                placeholders: { name: "Your name", subject: "Subject of inquiry", message: "Your message..." },
                 button: "Send Request",
-                errors: {
-                    name: "Enter your name",
-                    email: "Invalid email",
-                    subject: "Specify a subject",
-                    phone: "Enter a valid number",
-                    message: "Enter a message (minimum 10 characters)",
-                    privacy: "Consent is required"
-                }
+                errors: { name: "Enter name", email: "Invalid email", subject: "Specify subject", phone: "Enter a valid number", message: "Enter message (minimum 10 characters)", privacy: "Consent required" }
             },
             info: {
                 title: "Contact Information",
@@ -784,73 +465,27 @@ export const dictionaries = {
                     email: "Email",
                     address: "Address",
                     hours: "Working Hours",
-                    addressValues: ["10 Tverskaya St, Moscow", "Office 205, 2nd Floor"],
+                    addressValues: ["Moscow, Tverskaya St, 10", "Office 205, 2nd floor"],
                     hoursValues: ["Mon - Fri: 9:00 - 18:00", "Sat: 10:00 - 16:00", "Sun: Closed"]
                 }
             },
-            socials: "Social Media"
+            socials: "Social Networks"
         },
         footer: {
-            description: "Helping students find the perfect study program abroad.",
-            newsletter: {
-                title: "Newsletter Subscription",
-                placeholder: "Your Email",
-                button: "Subscribe",
-                privacy: "By subscribing, you agree to our",
-                link: "privacy policy"
-            },
-            categories: {
-                programs: "Programs",
-                countries: "Countries",
-                company: "Company",
-                legal: "Legal Information"
-            },
+            description: "We help students find their perfect study abroad program.",
+            newsletter: { title: "Newsletter Subscription", placeholder: "Your Email", button: "Subscribe", privacy: "By subscribing, you agree to our", link: "privacy policy" },
+            categories: { programs: "Programs", countries: "Countries", company: "Company", legal: "Legal Info" },
             rights: "All rights reserved."
         },
         applyPage: {
-            title: "Study Application",
-            steps: ["Program Selection", "Personal Data", "Education", "Documents", "Review"],
-            stepLabel: "Step",
-            from: "of",
-            next: "Next",
-            prev: "Back",
-            finish: "Finish",
-            placeholders: {
-                stepInfo: "Fill in the information for step",
-                selectProgram: "Select a study program",
-                selectEducation: "Select education level",
-                selectLanguage: "Select language test",
-                firstName: "First Name",
-                lastName: "Last Name"
-            },
-            errors: {
-                program: "Please select a study program",
-                firstName: "Enter your first name",
-                lastName: "Enter your last name",
-                email: "Enter a valid email",
-                phone: "Enter full phone number",
-                education: "Select your education level",
-                language: "Select a language test",
-                files: "Upload at least one document to continue",
-                accepted: "You must confirm your consent"
-            },
-            success: {
-                title: "Your application has been successfully accepted",
-                subtitle: "All steps have been completed",
-                wait: "Please wait for confirmation of your application",
-                backHome: "Back to Home"
-            },
-            review: {
-                title: "Application Review",
-                filesLabel: "Attached documents",
-                terms: "I agree to the terms of personal data processing"
-            },
-            docs: {
-                uploadTitle: "Upload documents (up to 10MB each)",
-                uploadHint: "Click to select or drag and drop files here",
-                requiredTitle: "Required documents:",
-                items: ['Certificate or Diploma', 'Language Certificate', 'Motivation Letter', 'Letters of Recommendation']
-            }
+            title: "Apply for Studies",
+            steps: ["Program Selection", "Personal Data", "Education", "Documents", "Confirmation"],
+            stepLabel: "Step", from: "of", next: "Next", prev: "Back", finish: "Finish",
+            placeholders: { stepInfo: "Fill out the info for step", selectProgram: "Select a study program", selectEducation: "Select education level", selectLanguage: "Select language test", firstName: "First Name", lastName: "Last Name" },
+            errors: { program: "Please select a study program", firstName: "Enter first name", lastName: "Enter last name", email: "Enter a valid email", phone: "Enter full phone number", education: "Select education level", language: "Select language test", files: "Upload at least one document to proceed", accepted: "Confirmation required" },
+            success: { title: "Your application has been successfully received", subtitle: "All steps completed", wait: "Please wait for application confirmation", backHome: "Back to Home" },
+            review: { title: "Application Confirmation", filesLabel: "Attached documents", terms: "I agree to the personal data processing terms" },
+            docs: { uploadTitle: "Upload document (up to 10MB each)", uploadHint: "Click to select or drag files here", requiredTitle: "Required documents:", items: ['Certificate or Diploma', 'Language Certificate', 'Motivation Letter', 'Letters of Recommendation'] }
         },
         consultation: {
             title: "Request a Consultation",
@@ -858,43 +493,13 @@ export const dictionaries = {
             formTitle: "Feedback Form",
             formSubtitle: "We will answer all your questions about study programs",
             sidebar: {
-                contacts: "Contact Information",
-                socials: "Social Networks",
-                phone: "Phone",
-                email: "Email",
-                address: "Address",
-                hours: "Working Hours",
+                contacts: "Contact Information", socials: "Social Networks", phone: "Phone", email: "Email", address: "Address", hours: "Working Hours",
                 hoursDetail: ["Mon - Fri: 9:00 - 18:00", "Sat: 10:00 - 16:00", "Sun: Closed"],
-                addressDetail: ["10 Tverskaya St, Moscow", "Office 205, 2nd floor"]
+                addressDetail: ["Moscow, Tverskaya St, 10", "Office 205, 2nd floor"]
             },
-            labels: {
-                firstName: "First Name *",
-                lastName: "Last Name *",
-                email: "Email *",
-                phone: "Phone *",
-                country: "Country of interest",
-                program: "Program of interest",
-                message: "Your question *",
-                privacy: "I agree to the privacy policy",
-                submit: "Send Request"
-            },
-            placeholders: {
-                firstName: "Enter name",
-                lastName: "Enter last name",
-                message: "Describe your request...",
-                country: "Select country",
-                program: "Select program"
-            },
-            errors: {
-                firstName: "Enter first name",
-                lastName: "Enter last name",
-                email: "Invalid email",
-                phone: "Please enter a full phone number",
-                country: "Please select a country",
-                program: "Please select a program",
-                message: "Please provide more details (min 10 chars)",
-                privacy: "Consent is required"
-            }
+            labels: { firstName: "First Name *", lastName: "Last Name *", email: "Email *", phone: "Phone *", country: "Country of Interest", program: "Program of Interest", message: "Your Question *", privacy: "I agree to the privacy policy", submit: "Send Request" },
+            placeholders: { firstName: "Enter name", lastName: "Enter last name", message: "Describe your request...", country: "Select country", program: "Select program" },
+            errors: { firstName: "Enter name", lastName: "Enter last name", email: "Invalid email", phone: "Enter full phone number", country: "Select country", program: "Select program", message: "Describe in detail (minimum 10 characters)", privacy: "Your consent is required" }
         }
     }
-};
+} as const;
