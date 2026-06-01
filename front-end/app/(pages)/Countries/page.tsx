@@ -5,7 +5,7 @@ import { CountryData } from "@/app/(pages)/Countries/data";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { dictionaries } from "@/app/data/dictionaries";
 
-const STRAPI_URL = "http://127.0.0.1:1337";
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://127.0.0.1:1337";
 
 interface StrapiEntry {
     id: number;

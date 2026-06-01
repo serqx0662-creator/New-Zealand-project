@@ -5,7 +5,7 @@ import { CountryData, Advantage } from "@/app/(pages)/Countries/data";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { dictionaries } from "@/app/data/dictionaries";
 
-const STRAPI_URL = "http://127.0.0.1:1337";
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://127.0.0.1:1337";
 const TOKEN = "cb2663af49ac0b0e6f72b2a9493b8739f6f8a590325cbe99d3521d63e590e63d4f263a4aaf713cd0fde2a3ae3256eb3811098b15d8310a0eeb6b349bc29bb5dda6f10ac579d30f0db5b9dca793962be741603537f5f4ed049e59ffe519e55a2eaa3277d1ed036c5648fc4f781269c35456ac20d19ff43b78d1871f2f132955d4";
 
 interface TextChild {
