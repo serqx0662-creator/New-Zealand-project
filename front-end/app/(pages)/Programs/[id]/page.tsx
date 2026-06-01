@@ -32,9 +32,7 @@ export default function Page({ params }: PageProps) {
             setProgram(null);
 
             try {
-                // Build query — always pass locale so Strapi returns the right translation.
-                // documentId in Strapi 5 is an alphanumeric string (no hyphens, ~24 chars).
-                // Slugs are typically shorter and/or contain hyphens.
+
                 const isDocumentId = routeId.length >= 20 && !routeId.includes("-");
 
                 const params = new URLSearchParams({
@@ -68,8 +66,7 @@ export default function Page({ params }: PageProps) {
                 if (json.data && json.data.length > 0) {
                     setProgram(json.data[0]);
                 } else {
-                    // Fallback: if the locale variant doesn't exist in Strapi yet,
-                    // try fetching without a locale filter so we at least show something.
+
                     console.warn(`⚠️ No ${lang} variant found, trying without locale...`);
 
                     const fallbackParams = new URLSearchParams({
@@ -149,7 +146,7 @@ export default function Page({ params }: PageProps) {
         totalPrice:  `$${program.price ? (Number(program.price) * 3).toLocaleString("en-US") : "0"}`,
         campus: program.campus_details?.main_text || "",
         campusFacilities: program.campus_details?.facilities || [],
-        howToApply: t.sections.applySteps,
+        howToApply: [...t.sections.applySteps],
         faq: program.faq || [],
     };
 
@@ -159,7 +156,7 @@ export default function Page({ params }: PageProps) {
         <main className="bg-white min-h-screen pt-40 pb-20">
             <div className="max-w-[1440px] mx-auto px-6">
                 <button
-                    className="inline-flex items-center gap-2 text-sm text-zinc-600 border border-zinc-200 rounded-xl px-4 py-2 hover:bg-zinc-50 transition-all active:scale-95 mb-8"
+                    className="inline-flex items-center gap-2 text-sm text-zinc-600 border border-gray-300 rounded-md px-4 py-2 hover:bg-zinc-50 transition-all active:scale-95 mb-8"
                     onClick={() => window.history.back()}
                 >
                     <ArrowLeft size={18} /> {t.back}

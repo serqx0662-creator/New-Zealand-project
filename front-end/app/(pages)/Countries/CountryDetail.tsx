@@ -3,6 +3,8 @@ import { CountryData } from "@/app/(pages)/Countries/data";
 import Link from "next/link";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { dictionaries } from "@/app/data/dictionaries";
+import {ArrowLeft} from "lucide-react";
+import React from "react";
 
 interface CountryDetailProps {
     country: CountryData;
@@ -17,9 +19,9 @@ export const CountryDetail = ({ country }: CountryDetailProps) => {
         <div className="max-w-[1440px] mx-auto px-4 md:px-6 pt-40 pb-20 text-gray-900 dark:text-white">
             <Link
                 href="/Countries"
-                className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-zinc-800 rounded-lg px-4 py-2 hover:bg-gray-50 dark:hover:bg-zinc-900 transition-colors mb-6 sm:max-w-[174px]"
+                className="inline-flex items-center gap-2 text-sm text-zinc-600 border border-gray-300 rounded-md px-4 py-2 hover:bg-zinc-50 transition-all active:scale-95 mb-8"
             >
-                ← {t.back}
+                <ArrowLeft size={18} /> {t.back}
             </Link>
 
             <h1 className="text-2xl md:text-4xl font-bold mb-3">

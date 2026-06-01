@@ -35,7 +35,6 @@ export default function CountriesPage() {
         async function fetchCountries() {
             setLoading(true);
             try {
-                // Добавляем locale=${lang} в запрос
                 const res = await fetch(
                     `${STRAPI_URL}/api/countries?locale=${lang}&populate[0]=image&populate[1]=stats`
                 );
@@ -79,7 +78,7 @@ export default function CountriesPage() {
             }
         }
         fetchCountries();
-    }, [lang]); // Перезагружаем данные при смене языка
+    }, [lang]);
 
     if (loading) return <div className="pt-40 text-center text-gray-500 font-medium">{t.loading}</div>;
 

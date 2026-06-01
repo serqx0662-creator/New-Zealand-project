@@ -43,13 +43,11 @@ export default function Header() {
         { name: t.contacts, href: '/Contacts', icon: <Clock size={18} /> },
     ];
 
-    // Функция теперь добавляет префикс для ВСЕХ языков (и ru, и en)
     const getLocalizedHref = (href: string) => {
         const cleanHref = href === '/' ? '' : href;
         return `/${lang}${cleanHref}`;
     };
 
-    // Проверка активного роута (срезаем префиксы, чтобы корректно подсвечивать пункты)
     const isActive = (href: string) => {
         const cleanPathname = pathname.replace(/^\/(ru|en)/, "") || "/";
         if (href === '/') return cleanPathname === '/';
@@ -58,8 +56,8 @@ export default function Header() {
 
     return (
         <>
-            <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white border-b border-gray-100 ${
-                isScrolled ? "py-3 shadow-md" : "py-5 shadow-sm"
+            <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white border-b border-gray-200 ${
+                isScrolled ? "py-3 shadow-sm" : "py-5"
             }`}>
                 <div className="max-w-[1440px] mx-auto px-4 md:px-6 flex items-center justify-between w-full">
 

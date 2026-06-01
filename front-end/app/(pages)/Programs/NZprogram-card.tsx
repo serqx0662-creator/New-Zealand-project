@@ -23,7 +23,6 @@ export default function NZProgramCard({ program }: { program: ProgramData }) {
         ? (program.image.url.startsWith('http') ? program.image.url : `${STRAPI_URL}${program.image.url}`)
         : "/placeholder.jpg";
 
-    // Безопасный фоллбек: приоритет отдаем documentId, чтобы роутинг не ломался при смене языков
     const href = program.documentId
         ? `/Programs/${program.documentId}`
         : `/Programs/${program.slug || program.id}`;

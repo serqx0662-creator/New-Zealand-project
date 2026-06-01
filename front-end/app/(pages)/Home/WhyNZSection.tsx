@@ -25,8 +25,7 @@ export default function WhyNZSection() {
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4"
                     style={{ gridTemplateRows: "auto" }}
                 >
-                    {/* Карточка 1 */}
-                    <div className="lg:col-span-2 border border-gray-100 rounded-3xl p-8 bg-white transition-all duration-500 hover:bg-[#F8F9FB] hover:border-gray-200 hover:shadow-sm group">
+                    <div className="lg:col-span-2 border border-gray-100 rounded-[16px] p-8 bg-white transition-all duration-500 hover:bg-[#F8F9FB] hover:border-gray-200 group">
                         <h3 className="text-lg font-semibold text-gray-900 mb-3 transition-colors duration-500">
                             {t.cards.safety.title}
                         </h3>
@@ -35,8 +34,7 @@ export default function WhyNZSection() {
                         </p>
                     </div>
 
-                    {/* Карточка 2 */}
-                    <div className="lg:col-span-3 border border-gray-100 rounded-3xl p-8 bg-white transition-all duration-500 hover:bg-[#F8F9FB] hover:border-gray-200 hover:shadow-sm group">
+                    <div className="lg:col-span-3 border border-gray-100 rounded-[16px] p-8 bg-white transition-all duration-500 hover:bg-[#F8F9FB] hover:border-gray-200 group">
                         <h3 className="text-lg font-semibold text-gray-900 mb-3 transition-colors duration-500">
                             {t.cards.education.title}
                         </h3>
@@ -45,8 +43,7 @@ export default function WhyNZSection() {
                         </p>
                     </div>
 
-                    {/* Карточка 3 (С картинкой) */}
-                    <div className="md:row-span-2 lg:col-span-2 lg:row-span-2 border border-transparent bg-[#F2F4F7] rounded-3xl p-8 flex flex-col justify-between overflow-hidden min-h-[360px] transition-all duration-500 hover:bg-[#EBEDF0] group">
+                    <div className="md:row-span-2 lg:col-span-2 lg:row-span-2 border border-transparent bg-[#F2F4F7] rounded-[16px] p-8 flex flex-col justify-between overflow-hidden min-h-[360px] transition-all duration-500 hover:bg-[#EBEDF0] group">
                         <div>
                             <h3 className="text-lg font-semibold text-gray-900 mb-3 transition-colors duration-500">
                                 {t.cards.career.title}
@@ -64,8 +61,7 @@ export default function WhyNZSection() {
                         </div>
                     </div>
 
-                    {/* Карта */}
-                    <div className="lg:col-span-1 border border-transparent bg-[#F2F4F7] rounded-3xl flex items-center justify-center p-6 min-h-[180px] transition-all duration-500 hover:bg-[#EBEDF0] group">
+                    <div className="lg:col-span-1 border border-transparent bg-[#F2F4F7] rounded-[16px] flex items-center justify-center p-6 min-h-[180px] transition-all duration-500 hover:bg-[#EBEDF0] group">
                         <img
                             src="/image/why-nz-map.webp"
                             alt="World Map"
@@ -73,8 +69,7 @@ export default function WhyNZSection() {
                         />
                     </div>
 
-                    {/* Карточка 4 */}
-                    <div className="lg:col-span-2 border border-gray-100 rounded-3xl p-8 bg-white transition-all duration-500 hover:bg-[#F8F9FB] hover:border-gray-200 hover:shadow-sm group">
+                    <div className="lg:col-span-2 border border-gray-100 rounded-[16px] p-8 bg-white transition-all duration-500 hover:bg-[#F8F9FB] hover:border-gray-200 group">
                         <h3 className="text-lg font-semibold text-gray-900 mb-3 transition-colors duration-500">
                             {t.cards.culture.title}
                         </h3>
@@ -83,8 +78,7 @@ export default function WhyNZSection() {
                         </p>
                     </div>
 
-                    {/* Карточка 5 */}
-                    <div className="md:col-span-2 lg:col-span-3 border border-gray-100 rounded-3xl p-8 bg-white transition-all duration-500 hover:bg-[#F8F9FB] hover:border-gray-200 hover:shadow-sm group">
+                    <div className="md:col-span-2 lg:col-span-3 border border-gray-100 rounded-[16px] p-8 bg-white transition-all duration-500 hover:bg-[#F8F9FB] hover:border-gray-200 group">
                         <h3 className="text-lg font-semibold text-gray-900 mb-3 transition-colors duration-500">
                             {t.cards.quality.title}
                         </h3>

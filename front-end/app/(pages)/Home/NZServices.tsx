@@ -20,7 +20,7 @@ export default function NZServices() {
                     {t.items.map((service) => (
                         <div
                             key={service.id}
-                            className="relative bg-[#F1F2F8] rounded-3xl flex flex-col group transition-all duration-500 hover:bg-[#EBEDF0]"
+                            className="relative bg-[#F1F2F8] rounded-[16px] flex flex-col group transition-all duration-500 hover:bg-[#EBEDF0]"
                         >
                             <div className="p-6 md:p-8 z-10 md:max-w-[60%]">
                                 <span className="text-xl md:text-[32px] font-bold text-[#101828] block mb-2">
