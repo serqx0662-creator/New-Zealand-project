@@ -295,7 +295,7 @@ export const dictionaries = {
             }
         },
         services: {
-            title: "Our Services",
+            title: "Our services",
             items: [
                 { id: '01', title: 'Career Guidance', description: 'We help identify the right field and future profession.', image: '/image/services/service1.png' },
                 { id: '02', title: 'Program Selection', description: 'We select the optimal course and university for your goals.', image: '/image/services/service2.png' },
