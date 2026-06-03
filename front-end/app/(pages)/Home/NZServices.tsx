@@ -33,7 +33,7 @@ export default function NZServices() {
                                     {service.description}
                                 </p>
                             </div>
-                            <div className="relative h-36 md:h-48 w-full md:absolute md:right-0 md:bottom-0 md:top-0 md:w-[45%] mt-4 md:mt-0 pointer-events-none">
+                            <div className="relative h-36 md:h-0 w-full md:absolute md:right-0 md:bottom-0 md:top-0 md:w-[45%] mt-4 md:mt-0 pointer-events-none">
                                 <div className="relative h-full w-full transition-transform duration-500 group-hover:scale-105 origin-bottom">
                                     <Image
                                         src={service.image}
