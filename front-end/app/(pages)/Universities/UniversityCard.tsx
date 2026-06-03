@@ -16,9 +16,9 @@ export default function UniversityCard({ university }: UniversityCardProps) {
 
     const { name, city, country, rating, qsRank, programsCount, image, documentId } = university;
 
-    const imageUrl = image?.startsWith('http')
-        ? image
-        : `${process.env.NEXT_PUBLIC_STRAPI_URL}${image}`;
+    const imageUrl = image
+        ? (image.startsWith('http') ? image : `${process.env.NEXT_PUBLIC_STRAPI_URL}${image}`)
+        : "/placeholder-university.png";
 
     return (
         <Link href={`/Universities/${documentId}`}>

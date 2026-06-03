@@ -45,7 +45,9 @@ export default function UniversitiesPage() {
                         rating: Number(item.rating) || 0,
                         qsRank: item.qsRank || "N/A",
                         programsCount: Number(item.programsCount) || 0,
-                        image: item.image?.url ? `${baseUrl}${item.image.url}` : "/image/country.png",
+                        image: item.image?.url
+                            ? (item.image.url.startsWith("http") ? item.image.url : `${baseUrl}${item.image.url}`)
+                            : "/image/country.png",
                         description: item.description || "",
                         about: item.about || "",
                         programs: (item.programs || []).map((p): Program => ({

@@ -64,11 +64,12 @@ export default function EventSinglePage() {
                         location: raw.location,
                         address: raw.address,
                         description: raw.description,
-                        // Используем перевод типа из словаря
                         type: (t.types[rawTypeKey as keyof typeof t.types] || raw.type) as "Офлайн" | "Онлайн",
                         registered: raw.registered || 0,
                         totalSlots: raw.totalSlots || 0,
-                        image: raw.image?.url ? `${baseUrl}${raw.image.url}` : "/placeholder.png",
+                        image: raw.image?.url
+                            ? (raw.image.url.startsWith("http") ? raw.image.url : `${baseUrl}${raw.image.url}`)
+                            : "/placeholder.png",
                         schedule: raw.schedule || []
                     });
                 }
