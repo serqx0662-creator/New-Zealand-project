@@ -35,18 +35,25 @@ export default function CountriesPage() {
 
     const [countries, setCountries] = useState<CountryData[]>([]);
     const [loading, setLoading] = useState(true);
+    const [fetchError, setFetchError] = useState(false);
 
     useEffect(() => {
+        let isMounted = true;
+
         async function fetchCountries() {
             setLoading(true);
+            setFetchError(false);
             try {
                 const res = await fetch(
-                    `${STRAPI_URL}/api/countries?locale=${lang}&populate[0]=image&populate[1]=stats`
+                    `${STRAPI_URL}/api/countries?locale=${lang}&populate[0]=image&populate[1]=stats`,
+                    { cache: "no-store" }
                 );
 
                 if (!res.ok) throw new Error(`Ошибка сервера: ${res.status}`);
 
                 const responseData = await res.json();
+
+                if (!isMounted) return;
 
                 if (!responseData.data) {
                     setCountries([]);
@@ -63,9 +70,9 @@ export default function CountriesPage() {
                     image: item.image ? { url: item.image.url } : undefined,
                     stats: item.stats
                         ? {
-                            universities: item.stats.universities,
-                            programs: item.stats.programs,
-                            students: item.stats.students,
+                            universities: String(item.stats.universities),
+                            programs: String(item.stats.programs),
+                            students: String(item.stats.students),
                         }
                         : undefined,
                     fast_facts: item.fast_facts,
@@ -74,19 +81,22 @@ export default function CountriesPage() {
                 setCountries(normalizedData);
             } catch (error) {
                 console.error("Ошибка загрузки:", error);
-                setCountries([]);
+                if (isMounted) setFetchError(true);
             } finally {
-                setLoading(false);
+                if (isMounted) setLoading(false);
             }
         }
+
         fetchCountries();
+        return () => { isMounted = false; };
     }, [lang]);
 
     if (loading) {
         return <div className="pt-40 text-center text-gray-500 font-medium">{t.loading}</div>;
     }
 
-    if (countries.length === 0) {
+    // Only show error when the request actually failed — not when data is just empty
+    if (fetchError) {
         return (
             <div className="pt-40 text-center text-gray-500">
                 {t.notFound}
@@ -105,15 +115,21 @@ export default function CountriesPage() {
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-                {countries.map((country) => (
-                    <CountryCard
-                        key={country.id}
-                        country={country}
-                        STRAPI_URL={STRAPI_URL}
-                    />
-                ))}
-            </div>
+            {countries.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+                    {countries.map((country) => (
+                        <CountryCard
+                            key={country.id}
+                            country={country}
+                            STRAPI_URL={STRAPI_URL}
+                        />
+                    ))}
+                </div>
+            ) : (
+                <div className="pt-10 text-center text-gray-400">
+                    {t.loading}
+                </div>
+            )}
         </section>
     );
 }
