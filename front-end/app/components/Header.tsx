@@ -49,9 +49,13 @@ export default function Header() {
     };
 
     const isActive = (href: string) => {
-        const cleanPathname = pathname.replace(/^\/(ru|en)/, "") || "/";
+        // Убираем языковой префикс и приводим весь путь к нижнему регистру
+        const cleanPathname = (pathname.replace(/^\/(ru|en)/, "") || "/").toLowerCase();
+
         if (href === '/') return cleanPathname === '/';
-        return cleanPathname.startsWith(href);
+
+        // Приводим href ссылки тоже к нижнему регистру для железного сравнения
+        return cleanPathname.startsWith(href.toLowerCase());
     };
 
     return (

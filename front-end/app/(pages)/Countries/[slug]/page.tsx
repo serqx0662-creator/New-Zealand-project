@@ -62,6 +62,9 @@ export default function CountryPage({ params }: { params: Promise<{ slug: string
     const { lang } = useLanguage();
     const t = dictionaries[lang].countriesPage;
 
+    // Используем React.use() для безопасного развертывания промиса параметров Next.js
+    const { slug } = React.use(params);
+
     const [country, setCountry] = useState<CountryData | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -75,12 +78,13 @@ export default function CountryPage({ params }: { params: Promise<{ slug: string
     };
 
     useEffect(() => {
+        let isMounted = true;
+
         async function loadData() {
             setLoading(true);
             try {
-                const { slug } = await params;
-
                 const query = new URLSearchParams();
+                // Ищем строго по слагу, который теперь строка, а не промис
                 query.append("filters[slug][$eq]", slug);
                 query.append("locale", lang);
                 query.append("populate[0]", "image");
@@ -97,6 +101,9 @@ export default function CountryPage({ params }: { params: Promise<{ slug: string
                 if (!res.ok) throw new Error(`Server Error: ${res.status}`);
 
                 const response: StrapiResponse = await res.json();
+
+                if (!isMounted) return;
+
                 const d = response.data?.[0];
 
                 if (d) {
@@ -123,7 +130,6 @@ export default function CountryPage({ params }: { params: Promise<{ slug: string
                             location: p.location || "",
                             duration: p.duration || "",
                         })),
-                        // ← было потеряно, теперь восстановлено
                         advantages: d.Advantage || d.advantages || [],
                     };
                     setCountry(normalized);
@@ -132,13 +138,21 @@ export default function CountryPage({ params }: { params: Promise<{ slug: string
                     setError(t.notFound);
                 }
             } catch (err) {
-                setError(err instanceof Error ? err.message : "Error");
+                if (isMounted) {
+                    setError(err instanceof Error ? err.message : "Error");
+                }
             } finally {
-                setLoading(false);
+                if (isMounted) setLoading(false);
             }
         }
+
         loadData();
-    }, [params, lang, t.notFound]);
+
+        return () => {
+            isMounted = false;
+        };
+        // Теперь в зависимостях лежит чистая строка slug, а не объект-промис params
+    }, [slug, lang, t.notFound]);
 
     if (loading) {
         return <div className="pt-40 text-center text-gray-500 font-medium">{t.loading}</div>;
