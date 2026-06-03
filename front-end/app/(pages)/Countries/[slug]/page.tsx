@@ -108,7 +108,6 @@ export default function CountryPage({ params }: { params: Promise<{ slug: string
                         short_description: extractText(d.short_description),
                         description: extractText(d.description),
                         image: d.image?.url ? { url: d.image.url } : undefined,
-                        // Coerce number → string to match CountryData.stats
                         stats: d.stats
                             ? {
                                 universities: String(d.stats.universities),
@@ -117,7 +116,6 @@ export default function CountryPage({ params }: { params: Promise<{ slug: string
                             }
                             : undefined,
                         fast_facts: d.fast_facts,
-                        // Guarantee documentId is always a string to match ProgramData
                         programs: (d.programs || []).map(p => ({
                             ...p,
                             documentId: p.documentId || "",
@@ -125,6 +123,8 @@ export default function CountryPage({ params }: { params: Promise<{ slug: string
                             location: p.location || "",
                             duration: p.duration || "",
                         })),
+                        // ← было потеряно, теперь восстановлено
+                        advantages: d.Advantage || d.advantages || [],
                     };
                     setCountry(normalized);
                     setError(null);
