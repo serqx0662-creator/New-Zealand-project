@@ -24,9 +24,9 @@ export interface CountryData {
     };
     stats?: CountryStats;
     fast_facts?: {
-        capital: string;
-        academic_year: string;
-        currency: string;
+        capital?: string;
+        academic_year?: string;
+        currency?: string;
     };
     programs?: ProgramData[];
     advantages?: Advantage[];

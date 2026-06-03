@@ -7,21 +7,26 @@ import { dictionaries } from "@/app/data/dictionaries";
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://127.0.0.1:1337";
 
+interface CountryStats {
+    universities: string | number;
+    programs: string | number;
+    students: string | number;
+}
+
 interface StrapiEntry {
     id: number;
-    attributes?: Record<string, any>;
     documentId?: string;
     title?: string;
     slug?: string;
     short_description?: string;
     description?: string;
     image?: { url: string };
-    stats?: {
-        universities: string | number;
-        programs: string | number;
-        students: string | number;
+    stats?: CountryStats;
+    fast_facts?: {
+        capital?: string;
+        currency?: string;
+        academic_year?: string;
     };
-    fast_facts?: any;
 }
 
 export default function CountriesPage() {
@@ -39,9 +44,7 @@ export default function CountriesPage() {
                     `${STRAPI_URL}/api/countries?locale=${lang}&populate[0]=image&populate[1]=stats`
                 );
 
-                if (!res.ok) {
-                    throw new Error(`Ошибка сервера: ${res.status}`);
-                }
+                if (!res.ok) throw new Error(`Ошибка сервера: ${res.status}`);
 
                 const responseData = await res.json();
 
@@ -50,24 +53,23 @@ export default function CountriesPage() {
                     return;
                 }
 
-                const normalizedData: CountryData[] = responseData.data.map((item: StrapiEntry) => {
-                    const data = item.attributes ? item.attributes : item;
-                    return {
-                        id: item.id,
-                        documentId: data.documentId || "",
-                        title: data.title || "",
-                        slug: data.slug || "",
-                        short_description: data.short_description || "",
-                        description: data.description || "",
-                        image: data.image ? { url: data.image.url } : undefined,
-                        stats: data.stats ? {
-                            universities: data.stats.universities,
-                            programs: data.stats.programs,
-                            students: data.stats.students,
-                        } : undefined,
-                        fast_facts: data.fast_facts
-                    };
-                });
+                const normalizedData: CountryData[] = responseData.data.map((item: StrapiEntry) => ({
+                    id: item.id,
+                    documentId: item.documentId || "",
+                    title: item.title || "",
+                    slug: item.slug || "",
+                    short_description: item.short_description || "",
+                    description: item.description || "",
+                    image: item.image ? { url: item.image.url } : undefined,
+                    stats: item.stats
+                        ? {
+                            universities: item.stats.universities,
+                            programs: item.stats.programs,
+                            students: item.stats.students,
+                        }
+                        : undefined,
+                    fast_facts: item.fast_facts,
+                }));
 
                 setCountries(normalizedData);
             } catch (error) {
@@ -80,7 +82,9 @@ export default function CountriesPage() {
         fetchCountries();
     }, [lang]);
 
-    if (loading) return <div className="pt-40 text-center text-gray-500 font-medium">{t.loading}</div>;
+    if (loading) {
+        return <div className="pt-40 text-center text-gray-500 font-medium">{t.loading}</div>;
+    }
 
     if (countries.length === 0) {
         return (

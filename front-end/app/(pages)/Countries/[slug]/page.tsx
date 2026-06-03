@@ -6,7 +6,6 @@ import { useLanguage } from "@/app/context/LanguageContext";
 import { dictionaries } from "@/app/data/dictionaries";
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://127.0.0.1:1337";
-const TOKEN = "cb2663af49ac0b0e6f72b2a9493b8739f6f8a590325cbe99d3521d63e590e63d4f263a4aaf713cd0fde2a3ae3256eb3811098b15d8310a0eeb6b349bc29bb5dda6f10ac579d30f0db5b9dca793962be741603537f5f4ed049e59ffe519e55a2eaa3277d1ed036c5648fc4f781269c35456ac20d19ff43b78d1871f2f132955d4";
 
 interface TextChild {
     text: string;
@@ -18,26 +17,50 @@ interface ContentBlock {
     children?: TextChild[];
 }
 
+interface FastFacts {
+    capital?: string;
+    currency?: string;
+    academic_year?: string;
+}
+
+interface CountryStats {
+    universities: string | number;
+    programs: string | number;
+    students: string | number;
+}
+
+interface StrapiProgram {
+    id: number;
+    title: string;
+    location?: string;
+    duration?: string;
+    price: number;
+    slug?: string;
+    documentId?: string;
+}
+
+interface StrapiEntry {
+    id: number;
+    documentId?: string;
+    title?: string;
+    slug?: string;
+    short_description?: ContentBlock[] | string;
+    description?: ContentBlock[] | string;
+    image?: { url: string };
+    stats?: CountryStats;
+    fast_facts?: FastFacts;
+    programs?: StrapiProgram[];
+    Advantage?: Advantage[];
+    advantages?: Advantage[];
+}
+
 interface StrapiResponse {
-    data: Array<{
-        id: number;
-        documentId: string;
-        title: string;
-        slug: string;
-        short_description: ContentBlock[] | string;
-        description: ContentBlock[] | string;
-        image?: { url: string };
-        stats?: CountryData['stats'];
-        fast_facts?: CountryData['fast_facts'];
-        programs?: CountryData['programs'];
-        Advantage?: Advantage[];
-        advantages?: Advantage[];
-    }>;
+    data: StrapiEntry[];
 }
 
 export default function CountryPage({ params }: { params: Promise<{ slug: string }> }) {
     const { lang } = useLanguage();
-    const t = dictionaries[lang].countriesPage; // Берем переводы для страницы стран
+    const t = dictionaries[lang].countriesPage;
 
     const [country, setCountry] = useState<CountryData | null>(null);
     const [loading, setLoading] = useState(true);
@@ -53,23 +76,23 @@ export default function CountryPage({ params }: { params: Promise<{ slug: string
 
     useEffect(() => {
         async function loadData() {
-            setLoading(true); // Перезапускаем лоадер при смене языка
+            setLoading(true);
             try {
                 const { slug } = await params;
 
                 const query = new URLSearchParams();
                 query.append("filters[slug][$eq]", slug);
-                query.append("locale", lang); // ВАЖНО: запрашиваем конкретную локаль
+                query.append("locale", lang);
                 query.append("populate[0]", "image");
                 query.append("populate[1]", "fast_facts");
                 query.append("populate[2]", "stats");
                 query.append("populate[3]", "programs");
                 query.append("populate[4]", "Advantage");
 
-                const res = await fetch(`${STRAPI_URL}/api/countries?${query.toString()}`, {
-                    cache: 'no-store',
-                    headers: { Authorization: `Bearer ${TOKEN}` },
-                });
+                const res = await fetch(
+                    `${STRAPI_URL}/api/countries?${query.toString()}`,
+                    { cache: "no-store" }
+                );
 
                 if (!res.ok) throw new Error(`Server Error: ${res.status}`);
 
@@ -85,12 +108,24 @@ export default function CountryPage({ params }: { params: Promise<{ slug: string
                         short_description: extractText(d.short_description),
                         description: extractText(d.description),
                         image: d.image?.url ? { url: d.image.url } : undefined,
-                        stats: d.stats,
+                        // Coerce number → string to match CountryData.stats
+                        stats: d.stats
+                            ? {
+                                universities: String(d.stats.universities),
+                                programs: String(d.stats.programs),
+                                students: String(d.stats.students),
+                            }
+                            : undefined,
                         fast_facts: d.fast_facts,
-                        programs: d.programs || [],
-                        advantages: d.Advantage || d.advantages || []
+                        // Guarantee documentId is always a string to match ProgramData
+                        programs: (d.programs || []).map(p => ({
+                            ...p,
+                            documentId: p.documentId || "",
+                            slug: p.slug || "",
+                            location: p.location || "",
+                            duration: p.duration || "",
+                        })),
                     };
-
                     setCountry(normalized);
                     setError(null);
                 } else {
@@ -103,9 +138,11 @@ export default function CountryPage({ params }: { params: Promise<{ slug: string
             }
         }
         loadData();
-    }, [params, lang, t.notFound]); // Добавили lang в зависимости
+    }, [params, lang, t.notFound]);
 
-    if (loading) return <div className="pt-40 text-center text-gray-500 font-medium">{t.loading}</div>;
+    if (loading) {
+        return <div className="pt-40 text-center text-gray-500 font-medium">{t.loading}</div>;
+    }
 
     if (error) {
         return (
@@ -121,7 +158,9 @@ export default function CountryPage({ params }: { params: Promise<{ slug: string
         );
     }
 
-    if (!country) return <div className="pt-40 text-center text-gray-500 font-medium">{t.notFound}</div>;
+    if (!country) {
+        return <div className="pt-40 text-center text-gray-500 font-medium">{t.notFound}</div>;
+    }
 
     return <CountryDetail country={country} STRAPI_URL={STRAPI_URL} />;
 }
