@@ -5,13 +5,13 @@ export const FOOTER_LINKS = {
         { name: { ru: 'Языковые курсы', en: 'Language Courses' }, href: '/programs?level=language' },
     ],
     countries: [
-        { name: { ru: 'Новая Зеландия', en: 'New Zealand' }, href: '/countries/new-zealand' },
-        { name: { ru: 'Австралия', en: 'Australia' }, href: '/countries/australia' },
-        { name: { ru: 'Великобритания', en: 'United Kingdom' }, href: '/countries/uk' },
+        { name: { ru: 'Новая Зеландия', en: 'New Zealand' }, href: '/Countries/new-zealand' },
+        { name: { ru: 'Австралия', en: 'Australia' }, href: '/Countries/australia' },
+        { name: { ru: 'Великобритания', en: 'United Kingdom' }, href: '/Countries/uk' },
     ],
     company: [
-        { name: { ru: 'О нас', en: 'about Us' }, href: '/about' },
-        { name: { ru: 'Контакты', en: 'contacts' }, href: '/contacts' },
+        { name: { ru: 'О нас', en: 'About Us' }, href: '/About' },
+        { name: { ru: 'Контакты', en: 'contacts' }, href: '/Contacts' },
         { name: { ru: 'Карьера', en: 'Careers' }, href: '/careers' },
     ],
     legal: [

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, notFound } from "next/navigation";
 import { Calendar, MapPin, Users } from "lucide-react";
-import { NZEventSchedule } from "./NZEventSchedule";
+import { NZEventSchedule } from "./nz-event-schedule";
 import { NZRegistrationForm } from "./NZRegistrationForm";
 import { Event, StrapiEvent } from "@/app/data/events";
 import { useLanguage } from "@/app/context/LanguageContext";

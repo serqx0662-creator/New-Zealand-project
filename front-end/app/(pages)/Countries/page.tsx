@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { CountryCard } from "./CountryCard";
-import { CountryData } from "@/app/(pages)/countries/data";
+import { CountryData } from "@/app/(pages)/Countries/data";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { dictionaries } from "@/app/data/dictionaries";
 

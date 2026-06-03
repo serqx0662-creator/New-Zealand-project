@@ -265,17 +265,17 @@ export const dictionaries = {
             countries: 'countries',
             universities: 'Universities',
             events: 'Events',
-            about: 'about Us',
+            about: 'About Us',
             contacts: 'contacts',
-            apply: 'apply Now',
+            apply: 'Apply Now',
             menu: 'Menu'
         },
         hero: {
             badge: "World-class education",
             title: "Find your perfect study abroad program",
             description: "We help students get into the world's best universities. Over 10,000 successful admissions.",
-            applyBtn: "apply Now",
-            consultBtn: "Request a consultation",
+            applyBtn: "Apply Now",
+            consultBtn: "Request a Consultation",
             stats: [
                 { label: "Successful Admissions", value: "10,000+" },
                 { label: "Partner Universities", value: "500+" },
@@ -287,7 +287,7 @@ export const dictionaries = {
             title: "Why New Zealand?",
             description: "Modern education, safety, and unique nature make New Zealand the perfect choice.",
             cards: {
-                safety: { title: "Safe and Peaceful Environment", desc: "New Zealand consistently ranks among the world's safest countries, offering a stable society and a friendly atmosphere for living and studying." },
+                safety: { title: "Safe and Peaceful Environment", desc: "New Zealand consistently ranks among the world's safest Countries, offering a stable society and a friendly atmosphere for living and studying." },
                 education: { title: "World-Class Education", desc: "New Zealand universities are globally recognized for innovative teaching methods, practical learning, and strong industry links." },
                 career: { title: "Career and Migration Opportunities", desc: "The country needs skilled and educated people — international graduates are encouraged to stay and build long-term careers." },
                 culture: { title: "Open and Friendly Culture", desc: "Kiwis are known for their kindness, inclusivity, and respect for diversity. Students feel genuinely welcomed and quickly become part of the community." },
@@ -312,14 +312,14 @@ export const dictionaries = {
             found: "PROGRAMS FOUND",
             notFound: "Nothing found for your request",
             loading: "Loading programs...",
-            card: { more: "Details", apply: "apply Now", duration: "To be confirmed", location: "Location not specified", priceFrom: "From" }
+            card: { more: "Details", apply: "Apply Now", duration: "To be confirmed", location: "Location not specified", priceFrom: "From" }
         },
         filters: {
             title: "Filters & Search",
             searchPlaceholder: "Search by program or university name...",
             scholarshipOnly: "Scholarship programs only",
             labels: { country: "Country", level: "Level", direction: "Direction", sort: "Sort by" },
-            placeholders: { allCountries: "All countries", allLevels: "All levels", allDirections: "All directions", popularity: "By popularity" },
+            placeholders: { allCountries: "All Countries", allLevels: "All levels", allDirections: "All directions", popularity: "By popularity" },
             options: {
                 levels: ["Bachelor's", "Master's", "Language Courses"],
                 directions: ["Business", "IT", "Design", "Medicine"],
@@ -331,7 +331,7 @@ export const dictionaries = {
             loading: "Loading...",
             notFound: "Program not found",
             goBack: "Go back",
-            tabs: { overview: "Overview", requirements: "Requirements", courses: "Courses", price: "Cost", apply: "How to apply", campus: "Campus", faq: "FAQ" },
+            tabs: { overview: "Overview", requirements: "Requirements", courses: "Courses", price: "Cost", apply: "How to Apply", campus: "Campus", faq: "FAQ" },
             sections: {
                 description: "Program Description",
                 admission: "Admission Requirements",
@@ -349,7 +349,7 @@ export const dictionaries = {
                     "4. Wait for application review",
                     "5. Receive your Letter of Acceptance"
                 ],
-                applyNow: "apply Now",
+                applyNow: "Apply Now",
                 facilities: "Campus & Facilities",
                 facilitiesEmpty: "Facility information is being updated...",
                 questions: "Frequently Asked Questions"
@@ -361,12 +361,12 @@ export const dictionaries = {
             start: "Start Date",
             price: "Tuition",
             rating: "Rating",
-            apply: "apply Now",
+            apply: "Apply Now",
             ask: "Ask a Question",
             download: "Download Brochure",
             helpTitle: "Need Help?",
             helpDesc: "Our consultants will help you choose the right program",
-            consult: "Request consultation"
+            consult: "Request Consultation"
         },
         popularPrograms: {
             title: "Popular Programs",
@@ -377,10 +377,10 @@ export const dictionaries = {
         countriesPage: {
             title: "Study Destinations",
             description: "Choose a country for your studies abroad",
-            loading: "Loading countries...",
-            notFound: "No countries found. Check Strapi permissions.",
-            back: "Back to countries",
-            about: "about the country",
+            loading: "Loading Countries...",
+            notFound: "No Countries found. Check Strapi permissions.",
+            back: "Back to Countries",
+            about: "About the country",
             programsIn: "Programs in",
             noPrograms: "No programs added yet",
             more: "Details",
@@ -396,25 +396,25 @@ export const dictionaries = {
             stats: { rating: "Rating", programs: "Programs" },
             cardBtn: "View Programs",
             backBtn: "Back to programs",
-            aboutTitle: "about the University",
+            aboutTitle: "About the University",
             programsTitle: "Study Programs",
             noPrograms: "No programs added yet",
-            applyBtn: "apply Now",
+            applyBtn: "Apply Now",
             quickInfo: "Quick Information",
             detailsBtn: "Details"
         },
         programTypes: { Postgraduate: "Postgraduate", Undergraduate: "Undergraduate", Foundation: "Foundation / Pathway" },
         events: {
             title: "Events",
-            description: "Join our events and learn more about opportunities",
+            description: "Join our events and learn more About opportunities",
             searchPlaceholder: "Search events...",
             loading: "Loading events...",
             notFound: "No events found",
-            applyBtn: "apply Now",
+            applyBtn: "Apply Now",
             left: "Left",
             register: "Register Now",
             registration: "Registration",
-            regDesc: "apply to book a spot",
+            regDesc: "Apply to book a spot",
             success: "Success!",
             successDesc: "You have successfully registered for the event. We will contact you shortly.",
             programTitle: "Event Schedule",
@@ -424,7 +424,7 @@ export const dictionaries = {
             form: { name: "Name", email: "Email", phone: "Phone", namePlaceholder: "Your name", emailPlaceholder: "Your email", sending: "Sending..." }
         },
         aboutPage: {
-            title: "about Us",
+            title: "About Us",
             subtitle: "We help students turn their dream of studying abroad into reality",
             mission: {
                 title: "Our Mission",
@@ -445,7 +445,7 @@ export const dictionaries = {
                 { value: "50+", label: "countries" },
                 { value: "15", label: "Years of Experience" }
             ],
-            cta: { title: "Ready to start your journey?", desc: "Contact us today and get a free consultation", consultBtn: "Request consultation", programsBtn: "View Programs" }
+            cta: { title: "Ready to start your journey?", desc: "Contact us today and get a free Consultation", consultBtn: "Request Consultation", programsBtn: "View Programs" }
         },
         contactsPage: {
             title: "contacts",
@@ -478,7 +478,7 @@ export const dictionaries = {
             rights: "All rights reserved."
         },
         applyPage: {
-            title: "apply for Studies",
+            title: "Apply for Studies",
             steps: ["Program Selection", "Personal Data", "Education", "Documents", "Confirmation"],
             stepLabel: "Step", from: "of", next: "Next", prev: "Back", finish: "Finish",
             placeholders: { stepInfo: "Fill out the info for step", selectProgram: "Select a study program", selectEducation: "Select education level", selectLanguage: "Select language test", firstName: "First Name", lastName: "Last Name" },
@@ -488,10 +488,10 @@ export const dictionaries = {
             docs: { uploadTitle: "Upload document (up to 10MB each)", uploadHint: "Click to select or drag files here", requiredTitle: "Required documents:", items: ['Certificate or Diploma', 'Language Certificate', 'Motivation Letter', 'Letters of Recommendation'] }
         },
         consultation: {
-            title: "Request a consultation",
+            title: "Request a Consultation",
             subtitle: "Fill out the form and our consultant will contact you shortly",
             formTitle: "Feedback Form",
-            formSubtitle: "We will answer all your questions about study programs",
+            formSubtitle: "We will answer all your questions About study programs",
             sidebar: {
                 contacts: "Contact Information", socials: "Social Networks", phone: "Phone", email: "Email", address: "Address", hours: "Working Hours",
                 hoursDetail: ["Mon - Fri: 9:00 - 18:00", "Sat: 10:00 - 16:00", "Sun: Closed"],

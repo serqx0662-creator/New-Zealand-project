@@ -468,10 +468,10 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 }
 
 export interface ApiCountryCountry extends Struct.CollectionTypeSchema {
-  collectionName: 'countries';
+  collectionName: 'Countries';
   info: {
     displayName: 'Country';
-    pluralName: 'countries';
+    pluralName: 'Countries';
     singularName: 'country';
   };
   options: {

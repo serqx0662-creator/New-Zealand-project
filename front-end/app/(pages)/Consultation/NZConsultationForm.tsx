@@ -89,7 +89,7 @@ export const NZConsultationForm = () => {
                         <p className="text-gray-500 mb-8 leading-relaxed">
                             {lang === 'ru'
                                 ? 'Спасибо! Наш специалист свяжется с вами в ближайшее время для консультации.'
-                                : 'Thank you! Our specialist will contact you shortly for a consultation.'}
+                                : 'Thank you! Our specialist will contact you shortly for a Consultation.'}
                         </p>
 
                         <Button
