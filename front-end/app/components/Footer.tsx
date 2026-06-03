@@ -59,13 +59,24 @@ export default function Footer() {
         return link.name;
     };
 
+    // Функция, которая автоматически добавляет текущий язык к ссылкам
+    const getLocalizedHref = (href: string): string => {
+        if (href === '#' || href.startsWith('http')) return href;
+
+        // Убираем лишние слэши, чтобы склеить корректно
+        const cleanHref = href.startsWith('/') ? href : `/${href}`;
+
+        // Если язык дефолтный (ru), возвращаем чистый путь, иначе добавляем префикс
+        return lang === 'ru' ? cleanHref : `/${lang}${cleanHref}`;
+    };
+
     return (
         <footer className="bg-white border-t border-gray-100 pt-11 pb-8">
             <div className="max-w-[1440px] mx-auto px-4 md:px-6">
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-8">
                     <div className="lg:col-span-5 space-y-[25px]">
-                        <Link href="/" className="text-2xl font-bold text-[#101828] block">
+                        <Link href={getLocalizedHref('/')} className="text-2xl font-bold text-[#101828] block">
                             Study NZ
                         </Link>
                         <p className="text-gray-500 text-sm max-w-sm">
@@ -89,7 +100,7 @@ export default function Footer() {
                                 </form>
                                 <p className="text-xs text-gray-400">
                                     {t.newsletter.privacy}{' '}
-                                    <Link href="/privacy" className="underline hover:text-gray-600">
+                                    <Link href={getLocalizedHref('/privacy')} className="underline hover:text-gray-600">
                                         {t.newsletter.link}
                                     </Link>.
                                 </p>
@@ -101,9 +112,10 @@ export default function Footer() {
                         <div className="space-y-4">
                             <h4 className="font-bold text-[#101828]">{t.categories.programs}</h4>
                             <ul className="space-y-2">
-                                {FOOTER_LINKS.programs.map((link) => (
-                                    <li key={link.href}>
-                                        <Link href={link.href} className="text-sm text-gray-500 hover:text-black transition-colors">
+                                {FOOTER_LINKS.programs.map((link, index) => (
+                                    <li key={index}>
+                                        {/* Жестко перенаправляем на общую страницу программ */}
+                                        <Link href={getLocalizedHref('/Programs')} className="text-sm text-gray-500 hover:text-black transition-colors">
                                             {getLinkName(link)}
                                         </Link>
                                     </li>
@@ -114,9 +126,10 @@ export default function Footer() {
                         <div className="space-y-4">
                             <h4 className="font-bold text-[#101828]">{t.categories.countries}</h4>
                             <ul className="space-y-2">
-                                {FOOTER_LINKS.countries.map((link) => (
-                                    <li key={link.href}>
-                                        <Link href={link.href} className="text-sm text-gray-500 hover:text-black transition-colors">
+                                {FOOTER_LINKS.countries.map((link, index) => (
+                                    <li key={index}>
+                                        {/* Жестко перенаправляем на общую страницу стран */}
+                                        <Link href={getLocalizedHref('/Countries')} className="text-sm text-gray-500 hover:text-black transition-colors">
                                             {getLinkName(link)}
                                         </Link>
                                     </li>
@@ -130,7 +143,7 @@ export default function Footer() {
                                 <ul className="space-y-2">
                                     {FOOTER_LINKS.company.map((link) => (
                                         <li key={link.href}>
-                                            <Link href={link.href} className="text-sm text-gray-500 hover:text-black transition-colors">
+                                            <Link href={getLocalizedHref(link.href)} className="text-sm text-gray-500 hover:text-black transition-colors">
                                                 {getLinkName(link)}
                                             </Link>
                                         </li>
@@ -143,7 +156,7 @@ export default function Footer() {
                                 <ul className="space-y-2">
                                     {FOOTER_LINKS.legal.map((link) => (
                                         <li key={link.href}>
-                                            <Link href={link.href} className="text-sm text-gray-500 hover:text-black transition-colors">
+                                            <Link href={getLocalizedHref(link.href)} className="text-sm text-gray-500 hover:text-black transition-colors">
                                                 {getLinkName(link)}
                                             </Link>
                                         </li>
