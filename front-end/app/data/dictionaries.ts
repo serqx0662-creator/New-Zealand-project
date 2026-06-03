@@ -262,11 +262,11 @@ export const dictionaries = {
     en: {
         header: {
             programs: 'Programs',
-            countries: 'countries',
+            countries: 'Countries',
             universities: 'Universities',
             events: 'Events',
             about: 'About Us',
-            contacts: 'contacts',
+            contacts: 'Contacts',
             apply: 'Apply Now',
             menu: 'Menu'
         },
