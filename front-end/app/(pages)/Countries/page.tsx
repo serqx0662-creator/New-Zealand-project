@@ -41,8 +41,11 @@ export default function CountriesPage() {
         let isMounted = true;
 
         async function fetchCountries() {
+            // НЕ сбрасываем countries здесь — старые данные остаются
+            // видимыми пока новые загружаются, никакого "не найдено"
             setLoading(true);
             setFetchError(false);
+
             try {
                 const res = await fetch(
                     `${STRAPI_URL}/api/countries?locale=${lang}&populate[0]=image&populate[1]=stats`,
@@ -52,32 +55,29 @@ export default function CountriesPage() {
                 if (!res.ok) throw new Error(`Ошибка сервера: ${res.status}`);
 
                 const responseData = await res.json();
-
                 if (!isMounted) return;
 
-                if (!responseData.data) {
-                    setCountries([]);
-                    return;
-                }
+                const normalizedData: CountryData[] = (responseData.data || []).map(
+                    (item: StrapiEntry) => ({
+                        id: item.id,
+                        documentId: item.documentId || "",
+                        title: item.title || "",
+                        slug: item.slug || "",
+                        short_description: item.short_description || "",
+                        description: item.description || "",
+                        image: item.image ? { url: item.image.url } : undefined,
+                        stats: item.stats
+                            ? {
+                                universities: String(item.stats.universities),
+                                programs: String(item.stats.programs),
+                                students: String(item.stats.students),
+                            }
+                            : undefined,
+                        fast_facts: item.fast_facts,
+                    })
+                );
 
-                const normalizedData: CountryData[] = responseData.data.map((item: StrapiEntry) => ({
-                    id: item.id,
-                    documentId: item.documentId || "",
-                    title: item.title || "",
-                    slug: item.slug || "",
-                    short_description: item.short_description || "",
-                    description: item.description || "",
-                    image: item.image ? { url: item.image.url } : undefined,
-                    stats: item.stats
-                        ? {
-                            universities: String(item.stats.universities),
-                            programs: String(item.stats.programs),
-                            students: String(item.stats.students),
-                        }
-                        : undefined,
-                    fast_facts: item.fast_facts,
-                }));
-
+                // Обновляем данные только когда они реально пришли
                 setCountries(normalizedData);
             } catch (error) {
                 console.error("Ошибка загрузки:", error);
@@ -88,15 +88,22 @@ export default function CountriesPage() {
         }
 
         fetchCountries();
-        return () => { isMounted = false; };
+        return () => {
+            isMounted = false;
+        };
     }, [lang]);
 
-    if (loading) {
-        return <div className="pt-40 text-center text-gray-500 font-medium">{t.loading}</div>;
+    // Первая загрузка — ещё нет данных вообще
+    if (loading && countries.length === 0) {
+        return (
+            <div className="pt-40 text-center text-gray-500 font-medium">
+                {t.loading}
+            </div>
+        );
     }
 
-    // Only show error when the request actually failed — not when data is just empty
-    if (fetchError) {
+    // Реальная ошибка сети/сервера
+    if (fetchError && countries.length === 0) {
         return (
             <div className="pt-40 text-center text-gray-500">
                 {t.notFound}
@@ -110,26 +117,18 @@ export default function CountriesPage() {
                 <h1 className="text-3xl md:text-[48px] font-bold text-gray-900 mb-2">
                     {t.title}
                 </h1>
-                <p className="text-gray-500 text-lg">
-                    {t.description}
-                </p>
+                <p className="text-gray-500 text-lg">{t.description}</p>
             </div>
 
-            {countries.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-                    {countries.map((country) => (
-                        <CountryCard
-                            key={country.id}
-                            country={country}
-                            STRAPI_URL={STRAPI_URL}
-                        />
-                    ))}
-                </div>
-            ) : (
-                <div className="pt-10 text-center text-gray-400">
-                    {t.loading}
-                </div>
-            )}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+                {countries.map((country) => (
+                    <CountryCard
+                        key={country.id}
+                        country={country}
+                        STRAPI_URL={STRAPI_URL}
+                    />
+                ))}
+            </div>
         </section>
     );
 }
