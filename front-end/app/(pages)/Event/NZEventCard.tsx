@@ -14,7 +14,7 @@ export const NZEventCard = ({ event }: { event: Event }) => {
     return (
         <div className="group relative border border-gray-100 rounded-[14px] hover:-translate-y-1 overflow-hidden hover:shadow-lg hover:shadow-gray-300/50 duration-500 transition-all bg-white flex flex-col h-full">
             {/* Динамический текст для скрин-ридеров */}
-            <Link href={`/Event/${event.slug}`} className="absolute inset-0 z-10">
+            <Link href={`/event/${event.slug}`} className="absolute inset-0 z-10">
                 <span className="sr-only">
                     {lang === 'ru' ? `Перейти к ${event.title}` : `Go to ${event.title}`}
                 </span>

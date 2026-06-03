@@ -1,5 +1,5 @@
 "use client";
-import { CountryData } from "@/app/(pages)/Countries/data";
+import { CountryData } from "@/app/(pages)/countries/data";
 import Link from "next/link";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { dictionaries } from "@/app/data/dictionaries";
@@ -77,7 +77,7 @@ export const CountryDetail = ({ country }: CountryDetailProps) => {
                                                 ${program.price.toLocaleString('en-US')}/{lang === 'ru' ? 'год' : 'year'}
                                             </span>
                                             <Link
-                                                href={`/Programs/${program.slug}`}
+                                                href={`/programs/${program.slug}`}
                                                 className="text-xs bg-gray-900 dark:bg-white dark:text-black text-white px-4 py-2.5 rounded-md hover:bg-black dark:hover:bg-zinc-200 transition-all"
                                             >
                                                 {t.more}

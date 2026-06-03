@@ -6,12 +6,12 @@ import { Button } from "@/app/components/ui/button";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { dictionaries } from "@/app/data/dictionaries";
 
-import NZStep1Program from "@/app/(pages)/Apply/NZStep1Program";
-import NZStep2Personal from "@/app/(pages)/Apply/NZStep2Personal";
-import NZStep3Education from "@/app/(pages)/Apply/NZStep3Education";
-import NZStep4Documents from "@/app/(pages)/Apply/NZStep4Documents";
-import NZStep5Review from "@/app/(pages)/Apply/NZStep5Review";
-import NZSuccessScreen from "@/app/(pages)/Apply/NZSuccessScreen";
+import NZStep1Program from "@/app/(pages)/apply/NZStep1Program";
+import NZStep2Personal from "@/app/(pages)/apply/NZStep2Personal";
+import NZStep3Education from "@/app/(pages)/apply/NZStep3Education";
+import NZStep4Documents from "@/app/(pages)/apply/NZStep4Documents";
+import NZStep5Review from "@/app/(pages)/apply/NZStep5Review";
+import NZSuccessScreen from "@/app/(pages)/apply/NZSuccessScreen";
 
 const TOTAL_STEPS = 5;
 

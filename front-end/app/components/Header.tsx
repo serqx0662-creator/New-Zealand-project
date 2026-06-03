@@ -36,11 +36,11 @@ export default function Header() {
 
     const navLinks = [
         { name: t.programs, href: '/Programs', icon: <BookOpen size={18} /> },
-        { name: t.countries, href: '/Countries', icon: <Globe size={18} /> },
+        { name: t.countries, href: '/countries', icon: <Globe size={18} /> },
         { name: t.universities, href: '/Universities', icon: <GraduationCap size={18} /> },
         { name: t.events, href: '/Event', icon: <Calendar size={18} /> },
-        { name: t.about, href: '/About', icon: <Users size={18} /> },
-        { name: t.contacts, href: '/Contacts', icon: <Clock size={18} /> },
+        { name: t.about, href: '/about', icon: <Users size={18} /> },
+        { name: t.contacts, href: '/contacts', icon: <Clock size={18} /> },
     ];
 
     const getLocalizedHref = (href: string) => {
@@ -92,7 +92,7 @@ export default function Header() {
 
                     <div className="flex items-center gap-3">
                         <Link
-                            href={getLocalizedHref('/Apply')}
+                            href={getLocalizedHref('/apply')}
                             className={cn(
                                 "h-10 rounded-md px-6 bg-black hover:bg-black/80 text-white hidden sm:flex items-center justify-center transition-all active:scale-95 font-medium text-sm"
                             )}

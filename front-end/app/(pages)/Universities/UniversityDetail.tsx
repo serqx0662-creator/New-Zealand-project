@@ -174,7 +174,7 @@ export default function UniversityDetail({ documentId }: UniversityDetailProps) 
                                                 {programTypes[program.type as keyof typeof programTypes] || program.type}
                                             </span>
                                         </div>
-                                        <Link  href={`/Programs/${program.slug}`} className="w-full sm:w-auto text-center text-xs bg-zinc-900 text-white px-6 py-2.5 rounded-md hover:bg-black transition-colors font-medium">
+                                        <Link href={`/programs/${program.slug}`} className="w-full sm:w-auto text-center text-xs bg-zinc-900 text-white px-6 py-2.5 rounded-md hover:bg-black transition-colors font-medium">
                                             {t.detailsBtn}
                                         </Link>
                                     </div>

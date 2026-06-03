@@ -1,7 +1,7 @@
 "use client";
-import { NZContactForm } from "@/app/(pages)/Contacts/NZContactForm";
-import { NZContactInfo } from "@/app/(pages)/Contacts/NZContactInfo";
-import { NZSocialLinks } from "@/app/(pages)/Contacts/NZSocialLinks";
+import { NZContactForm } from "@/app/(pages)/contacts/NZContactForm";
+import { NZContactInfo } from "@/app/(pages)/contacts/NZContactInfo";
+import { NZSocialLinks } from "@/app/(pages)/contacts/NZSocialLinks";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { dictionaries } from "@/app/data/dictionaries";
 

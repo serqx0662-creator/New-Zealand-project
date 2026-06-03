@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { CountryDetail } from "../CountryDetail";
-import { CountryData, Advantage } from "@/app/(pages)/Countries/data";
+import { CountryData, Advantage } from "@/app/(pages)/countries/data";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { dictionaries } from "@/app/data/dictionaries";
 

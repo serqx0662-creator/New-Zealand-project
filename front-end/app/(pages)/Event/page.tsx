@@ -44,7 +44,9 @@ export default function EventPage() {
                             type: (t.types[rawType] || item.type) as "Офлайн" | "Онлайн",
                             registered: item.registered || 0,
                             totalSlots: item.totalSlots || 0,
-                            image: item.image?.url ? `${baseUrl}${item.image.url}` : "/placeholder.png",
+                            image: item.image?.url
+                                ? (item.image.url.startsWith("http") ? item.image.url : `${baseUrl}${item.image.url}`)
+                                : "/placeholder.png",
                             schedule: item.schedule || []
                         };
                     });

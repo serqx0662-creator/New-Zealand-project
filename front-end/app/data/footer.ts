@@ -10,8 +10,8 @@ export const FOOTER_LINKS = {
         { name: { ru: 'Великобритания', en: 'United Kingdom' }, href: '/countries/uk' },
     ],
     company: [
-        { name: { ru: 'О нас', en: 'About Us' }, href: '/About' },
-        { name: { ru: 'Контакты', en: 'Contacts' }, href: '/Contacts' },
+        { name: { ru: 'О нас', en: 'about Us' }, href: '/about' },
+        { name: { ru: 'Контакты', en: 'contacts' }, href: '/contacts' },
         { name: { ru: 'Карьера', en: 'Careers' }, href: '/careers' },
     ],
     legal: [

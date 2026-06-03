@@ -262,24 +262,24 @@ export const dictionaries = {
     en: {
         header: {
             programs: 'Programs',
-            countries: 'Countries',
+            countries: 'countries',
             universities: 'Universities',
             events: 'Events',
-            about: 'About Us',
-            contacts: 'Contacts',
-            apply: 'Apply Now',
+            about: 'about Us',
+            contacts: 'contacts',
+            apply: 'apply Now',
             menu: 'Menu'
         },
         hero: {
             badge: "World-class education",
             title: "Find your perfect study abroad program",
             description: "We help students get into the world's best universities. Over 10,000 successful admissions.",
-            applyBtn: "Apply Now",
-            consultBtn: "Request a Consultation",
+            applyBtn: "apply Now",
+            consultBtn: "Request a consultation",
             stats: [
                 { label: "Successful Admissions", value: "10,000+" },
                 { label: "Partner Universities", value: "500+" },
-                { label: "Countries", value: "50+" },
+                { label: "countries", value: "50+" },
                 { label: "Success Rate", value: "98%" },
             ]
         },
@@ -312,7 +312,7 @@ export const dictionaries = {
             found: "PROGRAMS FOUND",
             notFound: "Nothing found for your request",
             loading: "Loading programs...",
-            card: { more: "Details", apply: "Apply Now", duration: "To be confirmed", location: "Location not specified", priceFrom: "From" }
+            card: { more: "Details", apply: "apply Now", duration: "To be confirmed", location: "Location not specified", priceFrom: "From" }
         },
         filters: {
             title: "Filters & Search",
@@ -331,7 +331,7 @@ export const dictionaries = {
             loading: "Loading...",
             notFound: "Program not found",
             goBack: "Go back",
-            tabs: { overview: "Overview", requirements: "Requirements", courses: "Courses", price: "Cost", apply: "How to Apply", campus: "Campus", faq: "FAQ" },
+            tabs: { overview: "Overview", requirements: "Requirements", courses: "Courses", price: "Cost", apply: "How to apply", campus: "Campus", faq: "FAQ" },
             sections: {
                 description: "Program Description",
                 admission: "Admission Requirements",
@@ -349,7 +349,7 @@ export const dictionaries = {
                     "4. Wait for application review",
                     "5. Receive your Letter of Acceptance"
                 ],
-                applyNow: "Apply Now",
+                applyNow: "apply Now",
                 facilities: "Campus & Facilities",
                 facilitiesEmpty: "Facility information is being updated...",
                 questions: "Frequently Asked Questions"
@@ -361,12 +361,12 @@ export const dictionaries = {
             start: "Start Date",
             price: "Tuition",
             rating: "Rating",
-            apply: "Apply Now",
+            apply: "apply Now",
             ask: "Ask a Question",
             download: "Download Brochure",
             helpTitle: "Need Help?",
             helpDesc: "Our consultants will help you choose the right program",
-            consult: "Request Consultation"
+            consult: "Request consultation"
         },
         popularPrograms: {
             title: "Popular Programs",
@@ -380,7 +380,7 @@ export const dictionaries = {
             loading: "Loading countries...",
             notFound: "No countries found. Check Strapi permissions.",
             back: "Back to countries",
-            about: "About the country",
+            about: "about the country",
             programsIn: "Programs in",
             noPrograms: "No programs added yet",
             more: "Details",
@@ -396,10 +396,10 @@ export const dictionaries = {
             stats: { rating: "Rating", programs: "Programs" },
             cardBtn: "View Programs",
             backBtn: "Back to programs",
-            aboutTitle: "About the University",
+            aboutTitle: "about the University",
             programsTitle: "Study Programs",
             noPrograms: "No programs added yet",
-            applyBtn: "Apply Now",
+            applyBtn: "apply Now",
             quickInfo: "Quick Information",
             detailsBtn: "Details"
         },
@@ -410,11 +410,11 @@ export const dictionaries = {
             searchPlaceholder: "Search events...",
             loading: "Loading events...",
             notFound: "No events found",
-            applyBtn: "Apply Now",
+            applyBtn: "apply Now",
             left: "Left",
             register: "Register Now",
             registration: "Registration",
-            regDesc: "Apply to book a spot",
+            regDesc: "apply to book a spot",
             success: "Success!",
             successDesc: "You have successfully registered for the event. We will contact you shortly.",
             programTitle: "Event Schedule",
@@ -424,7 +424,7 @@ export const dictionaries = {
             form: { name: "Name", email: "Email", phone: "Phone", namePlaceholder: "Your name", emailPlaceholder: "Your email", sending: "Sending..." }
         },
         aboutPage: {
-            title: "About Us",
+            title: "about Us",
             subtitle: "We help students turn their dream of studying abroad into reality",
             mission: {
                 title: "Our Mission",
@@ -442,13 +442,13 @@ export const dictionaries = {
             stats: [
                 { value: "10,000+", label: "Successful Admissions" },
                 { value: "500+", label: "Partner Universities" },
-                { value: "50+", label: "Countries" },
+                { value: "50+", label: "countries" },
                 { value: "15", label: "Years of Experience" }
             ],
-            cta: { title: "Ready to start your journey?", desc: "Contact us today and get a free consultation", consultBtn: "Request Consultation", programsBtn: "View Programs" }
+            cta: { title: "Ready to start your journey?", desc: "Contact us today and get a free consultation", consultBtn: "Request consultation", programsBtn: "View Programs" }
         },
         contactsPage: {
-            title: "Contacts",
+            title: "contacts",
             subtitle: "Get in touch with us in any convenient way",
             form: {
                 title: "Write to us",
@@ -474,11 +474,11 @@ export const dictionaries = {
         footer: {
             description: "We help students find their perfect study abroad program.",
             newsletter: { title: "Newsletter Subscription", placeholder: "Your Email", button: "Subscribe", privacy: "By subscribing, you agree to our", link: "privacy policy" },
-            categories: { programs: "Programs", countries: "Countries", company: "Company", legal: "Legal Info" },
+            categories: { programs: "Programs", countries: "countries", company: "Company", legal: "Legal Info" },
             rights: "All rights reserved."
         },
         applyPage: {
-            title: "Apply for Studies",
+            title: "apply for Studies",
             steps: ["Program Selection", "Personal Data", "Education", "Documents", "Confirmation"],
             stepLabel: "Step", from: "of", next: "Next", prev: "Back", finish: "Finish",
             placeholders: { stepInfo: "Fill out the info for step", selectProgram: "Select a study program", selectEducation: "Select education level", selectLanguage: "Select language test", firstName: "First Name", lastName: "Last Name" },
@@ -488,7 +488,7 @@ export const dictionaries = {
             docs: { uploadTitle: "Upload document (up to 10MB each)", uploadHint: "Click to select or drag files here", requiredTitle: "Required documents:", items: ['Certificate or Diploma', 'Language Certificate', 'Motivation Letter', 'Letters of Recommendation'] }
         },
         consultation: {
-            title: "Request a Consultation",
+            title: "Request a consultation",
             subtitle: "Fill out the form and our consultant will contact you shortly",
             formTitle: "Feedback Form",
             formSubtitle: "We will answer all your questions about study programs",

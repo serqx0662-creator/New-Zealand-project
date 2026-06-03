@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { GraduationCap } from "lucide-react";
-import { CountryData } from "@/app/(pages)/Countries/data";
+import { CountryData } from "@/app/(pages)/countries/data";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { dictionaries } from "@/app/data/dictionaries";
 
@@ -19,7 +19,7 @@ export const CountryCard = ({ country, STRAPI_URL }: CountryCardProps) => {
         : "/placeholder.jpg";
 
     return (
-        <Link href={`/Countries/${country.slug}`} className="h-full">
+        <Link href={`/countries/${country.slug}`} className="h-full">
             <div className="group h-full cursor-pointer rounded-[12px] overflow-hidden border border-gray-100 bg-white flex flex-col transition-all duration-500 hover:shadow-lg hover:shadow-gray-300/50 hover:-translate-y-1">
                 <div className="relative overflow-hidden h-48 shrink-0">
                     <img

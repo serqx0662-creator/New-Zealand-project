@@ -34,7 +34,7 @@ export default function NZSuccessScreen() {
                 onClick={() => window.location.href = '/'}
                 className="w-full md:w-auto bg-black text-white hover:bg-black/90 px-8 h-14 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all active:scale-95"
             >
-                {lang === 'ru' ? 'Вернуться на главную' : 'Back to home'} <ChevronRight size={18} />
+                {lang === 'ru' ? 'Вернуться на главную' : 'Back to Home'} <ChevronRight size={18} />
             </Button>
         </div>
     );
