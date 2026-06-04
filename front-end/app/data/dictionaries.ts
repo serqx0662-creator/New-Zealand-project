@@ -257,6 +257,59 @@ export const dictionaries = {
             labels: { firstName: "Имя *", lastName: "Фамилия *", email: "Email *", phone: "Телефон *", country: "Страна интереса", program: "Программа интереса", message: "Ваш вопрос *", privacy: "Я согласен с политикой конфиденциальности", submit: "Отправить запрос" },
             placeholders: { firstName: "Введите имя", lastName: "Введите фамилию", message: "Опишите ваш запрос...", country: "Выберите страну", program: "Выберите программу" },
             errors: { firstName: "Введите имя", lastName: "Введите фамилию", email: "Некорректный email", phone: "Введите полный номер телефона", country: "Выберите страну", program: "Выберите программу", message: "Опишите подробнее (минимум 10 символов)", privacy: "Нужно ваше согласие" }
+        },
+        careers: {
+            title: "Карьера и работа в Новой Зеландии",
+            subtitle: "Узнайте о перспективах трудоустройства, рабочих визах для выпускников и востребованных профессиях.",
+            intro: "Новая Зеландия предлагает отличные возможности для построения международной карьеры. Правительство страны заинтересовано в квалифицированных выпускниках и предоставляет им официальное право на работу после окончания обучения.",
+            blocksTitle: "Ключевые этапы и возможности",
+            backBtn: "Вернуться на главную",
+            ctaTitle: "Хотите оценить свои шансы на иммиграцию через учебу?",
+            ctaDesc: "Наши консультанты помогут подобрать программу, которая максимизирует ваши шансы на успешное трудоустройство.",
+            ctaBtn: "Получить консультацию",
+            items: [
+                {
+                    title: "Рабочая виза выпускника (Post-Study Work Visa)",
+                    type: "Визовые возможности",
+                    desc: "После окончания программы определенного уровня (обычно от Bachelor и выше, либо востребованных дипломных программ) вы можете получить открытую рабочую визу на срок от 1 до 3 лет для поиска работы по специальности."
+                },
+                {
+                    title: "Список востребованных профессий (Green List)",
+                    type: "Рынок труда",
+                    desc: "В Новой Зеландии действует «Зеленый список» специальностей (инженеры, IT-специалисты, строители, медики), обладатели которых имеют приоритетное право на получение резидентства (PR) в ускоренном режиме."
+                },
+                {
+                    title: "Работа во время учебы",
+                    type: "Подработка",
+                    desc: "Студенты долгосрочных программ имеют официальное право подрабатывать до 20 часов в неделю во время семестра и полный рабочий день на каникулах, что помогает покрывать расходы на жизнь и получать местный опыт."
+                }
+            ]
+        },
+        privacy: {
+            title: "Политика конфиденциальности",
+            update: "Последнее обновление: 3 июня 2026 г.",
+            intro: "Мы ценим вашу конфиденциальность и стремимся защитить ваши персональные данные. Настоящая политика объясняет, как мы собираем, используем и защищаем информацию, которую вы оставляете на нашем сайте.",
+            section1Title: "1. Сбор информации",
+            section1Text: "Мы собираем личные данные, такие как имя, номер телефона и адрес электронной почты, исключительно тогда, когда вы добровольно отправляете их через формы обратной связи на сайте для получения консультации.",
+            section2Title: "2. Использование данных",
+            section2Text: "Ваши данные используются исключительно для связи с вами по поводу образовательных программ в Новой Зеландии, подбора учебных заведений и ответов на ваши вопросы. Мы не передаем ваши данные третьим лицам.",
+            section3Title: "3. Защита информации",
+            section3Text: "Мы принимаем все необходимые технические и организационные меры для защиты вашей персональной информации от несанкционированного доступа, изменения или уничтожения.",
+            backBtn: "Вернуться на главную"
+        },
+        terms: {
+            title: "Условия использования",
+            update: "Последнее обновление: 3 июня 2026 г.",
+            intro: "Добро пожаловать на сайт Study NZ. Получая доступ к этому сайту, вы соглашаетесь соблюдать настоящие правила и условия использования.",
+            section1Title: "1. Использование контента",
+            section1Text: "Все материалы, текстовая информация, логотипы и изображения, размещенные на этом сайте, защищены авторским правом. Их копирование или использование на сторонних ресурсах без нашего письменного согласия запрещено.",
+            section2Title: "2. Отказ от ответственности",
+            section2Text: "Информация о программах и стоимости обучения предоставляется исключительно в ознакомительных целях и может меняться учебными заведениями Новой Зеландии. Точные условия фиксируются при официальном оформлении.",
+            section3Title: "3. Ссылки на сторонние сайты",
+            section3Text: "Наш сайт может содержать ссылки на сторонние веб-ресурсы (например, официальные сайты университетов или иммиграционных служб). Мы не несем ответственности за содержание, политику конфиденциальности или доступность этих сайтов.",
+            section4Title: "4. Изменение условий",
+            section4Text: "Мы оставляем за собой право изменять или обновлять настоящие Условия использования в любое время без предварительного уведомления. Рекомендуется регулярно проверять эту страницу на предмет изменений.",
+            backBtn: "Вернуться на главную"
         }
     },
     en: {
@@ -500,6 +553,59 @@ export const dictionaries = {
             labels: { firstName: "First Name *", lastName: "Last Name *", email: "Email *", phone: "Phone *", country: "Country of Interest", program: "Program of Interest", message: "Your Question *", privacy: "I agree to the privacy policy", submit: "Send Request" },
             placeholders: { firstName: "Enter name", lastName: "Enter last name", message: "Describe your request...", country: "Select country", program: "Select program" },
             errors: { firstName: "Enter name", lastName: "Enter last name", email: "Invalid email", phone: "Enter full phone number", country: "Select country", program: "Select program", message: "Describe in detail (minimum 10 characters)", privacy: "Your consent is required" }
+        },
+        careers: {
+            title: "Careers & Work in New Zealand",
+            subtitle: "Discover post-study employment prospects, work visas for graduates, and in-demand skills.",
+            intro: "New Zealand offers excellent opportunities for building an international career. The government is keen to retain qualified graduates and grants them official working rights after completing their studies.",
+            blocksTitle: "Key Milestones & Opportunities",
+            backBtn: "Back to Home",
+            ctaTitle: "Want to assess your immigration chances via education?",
+            ctaDesc: "Our consultants will help you select a program that maximizes your prospects for successful employment.",
+            ctaBtn: "Get a Consultation",
+            items: [
+                {
+                    title: "Post-Study Work Visa",
+                    type: "Visa Opportunities",
+                    desc: "Upon graduating from qualifying programs (typically Bachelor's degrees and above, or specific in-demand sub-degree tracks), you can obtain an open work visa for 1 to 3 years to find a job in your field."
+                },
+                {
+                    title: "Green List In-Demand Occupations",
+                    type: "Job Market",
+                    desc: "New Zealand maintains a 'Green List' of fast-track residency occupations (including engineers, IT specialists, construction managers, and healthcare workers) ensuring a direct pathway to permanent residency (PR)."
+                },
+                {
+                    title: "Working While Studying",
+                    type: "Part-time Job",
+                    desc: "Long-term international students are legally permitted to work up to 20 hours per week during semesters and full-time during scheduled breaks, helping cover living costs and gain local experience."
+                }
+            ]
+        },
+        privacy: {
+            title: "Privacy Policy",
+            update: "Last updated: June 3, 2026",
+            intro: "We value your privacy and are committed to protecting your personal data. This privacy policy explains how we collect, use, and safeguard the information you provide on our website.",
+            section1Title: "1. Collection of Information",
+            section1Text: "We collect personal data, such as your name, phone number, and email address, only when you voluntarily submit it through our website forms to request a consultation.",
+            section2Title: "2. Use of Data",
+            section2Text: "Your data is used solely to contact you regarding educational programs in New Zealand, university selection, and answering your inquiries. We do not share your data with third parties.",
+            section3Title: "3. Data Protection",
+            section3Text: "We implement a variety of security measures to maintain the safety of your personal information when you enter, submit, or access your personal information.",
+            backBtn: "Back to Home"
+        },
+        terms: {
+            title: "Terms of Service",
+            update: "Last updated: June 3, 2026",
+            intro: "Welcome to Study NZ. By accessing this website, you agree to comply with and be bound by the following terms and conditions of use.",
+            section1Title: "1. Content Usage",
+            section1Text: "All materials, text, logos, and images displayed on this website are protected by copyright. Any unauthorized copying, distribution, or third-party usage is strictly prohibited.",
+            section2Title: "2. Disclaimer",
+            section2Text: "Information regarding educational programs and pricing is provided for informational purposes only. Official rates and requirements are confirmed directly by New Zealand institutions during the formal application process.",
+            section3Title: "3. Third-Party Links",
+            section3Text: "Our website may contain links to third-party web resources (such as official university or immigration websites). We hold no responsibility for the content, privacy policies, or availability of these external sites.",
+            section4Title: "4. Changes to Terms",
+            section4Text: "We reserve the right to modify or update these Terms of Service at any time without prior notice. It is your responsibility to review this page periodically for updates.",
+            backBtn: "Back to Home"
         }
     }
 } as const;

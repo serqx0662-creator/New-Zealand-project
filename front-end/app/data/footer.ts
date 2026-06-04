@@ -17,6 +17,5 @@ export const FOOTER_LINKS = {
     legal: [
         { name: { ru: 'Политика конфиденциальности', en: 'Privacy Policy' }, href: '/privacy' },
         { name: { ru: 'Условия использования', en: 'Terms of Service' }, href: '/terms' },
-        { name: { ru: 'Cookie Policy', en: 'Cookie Policy' }, href: '/cookies' },
     ]
 };

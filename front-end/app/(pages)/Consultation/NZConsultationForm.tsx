@@ -65,7 +65,7 @@ export const NZConsultationForm = () => {
     const inputStyles = "rounded-xl h-14 border-gray-200 focus:border-black focus-visible:ring-0 focus-visible:ring-offset-0 transition-all text-base";
 
     return (
-        <div className="lg:col-span-7 border border-gray-200 rounded-[32px] p-6 md:p-10 bg-white shadow-sm relative">
+        <div className="lg:col-span-7 border border-gray-200 rounded-xl p-6 md:p-10 bg-white relative">
 
             {/* МОДАЛЬНОЕ ОКНО */}
             {isSuccessModalOpen && (
