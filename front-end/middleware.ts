@@ -9,7 +9,6 @@ export function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL(`/${lang}/Home`, request.url));
     }
 
-    // Если зашли вообще на пустой корень "/"
     if (pathname === '/') {
         return NextResponse.redirect(new URL('/ru/Home', request.url));
     }

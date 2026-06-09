@@ -501,7 +501,7 @@ export const dictionaries = {
             cta: { title: "Ready to start your journey?", desc: "Contact us today and get a free Consultation", consultBtn: "Request Consultation", programsBtn: "View Programs" }
         },
         contactsPage: {
-            title: "contacts",
+            title: "Contacts",
             subtitle: "Get in touch with us in any convenient way",
             form: {
                 title: "Write to us",
