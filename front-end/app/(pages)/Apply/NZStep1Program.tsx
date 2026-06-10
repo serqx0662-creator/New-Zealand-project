@@ -17,7 +17,6 @@ export default function NZStep1Program({ value, error, onChange }: NZStep1Props)
     const { lang } = useLanguage();
     const t = dictionaries[lang].applyPage;
 
-    // Программы теперь тоже зависят от языка
     const programs = lang === 'ru'
         ? ["Бакалавриат по Бизнесу", "Магистратура IT", "Дизайн и медиа", "Инженерное дело"]
         : ["Bachelor of Business", "Master of IT", "Design & Media", "Engineering"];

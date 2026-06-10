@@ -5,13 +5,15 @@ import { CheckCircle2, ChevronRight } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { dictionaries } from "@/app/data/dictionaries";
+import { useRouter } from "next/navigation";
 
 export default function NZSuccessScreen() {
     const { lang } = useLanguage();
+    const router = useRouter();
     const t = dictionaries[lang].applyPage.success;
 
     return (
-        <div className="border border-gray-100 rounded-[24px] md:rounded-[32px] p-6 md:p-12 bg-white shadow-sm flex flex-col items-center justify-center text-center min-h-[450px] md:min-h-[500px] animate-in fade-in zoom-in-95 duration-500">
+        <div className="border border-gray-100 rounded-[24px] md:rounded-[32px] p-6 md:p-12 bg-white  flex flex-col items-center justify-center text-center min-h-[450px] md:min-h-[500px] animate-in fade-in zoom-in-95 duration-500">
             <div className="w-full mb-6 md:mb-8 text-left">
                 <h2 className="text-xl md:text-2xl font-bold text-[#101828] mb-2 leading-tight">
                     {lang === 'ru' ? 'Ваша заявка была успешно принята' : 'Your application has been successfully submitted'}
@@ -31,7 +33,9 @@ export default function NZSuccessScreen() {
             </div>
 
             <Button
-                onClick={() => window.location.href = '/'}
+                onClick={() => {
+                    router.push('/');
+                }}
                 className="w-full md:w-auto bg-black text-white hover:bg-black/90 px-8 h-14 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all active:scale-95"
             >
                 {lang === 'ru' ? 'Вернуться на главную' : 'Back to Home'} <ChevronRight size={18} />

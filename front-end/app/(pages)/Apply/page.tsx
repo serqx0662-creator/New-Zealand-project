@@ -15,7 +15,6 @@ import NZSuccessScreen from "@/app/(pages)/Apply/NZSuccessScreen";
 
 const TOTAL_STEPS = 5;
 
-// 1. Явно описываем интерфейс структуры данных формы для TypeScript
 interface FormDataStructure {
     program: string;
     firstName: string;
@@ -31,7 +30,6 @@ export default function ApplyPage() {
     const { lang } = useLanguage();
     const t = dictionaries[lang].applyPage;
 
-    // Инициализируем шаг сразу из localStorage (безопасно для SSR)
     const [currentStep, setCurrentStep] = useState<number>(() => {
         if (typeof window !== 'undefined') {
             const savedStep = localStorage.getItem('apply_step');
@@ -44,7 +42,6 @@ export default function ApplyPage() {
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [isAccepted, setIsAccepted] = useState(false);
 
-    // Инициализируем данные формы сразу из localStorage с явным указанием интерфейса
     const [formData, setFormData] = useState<FormDataStructure>(() => {
         const defaultData: FormDataStructure = {
             program: "",
@@ -71,7 +68,18 @@ export default function ApplyPage() {
         return defaultData;
     });
 
-    // Этот эффект занимается исключительно сохранением изменений на диске
+    // ХУК ДЛЯ ОЧИСТКИ ДАННЫХ И СКРОЛЛА НАВЕРХ ПРИ УСПЕШНОЙ ОТПРАВКЕ
+    useEffect(() => {
+        if (isSubmitted) {
+            // Мгновенно перекидываем окно браузера на самый верх (0,0)
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'instant'
+            });
+        }
+    }, [isSubmitted]); // Сработает ровно в момент перехода на экран успеха
+
     useEffect(() => {
         if (!isSubmitted) {
             localStorage.setItem('apply_step', currentStep.toString());
@@ -80,7 +88,6 @@ export default function ApplyPage() {
         }
     }, [currentStep, formData, isSubmitted]);
 
-    // 2. Исправленная функция: теперь prev типизирован автоматически и не вызывает TS7006
     const updateFields = (fields: Partial<FormDataStructure>) => {
         setFormData(prev => ({ ...prev, ...fields }));
     };
@@ -122,7 +129,7 @@ export default function ApplyPage() {
             } else {
                 localStorage.removeItem('apply_step');
                 localStorage.removeItem('apply_form_data');
-                setIsSubmitted(true);
+                setIsSubmitted(true); // Переключаем экран
                 return;
             }
         }
@@ -186,7 +193,7 @@ export default function ApplyPage() {
                                 return (
                                     <div key={label} className="flex flex-col items-center">
                                         <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full border-2 flex items-center justify-center transition-all duration-500 z-10
-                                                ${isActive ? 'border-black scale-110 shadow-md bg-white' : ''}
+                                                ${isActive ? 'border-black scale-110 border-gray-200 bg-white' : ''}
                                                 ${isCompleted ? 'bg-black border-black' : 'border-gray-100 bg-white'}
                                             `}>
                                             {isCompleted ? (
