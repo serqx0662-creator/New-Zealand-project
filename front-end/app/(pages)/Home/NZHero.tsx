@@ -52,15 +52,14 @@ export default function NZHero() {
                         </Link>
                     </div>
 
-                    <div className="w-full">
-                        <div className="flex flex-wrap justify-center items-start gap-x-6 lg:gap-x-8 gap-y-8">
-                            {/* Здесь t.stats берется из словаря автоматически */}
+                    <div className="w-full max-w-md md:max-w-none mx-auto">
+                        <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:flex sm:flex-wrap sm:justify-center sm:items-start sm:gap-x-6 lg:gap-x-8">
                             {t.stats.map((stat, i) => (
                                 <div key={i} className="flex flex-col items-center text-center">
                                     <span className="text-2xl md:text-3xl font-bold mb-2 tracking-tight">
                                         {stat.value}
                                     </span>
-                                    <span className="text-[10px] md:text-xs tracking-[0.15em] leading-tight uppercase">
+                                    <span className="text-[10px] md:text-xs tracking-[0.15em] leading-tight uppercase max-w-[140px] sm:max-w-none">
                                         {stat.label}
                                     </span>
                                 </div>
