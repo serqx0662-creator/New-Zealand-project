@@ -16,20 +16,15 @@ import {
 
 const inputStyles = "rounded-xl h-11 border-gray-200 focus:border-black focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors bg-white text-xs";
 
-// Filter state always stores CANONICAL ENGLISH KEYS,
-// never translated strings. This makes comparison against
-// Strapi data reliable regardless of the active language.
 export interface FilterState {
     search: string;
-    country: string;   // "new-zealand" | "australia" | "canada" | ""
-    level: string;     // "undergraduate" | "postgraduate" | "language" | ""
-    direction: string; // "business" | "it" | "design" | "medicine" | ""
-    sort: string;      // "popularity" | "price-asc" | "price-desc" | ""
+    country: string;
+    level: string;
+    direction: string;
+    sort: string;
     scholarshipOnly: boolean;
 }
 
-// ─── Option definitions ───────────────────────────────────────────────────────
-// Each option has a stable key (used in FilterState) and a label per locale.
 
 const COUNTRY_OPTIONS = [
     { key: "new-zealand", ru: "Новая Зеландия",  en: "New Zealand" },
@@ -56,7 +51,6 @@ const SORT_OPTIONS = [
     { key: "price-desc", ru: "Цена: по убыванию",        en: "Price: high to low" },
 ];
 
-// ─── Component ────────────────────────────────────────────────────────────────
 
 interface NZprogramFiltersProps {
     onFilterChange: (filters: FilterState) => void;
@@ -73,12 +67,10 @@ export function NZprogramFilters({ onFilterChange }: NZprogramFiltersProps) {
     const [sort, setSort]                   = useState("");
     const [scholarshipOnly, setScholarship] = useState(false);
 
-    // Push canonical keys up to the parent on every change
     useEffect(() => {
         onFilterChange({ search: searchTerm, country, level, direction, sort, scholarshipOnly });
     }, [searchTerm, country, level, direction, sort, scholarshipOnly, onFilterChange]);
 
-    // Canonical keys are language-agnostic, so no reset needed on lang change
 
     const getLabel = (
         options: typeof COUNTRY_OPTIONS,
@@ -100,7 +92,6 @@ export function NZprogramFilters({ onFilterChange }: NZprogramFiltersProps) {
             </div>
 
             <div className="space-y-6">
-                {/* Search input */}
                 <div className="relative">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
                     <Input
@@ -119,7 +110,6 @@ export function NZprogramFilters({ onFilterChange }: NZprogramFiltersProps) {
                     )}
                 </div>
 
-                {/* Dropdowns */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <FilterDropdown
                         label={t.labels.country}
@@ -214,7 +204,6 @@ export function NZprogramFilters({ onFilterChange }: NZprogramFiltersProps) {
                     </FilterDropdown>
                 </div>
 
-                {/* Scholarship checkbox */}
                 <div className="flex items-center space-x-3 pt-2">
                     <Checkbox
                         id="scholarship"
@@ -231,7 +220,6 @@ export function NZprogramFilters({ onFilterChange }: NZprogramFiltersProps) {
     );
 }
 
-// ─── Shared dropdown shell ────────────────────────────────────────────────────
 
 interface FilterDropdownProps {
     label: string;
